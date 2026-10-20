@@ -1,0 +1,7153 @@
+{
+ "format": 1,
+ "titel": "Programmieren mit der Turtle",
+ "untertitel": "Python mit der Turtle: vom ersten Strich bis zum eigenen Spiel. Ihre Programme und Ihr Fortschritt bleiben nur in diesem Browser.",
+ "konzepte": [
+  {
+   "id": "befehle",
+   "titel": "Befehle",
+   "text": "Mit Befehlen sagen Sie der Turtle, was sie tun soll. Sie startet in der Mitte bei (0, 0), schaut nach rechts, und der Stift ist unten.\n\n## Bewegen\n\n```\nforward(100)     # 100 Schritte vorwärts\nbackward(50)     # 50 Schritte rückwärts (kurz: back)\n```\n\n## Drehen (in Grad)\n\n```\nleft(90)         # Vierteldrehung nach links\nright(45)        # Achteldrehung nach rechts\nsetheading(90)   # nach oben schauen, egal wohin sie vorher schaute\n```\n\nsetheading: 0 = rechts, 90 = oben, 180 = links, 270 = unten.\n\n## Koordinaten\n\nJeder Punkt im Feld hat eine x- und eine y-Koordinate. Die Mitte ist (0, 0), das Feld reicht von −250 bis 250. Schalten Sie «Koordinatensystem einblenden» ein; über dem Feld zeigt ein Schild die Koordinaten beim Zeiger.\n\n```\ngoto(100, 50)    # direkt zum Punkt (100, 50)\nsetx(-80)        # nur x ändern\nsety(120)        # nur y ändern\n```\n\n## Stift\n\n```\npenup()          # Stift hoch: bewegen ohne Spur\npendown()        # Stift wieder unten\npensize(5)       # Strichdicke 5\n```\n\nEinstellungen wie pensize gelten, bis Sie sie wieder ändern.\n\n## Kreise und Punkte\n\n```\ncircle(50)       # Kreis mit Radius 50, die Mitte liegt links der Turtle\ncircle(-50)      # Kreis in die andere Richtung\ncircle(50, 180)  # nur ein Halbkreis\ncircle(50, 360, 5)  # Fünfeck statt Kreis\ndot(20)          # gefüllter Punkt mit Durchmesser 20, auch bei Stift oben\n```\n\n## Sonstiges\n\n```\nspeed(0)         # sofort zeichnen (1 = langsam … 10 = schnell)\nshape(\"turtle\")  # Form: \"arrow\", \"turtle\", \"circle\", \"square\", \"triangle\", \"classic\"\nhideturtle()     # Turtle ausblenden\nclear()          # Zeichnung löschen\n```"
+  },
+  {
+   "id": "farben",
+   "titel": "Farben",
+   "text": "```\ncolor(\"red\")         # Stift- und Füllfarbe\npencolor(\"blue\")     # nur der Stift\nfillcolor(\"yellow\")  # nur die Füllung\nbgcolor(\"black\")     # Hintergrund\n```\n\nÜbliche Farbnamen: \"black\", \"white\", \"gray\", \"red\", \"orange\", \"yellow\", \"green\", \"blue\", \"purple\", \"pink\", \"brown\", \"cyan\", \"gold\", \"violet\".\n\n## Mehr Farben: Rot, Grün, Blau\n\nJede Farbe ist eine Mischung aus Rot, Grün und Blau, je von 0 (nichts) bis 255 (ganz).\n\n```\ncolor(0, 255, 127)   # kein Rot, viel Grün, mittel Blau\ncolor(\"#8631C3\")     # dasselbe als Hex-Code: 86 Rot, 31 Grün, C3 Blau\n```\n\nEine vierte Zahl von 0 bis 1 macht die Farbe durchsichtig:\n\n```\ncolor(0, 255, 127, 0.4)   # 40 % deckend\n```\n\n## Flächen füllen\n\n```\nfillcolor(\"blue\")\nbegin_fill()\nfor i in range(3):\n    forward(50)\n    left(120)\nend_fill()\n```\n\nAlles zwischen begin_fill() und end_fill() wird zu einer Fläche. Die Form sollte geschlossen sein."
+  },
+  {
+   "id": "zufall",
+   "titel": "Zufall",
+   "text": "Zufallszahlen liefert das Modul random. Holen Sie die Befehle am Anfang des Programms:\n\n```\nfrom random import *\n```\n\n```\nrandint(1, 6)          # ganze Zahl von 1 bis und mit 6\nrandrange(0, 100, 10)  # 0, 10, 20 … 90\nrandom()               # Kommazahl zwischen 0 und 1\nchoice([\"rot\", \"blau\"])  # ein zufälliges Element einer Liste\n```\n\n## Zufällige Farben\n\n```\ncolor(randint(0, 255), randint(0, 255), randint(0, 255))\ncolor(randint(200, 255), randint(200, 255), 0)   # nur helle Gelbtöne\n```\n\n## Zufällige Orte\n\n```\npenup()\ngoto(randint(-200, 200), randint(-200, 200))\npendown()\n```\n\nZufallszahlen im Computer sind nicht wirklich zufällig: Sie werden nach Regeln berechnet, wirken aber zufällig."
+  },
+  {
+   "id": "schleifen",
+   "titel": "Schleifen",
+   "text": "Eine Schleife wiederholt Befehle. Was wiederholt wird, steht eingerückt (4 Leerzeichen, Tab-Taste) unter der Zeile mit dem Doppelpunkt.\n\n```\nfor i in range(4):\n    forward(100)\n    left(90)\nprint(\"fertig\")      # nicht eingerückt: erst nach der Schleife\n```\n\n## Die Schleifenvariable\n\ni zählt mit: range(4) liefert 0, 1, 2, 3, also 4 Durchläufe. Der Endwert selbst ist nicht dabei.\n\n```\nfor i in range(5):\n    forward(20 + 10 * i)   # 20, 30, 40, 50, 60\n    left(90)\n```\n\n```\nfor laenge in range(30, 80, 10):   # Start, Ende (ohne), Schritt: 30, 40, 50, 60, 70\n    forward(laenge)\n```\n\n## Vielecke\n\nWer ein Vieleck zeichnet, dreht sich insgesamt einmal ganz herum. Bei n Ecken ist jede Drehung 360 / n Grad.\n\n```\nn = 6\nfor i in range(n):\n    forward(80)\n    left(360 / n)\n```\n\n## while-Schleife\n\nWiederholt, solange eine Bedingung gilt. Ändert sich nichts an der Bedingung, läuft sie endlos.\n\n```\nlaenge = 10\nwhile laenge < 200:\n    forward(laenge)\n    left(90)\n    laenge = laenge + 10\n```"
+  },
+  {
+   "id": "variablen",
+   "titel": "Variablen",
+   "text": "Eine Variable ist ein Name für einen Wert.\n\n```\nseite = 80\nn = 5\nforward(seite)\nleft(360 / n)\n```\n\nSo müssen Sie eine Zahl nur an einer Stelle ändern, und der Name sagt, wofür sie steht.\n\n## Variablen verändern\n\nDas Gleichheitszeichen heisst «bekommt den Wert»: Rechts wird gerechnet, links wird gespeichert.\n\n```\nlaenge = 10\nlaenge = laenge + 5   # laenge ist jetzt 15\nlaenge += 5           # Kurzform: jetzt 20\n```\n\nIn einer Schleife wächst die Variable bei jedem Durchlauf:\n\n```\nlaenge = 10\nfor i in range(20):\n    forward(laenge)\n    left(90)\n    laenge = laenge + 10\n```\n\nVerfolgen Sie bei Unklarheiten Schritt für Schritt, welchen Wert die Variable hat, oder lassen Sie ihn mit print(laenge) ausgeben.\n\n## Datentypen\n\n- Ganze Zahl (int): 10\n- Kommazahl (float): 2.5 (Punkt statt Komma)\n- Text (str): \"Hallo\"\n- Wahrheitswert (bool): True oder False\n\n```\nalter = int(\"16\")             # Text in Zahl umwandeln\nprint(\"Punkte: \" + str(42))   # Zahl in Text umwandeln\n```\n\nText und Zahl lassen sich nicht direkt mit + verbinden; dafür braucht es str()."
+  },
+  {
+   "id": "funktionen",
+   "titel": "Eigene Befehle (Funktionen)",
+   "text": "Mit def bringen Sie der Turtle einen neuen Befehl bei. Mehrere Zeilen stehen dann hinter einem Namen und lassen sich beliebig oft aufrufen.\n\n```\ndef quadrat():\n    for i in range(4):\n        forward(50)\n        left(90)\n\nquadrat()          # erst hier wird gezeichnet\nforward(70)\nquadrat()\n```\n\n- Die Definition muss vor dem ersten Aufruf stehen.\n- Alles, was zum Befehl gehört, ist eingerückt.\n- Namen ohne Leerzeichen, besser mit _ : zeichne_haus().\n- Ein guter Name sagt, was der Befehl tut.\n\n## Parameter\n\nParameter machen einen Befehl flexibel: Beim Aufruf bekommen sie ihren Wert.\n\n```\ndef quadrat(seite):\n    for i in range(4):\n        forward(seite)\n        left(90)\n\nquadrat(30)\nquadrat(80)\n```\n\n```\ndef vieleck(n, seite):\n    for i in range(n):\n        forward(seite)\n        left(360 / n)\n\nvieleck(6, 50)\n```\n\n```\ndef springe(x, y):     # wie goto, aber ohne Spur\n    penup()\n    goto(x, y)\n    pendown()\n```\n\n## Rückgabewert\n\nreturn gibt ein Ergebnis zurück und beendet den Befehl:\n\n```\ndef doppelt(zahl):\n    return 2 * zahl\n\nforward(doppelt(40))   # 80\n```"
+  },
+  {
+   "id": "verzweigungen",
+   "titel": "Verzweigungen",
+   "text": "Mit if entscheidet das Programm: Die eingerückten Befehle laufen nur, wenn die Bedingung wahr ist.\n\n```\nif x < 0:\n    color(\"red\")\nelif x == 0:\n    color(\"black\")\nelse:\n    color(\"blue\")\n```\n\n- if prüft die erste Bedingung.\n- elif («sonst wenn») prüft weitere, falls die vorigen falsch waren.\n- else («sonst») gilt, wenn keine Bedingung wahr war; es hat darum keine Bedingung.\n\n## Vergleiche\n\n```\n==   gleich (zwei Gleichheitszeichen!)\n!=   ungleich\n<  >  <=  >=\n```\n\nEin einzelnes = speichert einen Wert; zum Vergleichen braucht es ==.\n\n## Bedingungen verbinden\n\n```\nif x > -100 and x < 100:   # beides wahr\nif x < -200 or x > 200:    # mindestens eines wahr\nif not fertig:             # Gegenteil\n```"
+  },
+  {
+   "id": "modulo",
+   "titel": "Modulo",
+   "text": "% liefert den Rest einer Division, // das ganzzahlige Ergebnis.\n\n```\nprint(9 // 2)   # 4\nprint(9 % 2)    # 1, denn 9 = 4 · 2 + 1\n```\n\nDer Rest wiederholt sich: Bei % 3 entstehen 0, 1, 2, 0, 1, 2, … So lässt sich in einer Schleife abwechseln.\n\n```\nfor i in range(12):\n    if i % 2 == 0:       # gerade: 0, 2, 4, …\n        color(\"red\")\n    else:\n        color(\"blue\")\n    forward(20)\n```\n\n```\nfor i in range(12):\n    if i % 3 == 0:       # jeder dritte: 0, 3, 6, 9\n        dot(20)\n    forward(20)\n```"
+  },
+  {
+   "id": "text",
+   "titel": "Text und Ausgabe",
+   "text": "## print\n\nprint schreibt in die Ausgabe unter dem Feld:\n\n```\nprint(\"Hallo\")\nprint(\"Punkte:\", 12)\nname = \"Turtle\"\nprint(\"Hallo \" + name)\nprint(\"Radius: \" + str(35))\n```\n\n## write\n\nwrite schreibt ins Turtle-Feld, dort wo die Turtle steht:\n\n```\nwrite(\"Hallo\")\nwrite(\"Game over\", align=\"center\", font=(\"Arial\", 24, \"bold\"))\n```\n\n## Kommentare\n\nKommentare beginnen mit # und werden nicht ausgeführt. Mehrere Zeilen schliessen Sie mit \"\"\" ein:\n\n```\n# Das ist ein Kommentar\n\"\"\"\nDas auch,\nüber mehrere Zeilen.\n\"\"\"\n```"
+  },
+  {
+   "id": "eingaben",
+   "titel": "Eingaben",
+   "text": "input() fragt die Benutzerin oder den Benutzer. Die Antwort ist immer Text.\n\n```\nfarbe = input(\"Welche Farbe? \")\ncolor(farbe)\nradius = int(input(\"Welcher Radius? \"))   # int(): Text in Zahl umwandeln\ncircle(radius)\n```\n\nIm Tool erscheint dafür ein Eingabefeld unter der Ausgabe."
+  },
+  {
+   "id": "listen",
+   "titel": "Listen",
+   "text": "Eine Liste speichert mehrere Werte in einer Reihenfolge.\n\n```\nfarben = [\"red\", \"orange\", \"yellow\"]\nprint(farben[0])      # \"red\": Das erste Element hat die Nummer (den Index) 0\nprint(len(farben))    # 3 Elemente\n```\n\n## Durchlaufen\n\n```\nfor f in farben:          # f ist der Reihe nach jedes Element\n    color(f)\n    dot(30)\n    forward(40)\n```\n\n```\nfor i in range(len(farben)):   # i ist der Index: 0, 1, 2\n    print(i, farben[i])\n```\n\n## Ändern\n\n```\nfarben.append(\"green\")   # hinten anfügen\nfarben.insert(0, \"black\")  # an Position 0 einfügen\nfarben[1] = \"pink\"       # Element 1 ersetzen\nletzte = farben.pop()    # letztes Element herausnehmen\nfarben.pop(0)            # erstes Element herausnehmen\nfarben.remove(\"pink\")    # das erste «pink» entfernen\n```\n\n```\nneu = farben.copy()      # eine echte Kopie\n```\n\nAchtung: neu = farben gibt der gleichen Liste nur einen zweiten Namen."
+  },
+  {
+   "id": "objekte",
+   "titel": "Mehrere Turtles (Objekte)",
+   "text": "Mit Turtle() entsteht eine neue Turtle. Jede hat ihre eigene Position, Farbe und Richtung. Die Befehle schreiben Sie mit einem Punkt hinter ihren Namen.\n\n```\nfrom turtle import *\n\nanna = Turtle()\nben = Turtle()\nanna.color(\"red\")\nben.color(\"blue\")\nben.left(90)\nanna.forward(100)\nben.forward(100)\n```\n\nJede Turtle ist ein Objekt: Sie weiss selbst, wo sie ist (anna.xcor(), anna.ycor(), anna.pos()), und kennt ihre Befehle (anna.forward(…)).\n\n```\nprint(anna.distance(ben))   # Abstand zwischen zwei Turtles\n```\n\nMehrere Turtles lassen sich in einer Liste sammeln:\n\n```\nalle = []\nfor i in range(3):\n    t = Turtle()\n    t.penup()\n    t.goto(-200, -50 + 50 * i)\n    alle.append(t)\nfor t in alle:\n    t.forward(50)\n```"
+  },
+  {
+   "id": "ereignisse",
+   "titel": "Tasten und Timer (Ereignisse)",
+   "text": "Spiele reagieren auf Tasten und laufen im Takt. Dafür melden Sie eigene Befehle an; aufgerufen werden sie später, wenn etwas geschieht.\n\n## Tasten\n\n```\ndef nach_links():\n    left(30)\n\nonkey(nach_links, \"Left\")   # ohne Klammern: der Befehl wird nur angemeldet\nlisten()                    # ab jetzt auf Tasten achten\n```\n\nTastennamen: \"Left\", \"Right\", \"Up\", \"Down\", \"space\", \"a\" … \"z\". Klicken Sie ins Turtle-Feld, falls die Tasten nicht wirken.\n\n## Timer\n\n```\ndef schritt():\n    forward(5)\n    ontimer(schritt, 100)   # in 100 Millisekunden wieder\nschritt()\n```\n\n## Schnell zeichnen\n\n```\ntracer(0)    # nicht jeden Schritt einzeln zeigen\n...\nupdate()     # jetzt alles auf einmal zeigen\n```\n\n## Variablen ändern: global\n\nEin Befehl darf eine Variable von aussen nur ändern, wenn er sie mit global ankündigt:\n\n```\npunkte = 0\ndef treffer():\n    global punkte\n    punkte = punkte + 1\n```\n\nOhne global meldet Python einen Fehler (UnboundLocalError). Bei Listen braucht es kein global, solange Sie die Liste nur verändern (append, pop …)."
+  }
+ ],
+ "reihen": [
+  {
+   "id": "zeichnen",
+   "titel": "1 · Zeichnen",
+   "untertitel": "Befehle, Koordinaten, Kreise, Farben und Zufall (ca. 3–4 Lektionen)",
+   "aufgaben": [
+    {
+     "id": "stern-lesen",
+     "titel": "Ein halber Stern",
+     "abschnitt": "Entdecken",
+     "vorhersage": true,
+     "konzepte": [
+      "befehle"
+     ],
+     "text": "Willkommen bei der Turtle! Links steht ein fertiges Programm. Lesen Sie es zuerst und überlegen Sie, was die Turtle zeichnen wird. Drücken Sie dann «Start».\n\nVerändern Sie danach ruhig Zahlen und Befehle und schauen Sie, was passiert. Kaputt machen können Sie nichts: «Zurück zum Startcode» holt das Programm wieder.",
+     "fragen": [
+      "Welche Figur entsteht?",
+      "Was bewirken `color(\"red\")` und `pensize(4)`? Was passiert, wenn Sie die beiden Zeilen löschen?",
+      "Was ändert sich, wenn Sie `right(45)` durch `left(45)` ersetzen?",
+      "Wozu dient `back(100)`?"
+     ],
+     "startcode": "from turtle import *\n\ncolor(\"red\")\npensize(4)\n\nforward(100)\nback(100)\nright(45)\nforward(100)\nback(100)\nright(45)\nforward(100)\nback(100)\nright(45)\nforward(100)\nback(100)\n"
+    },
+    {
+     "id": "stern-acht",
+     "titel": "Stern mit 8 Strahlen",
+     "weiterVon": "stern-lesen",
+     "konzepte": [
+      "befehle"
+     ],
+     "text": "Ergänzen Sie das Programm, sodass ein ganzer Stern mit 8 gleich langen Strahlen (je 100) entsteht.\n\nNach «Start» vergleicht das Tool Ihre Zeichnung mit dem Zielbild. «Zielbild als Vorlage einblenden» (über dem Feld) zeigt, wohin die Linien sollen.",
+     "hinweise": [
+      "Bis jetzt sind es 4 Strahlen. Es fehlen noch 4 gleiche Blöcke aus `right`, `forward` und `back`."
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [100, 0],
+         [0, 0],
+         [70.7, -70.7],
+         [0, 0],
+         [0, -100],
+         [0, 0],
+         [-70.7, -70.7],
+         [0, 0],
+         [-100, 0],
+         [0, 0],
+         [-70.7, 70.7],
+         [0, 0],
+         [0, 100],
+         [0, 0],
+         [70.7, 70.7],
+         [0, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "stern-sechs",
+     "titel": "Stern mit 6 Strahlen",
+     "weiterVon": "stern-acht",
+     "konzepte": [
+      "befehle"
+     ],
+     "text": "Ändern Sie das Programm, sodass ein Stern mit nur 6 Strahlen entsteht. Die Strahlen sollen gleichmässig verteilt sein.",
+     "hinweise": [
+      "Bei 8 Strahlen dreht die Turtle 8-mal um 45°, zusammen 360°.",
+      "Bei 6 Strahlen: 360 : 6 = ?"
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [100, 0],
+         [0, 0],
+         [50, -86.6],
+         [0, 0],
+         [-50, -86.6],
+         [0, 0],
+         [-100, 0],
+         [0, 0],
+         [-50, 86.6],
+         [0, 0],
+         [50, 86.6],
+         [0, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "quadrat",
+     "titel": "Quadrat",
+     "konzepte": [
+      "befehle"
+     ],
+     "text": "Zeichnen Sie ein Quadrat mit der Seitenlänge 100. Es liegt rechts oberhalb des Startpunkts (0, 0), die Turtle dreht also nach links.",
+     "startcode": "from turtle import *\n\nforward(100)\n",
+     "hinweise": [
+      "`left(90)` dreht eine Vierteldrehung nach links.",
+      "Ein Quadrat braucht viermal: vorwärts und drehen."
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [100, 0],
+         [100, 100],
+         [0, 100],
+         [0, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "schneemann-lesen",
+     "titel": "Schneemann",
+     "vorhersage": true,
+     "konzepte": [
+      "befehle"
+     ],
+     "text": "Dieses Programm zeichnet mit Kreisen, Punkten und Strichen. Lesen Sie es und überlegen Sie, was entsteht. Drücken Sie dann «Start».",
+     "fragen": [
+      "Welche Figur wird gezeichnet?",
+      "Wo liegt die Mitte eines Kreises, den `circle(50)` zeichnet?",
+      "Wozu braucht es `penup()` und `pendown()`? Was passiert ohne sie?",
+      "Mit welchem Trick wird die Anfangsposition des Arms gefunden?"
+     ],
+     "startcode": "from turtle import *\n\npensize(2)\ncircle(50)\npenup()\ngoto(0, 100)\npendown()\ncircle(30)\npenup()\ngoto(10, 140)\ndot(10)          # Punkte werden auch bei Stift oben gezeichnet\ngoto(-10, 140)\ndot(10)\n\ngoto(0, 50)\nleft(30)\nforward(50)\npendown()\nforward(40)\nleft(25)\nforward(20)\nbackward(20)\nright(25)\nforward(20)\nbackward(20)\nright(25)\nforward(20)\n"
+    },
+    {
+     "id": "knoepfe",
+     "titel": "Knöpfe",
+     "weiterVon": "schneemann-lesen",
+     "konzepte": [
+      "befehle"
+     ],
+     "text": "Zeichnen Sie dem Schneemann drei Knöpfe auf den Bauch: Punkte mit `dot(10)` bei (0, 25), (0, 50) und (0, 75).",
+     "hinweise": [
+      "Mit `penup()` und `goto(x, y)` kommt die Turtle ohne Spur an den richtigen Ort.",
+      "`dot` zeichnet auch, wenn der Stift oben ist."
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [15.5, 2.4],
+         [29.4, 9.5],
+         [40.5, 20.6],
+         [47.6, 34.5],
+         [50, 50],
+         [47.6, 65.5],
+         [40.5, 79.4],
+         [29.4, 90.5],
+         [15.5, 97.6],
+         [0, 100],
+         [-15.5, 97.6],
+         [-29.4, 90.5],
+         [-40.5, 79.4],
+         [-47.6, 65.5],
+         [-50, 50],
+         [-47.6, 34.5],
+         [-40.5, 20.6],
+         [-29.4, 9.5],
+         [-15.5, 2.4],
+         [0, 0]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 100],
+         [10.8, 102],
+         [20.2, 107.8],
+         [26.9, 116.6],
+         [29.9, 127.2],
+         [28.9, 138.2],
+         [23.9, 148.1],
+         [15.8, 155.5],
+         [5.5, 159.5],
+         [-5.5, 159.5],
+         [-15.8, 155.5],
+         [-23.9, 148.1],
+         [-28.9, 138.2],
+         [-29.9, 127.2],
+         [-26.9, 116.6],
+         [-20.2, 107.8],
+         [-10.8, 102],
+         [0, 100]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [43.3, 75],
+         [77.9, 95],
+         [89.4, 111.4],
+         [77.9, 95],
+         [95.3, 105],
+         [77.9, 95],
+         [97.9, 96.7]
+        ]
+       },
+       {
+        "art": "punkt",
+        "ort": [10, 140],
+        "groesse": 10
+       },
+       {
+        "art": "punkt",
+        "ort": [-10, 140],
+        "groesse": 10
+       },
+       {
+        "art": "punkt",
+        "ort": [0, 25],
+        "groesse": 10
+       },
+       {
+        "art": "punkt",
+        "ort": [0, 50],
+        "groesse": 10
+       },
+       {
+        "art": "punkt",
+        "ort": [0, 75],
+        "groesse": 10
+       }
+      ]
+     }
+    },
+    {
+     "id": "arm",
+     "titel": "Zweiter Arm",
+     "weiterVon": "knoepfe",
+     "konzepte": [
+      "befehle"
+     ],
+     "text": "Zeichnen Sie den zweiten Arm, spiegelbildlich zum ersten: Er beginnt wieder 50 Schritte von (0, 50) entfernt, zeigt aber schräg nach links oben.",
+     "hinweise": [
+      "`setheading(150)` lässt die Turtle schräg nach links oben schauen (0 = rechts, 90 = oben, 180 = links).",
+      "Spiegelbildlich heisst auch: wo beim ersten Arm `left` steht, steht jetzt `right`, und umgekehrt."
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [15.5, 2.4],
+         [29.4, 9.5],
+         [40.5, 20.6],
+         [47.6, 34.5],
+         [50, 50],
+         [47.6, 65.5],
+         [40.5, 79.4],
+         [29.4, 90.5],
+         [15.5, 97.6],
+         [0, 100],
+         [-15.5, 97.6],
+         [-29.4, 90.5],
+         [-40.5, 79.4],
+         [-47.6, 65.5],
+         [-50, 50],
+         [-47.6, 34.5],
+         [-40.5, 20.6],
+         [-29.4, 9.5],
+         [-15.5, 2.4],
+         [0, 0]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 100],
+         [10.8, 102],
+         [20.2, 107.8],
+         [26.9, 116.6],
+         [29.9, 127.2],
+         [28.9, 138.2],
+         [23.9, 148.1],
+         [15.8, 155.5],
+         [5.5, 159.5],
+         [-5.5, 159.5],
+         [-15.8, 155.5],
+         [-23.9, 148.1],
+         [-28.9, 138.2],
+         [-29.9, 127.2],
+         [-26.9, 116.6],
+         [-20.2, 107.8],
+         [-10.8, 102],
+         [0, 100]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [43.3, 75],
+         [77.9, 95],
+         [89.4, 111.4],
+         [77.9, 95],
+         [95.3, 105],
+         [77.9, 95],
+         [97.9, 96.7]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-43.3, 75],
+         [-77.9, 95],
+         [-89.4, 111.4],
+         [-77.9, 95],
+         [-95.3, 105],
+         [-77.9, 95],
+         [-97.9, 96.7]
+        ]
+       },
+       {
+        "art": "punkt",
+        "ort": [10, 140],
+        "groesse": 10
+       },
+       {
+        "art": "punkt",
+        "ort": [-10, 140],
+        "groesse": 10
+       },
+       {
+        "art": "punkt",
+        "ort": [0, 25],
+        "groesse": 10
+       },
+       {
+        "art": "punkt",
+        "ort": [0, 50],
+        "groesse": 10
+       },
+       {
+        "art": "punkt",
+        "ort": [0, 75],
+        "groesse": 10
+       }
+      ]
+     }
+    },
+    {
+     "id": "hut",
+     "titel": "Bunter Hut",
+     "weiterVon": "arm",
+     "zusatz": true,
+     "konzepte": [
+      "befehle",
+      "farben"
+     ],
+     "text": "Setzen Sie dem Schneemann einen bunten Hut auf. Wie er aussieht, entscheiden Sie. Signieren Sie das Bild mit Ihren Initialen, z. B. mit `write(\"AB\")`.",
+     "checkliste": [
+      "Der Hut sitzt auf dem Kopf.",
+      "Er hat mindestens zwei Farben.",
+      "Die Initialen stehen neben dem Schneemann."
+     ]
+    },
+    {
+     "id": "treppe-hand",
+     "titel": "Treppe",
+     "abschnitt": "Konzepte sichern",
+     "konzepte": [
+      "befehle"
+     ],
+     "text": "Zeichnen Sie eine Treppe mit 3 Stufen nach rechts oben. Jede Stufe ist 30 hoch und 30 breit; die Turtle beginnt bei (0, 0) mit der ersten Stufe nach oben.",
+     "startcode": "from turtle import *\n\nleft(90)\nforward(30)\nright(90)\nforward(30)\n",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [0, 30],
+         [30, 30],
+         [30, 60],
+         [60, 60],
+         [60, 90],
+         [90, 90]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "haus-goto",
+     "titel": "Haus mit goto",
+     "konzepte": [
+      "befehle"
+     ],
+     "text": "Zeichnen Sie nur mit `goto` ein Haus: ein Quadrat von (0, 0) bis (100, 100) und darauf ein Dach mit der Spitze bei (50, 150).",
+     "startcode": "from turtle import *\n\ngoto(100, 0)\n",
+     "hinweise": [
+      "Gehen Sie die Ecken der Reihe nach ab: (100, 0), (100, 100), (0, 100), (0, 0) …",
+      "Für das Dach: von (0, 100) zur Spitze und weiter zu (100, 100)."
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [100, 0],
+         [100, 100],
+         [0, 100],
+         [0, 0]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 100],
+         [50, 150],
+         [100, 100]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "kreise",
+     "titel": "Drei Kreise",
+     "konzepte": [
+      "befehle"
+     ],
+     "text": "Zeichnen Sie vom Startpunkt aus drei Kreise mit den Radien 20, 40 und 60. Sie berühren sich alle im Startpunkt.\n\nUnd wie zeichnet man stattdessen eine Zielscheibe mit gemeinsamer Mitte? Probieren Sie es danach aus (wird nicht geprüft).",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [8.1, 1.7],
+         [14.9, 6.6],
+         [19, 13.8],
+         [19.9, 22.1],
+         [17.3, 30],
+         [11.8, 36.2],
+         [4.2, 39.6],
+         [-4.2, 39.6],
+         [-11.8, 36.2],
+         [-17.3, 30],
+         [-19.9, 22.1],
+         [-19, 13.8],
+         [-14.9, 6.6],
+         [-8.1, 1.7],
+         [0, 0],
+         [13.7, 2.4],
+         [25.7, 9.4],
+         [34.6, 20],
+         [39.4, 33.1],
+         [39.4, 46.9],
+         [34.6, 60],
+         [25.7, 70.6],
+         [13.7, 77.6],
+         [0, 80],
+         [-13.7, 77.6],
+         [-25.7, 70.6],
+         [-34.6, 60],
+         [-39.4, 46.9],
+         [-39.4, 33.1],
+         [-34.6, 20],
+         [-25.7, 9.4],
+         [-13.7, 2.4],
+         [0, 0],
+         [16.9, 2.4],
+         [32.4, 9.5],
+         [45.3, 20.7],
+         [54.6, 35.1],
+         [59.4, 51.5],
+         [59.4, 68.5],
+         [54.6, 84.9],
+         [45.3, 99.3],
+         [32.4, 110.5],
+         [16.9, 117.6],
+         [0, 120],
+         [-16.9, 117.6],
+         [-32.4, 110.5],
+         [-45.3, 99.3],
+         [-54.6, 84.9],
+         [-59.4, 68.5],
+         [-59.4, 51.5],
+         [-54.6, 35.1],
+         [-45.3, 20.7],
+         [-32.4, 9.5],
+         [-16.9, 2.4],
+         [0, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "fehler-finden",
+     "titel": "Drei Fehler",
+     "konzepte": [
+      "befehle"
+     ],
+     "text": "Das Programm soll eine Linie nach rechts, eine Linie nach oben und dann einen Kreis zeichnen. Es enthält drei Fehler. Finden und korrigieren Sie sie; die Fehlermeldung hilft.",
+     "startcode": "from turtle import *\n\nforward(100\nLeft(90)\nforward 100\ncircle(50)\n",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [100, 0],
+         [100, 100],
+         [97.6, 115.5],
+         [90.5, 129.4],
+         [79.4, 140.5],
+         [65.5, 147.6],
+         [50, 150],
+         [34.5, 147.6],
+         [20.6, 140.5],
+         [9.5, 129.4],
+         [2.4, 115.5],
+         [0, 100],
+         [2.4, 84.5],
+         [9.5, 70.6],
+         [20.6, 59.5],
+         [34.5, 52.4],
+         [50, 50],
+         [65.5, 52.4],
+         [79.4, 59.5],
+         [90.5, 70.6],
+         [97.6, 84.5],
+         [100, 100]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "ampel",
+     "titel": "Ampel",
+     "konzepte": [
+      "befehle",
+      "farben"
+     ],
+     "text": "Zeichnen Sie eine Ampel: ein schwarz gefülltes Rechteck von (−40, −110) bis (40, 110) und darin drei Punkte mit Durchmesser 50: rot bei (0, 60), gelb bei (0, 0), grün bei (0, −60).\n\nVerwenden Sie die Farbnamen \"black\", \"red\", \"yellow\" und \"green\".",
+     "startcode": "from turtle import *\n\npenup()\ngoto(-40, -110)\npendown()\n",
+     "hinweise": [
+      "Ein gefülltes Rechteck: `fillcolor(\"black\")`, `begin_fill()`, die vier Seiten, `end_fill()`.",
+      "`dot(50, \"red\")` zeichnet einen roten Punkt."
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-40, -110],
+         [40, -110],
+         [40, 110],
+         [-40, 110],
+         [-40, -110]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "punkt",
+        "ort": [0, 60],
+        "groesse": 50,
+        "farbe": "#ff0000"
+       },
+       {
+        "art": "punkt",
+        "ort": [0, 0],
+        "groesse": 50,
+        "farbe": "#ffff00"
+       },
+       {
+        "art": "punkt",
+        "ort": [0, -60],
+        "groesse": 50,
+        "farbe": "#008000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [-40, -110],
+         [40, -110],
+         [40, 110],
+         [-40, 110]
+        ],
+        "farbe": "#000000"
+       }
+      ]
+     }
+    },
+    {
+     "id": "bunte-punkte",
+     "titel": "Bunte Punkte",
+     "konzepte": [
+      "farben",
+      "zufall"
+     ],
+     "text": "Zeichnen Sie fünf Punkte mit Durchmesser 30 nebeneinander: bei (0, 0), (50, 0), (100, 0), (150, 0) und (200, 0), ohne Linien dazwischen. Jeder Punkt bekommt eine zufällige Farbe.\n\nGeprüft werden nur die Orte, nicht die Farben.",
+     "startcode": "from turtle import *\nfrom random import *\n\npenup()\ncolor(randint(0, 255), randint(0, 255), randint(0, 255))\ndot(30)\nforward(50)\n",
+     "hinweise": [
+      "Wiederholen Sie die Zeilen `color(…)`, `dot(30)` und `forward(50)`.",
+      "Drücken Sie mehrmals «Start»: Die Farben ändern sich jedes Mal."
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "punkt",
+        "ort": [0, 0],
+        "groesse": 30
+       },
+       {
+        "art": "punkt",
+        "ort": [50, 0],
+        "groesse": 30
+       },
+       {
+        "art": "punkt",
+        "ort": [100, 0],
+        "groesse": 30
+       },
+       {
+        "art": "punkt",
+        "ort": [150, 0],
+        "groesse": 30
+       },
+       {
+        "art": "punkt",
+        "ort": [200, 0],
+        "groesse": 30
+       }
+      ]
+     }
+    },
+    {
+     "id": "zielscheibe",
+     "titel": "Zielscheibe",
+     "zusatz": true,
+     "konzepte": [
+      "befehle",
+      "farben"
+     ],
+     "text": "Zeichnen Sie eine Zielscheibe aus Punkten mit gemeinsamer Mitte (0, 0): Durchmesser 200 rot, 150 weiss, 100 rot, 50 weiss. Verwenden Sie \"red\" und \"white\".",
+     "hinweise": [
+      "Zuerst den grössten Punkt, dann die kleineren darüber."
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "punkt",
+        "ort": [0, 0],
+        "groesse": 200,
+        "farbe": "#ff0000"
+       },
+       {
+        "art": "punkt",
+        "ort": [0, 0],
+        "groesse": 150,
+        "farbe": "#ffffff"
+       },
+       {
+        "art": "punkt",
+        "ort": [0, 0],
+        "groesse": 100,
+        "farbe": "#ff0000"
+       },
+       {
+        "art": "punkt",
+        "ort": [0, 0],
+        "groesse": 50,
+        "farbe": "#ffffff"
+       }
+      ]
+     }
+    },
+    {
+     "id": "nikolaus",
+     "titel": "Haus vom Nikolaus",
+     "abschnitt": "Lernkontrolle",
+     "kontrolle": true,
+     "text": "Zeichnen Sie das «Haus vom Nikolaus»: ein Quadrat von (0, 0) bis (100, 100), beide Diagonalen und ein Dach mit der Spitze bei (50, 150). Ob in einem Zug oder in mehreren, ist Ihnen überlassen.",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [100, 0],
+         [0, 100],
+         [100, 100],
+         [0, 0],
+         [0, 100],
+         [50, 150],
+         [100, 100],
+         [100, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "gesicht",
+     "titel": "Gesicht",
+     "kontrolle": true,
+     "text": "Zeichnen Sie ein Gesicht: einen Kreis mit Radius 100 und Mitte (0, 0), zwei Augen als Punkte mit Durchmesser 20 bei (−35, 30) und (35, 30) und einen Mund als Strecke von (−40, −40) bis (40, −40).",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, -100],
+         [22.3, -97.5],
+         [43.4, -90.1],
+         [62.3, -78.2],
+         [78.2, -62.3],
+         [90.1, -43.4],
+         [97.5, -22.3],
+         [100, 0],
+         [97.5, 22.3],
+         [90.1, 43.4],
+         [78.2, 62.3],
+         [62.3, 78.2],
+         [43.4, 90.1],
+         [22.3, 97.5],
+         [0, 100],
+         [-22.3, 97.5],
+         [-43.4, 90.1],
+         [-62.3, 78.2],
+         [-78.2, 62.3],
+         [-90.1, 43.4],
+         [-97.5, 22.3],
+         [-100, 0],
+         [-97.5, -22.3],
+         [-90.1, -43.4],
+         [-78.2, -62.3],
+         [-62.3, -78.2],
+         [-43.4, -90.1],
+         [-22.3, -97.5],
+         [0, -100]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-40, -40],
+         [40, -40]
+        ]
+       },
+       {
+        "art": "punkt",
+        "ort": [-35, 30],
+        "groesse": 20
+       },
+       {
+        "art": "punkt",
+        "ort": [35, 30],
+        "groesse": 20
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "wiederholen",
+   "titel": "2 · Wiederholen",
+   "untertitel": "for-Schleife, Einrückung, Variablen als Namen, Vielecke (ca. 2–3 Lektionen)",
+   "aufgaben": [
+    {
+     "id": "stern-schleife",
+     "titel": "Stern mit Schleife",
+     "abschnitt": "Entdecken",
+     "vorhersage": true,
+     "konzepte": [
+      "schleifen"
+     ],
+     "text": "Dieses Programm zeichnet wieder einen Stern, ist aber viel kürzer. Überlegen Sie zuerst, was es zeichnet; drücken Sie dann «Start».",
+     "fragen": [
+      "Vergleichen Sie mit dem Stern aus Einheit 1: Was macht `for count in range(8):`?",
+      "Warum sind die drei Zeilen darunter eingerückt? Was passiert, wenn `right(45)` nicht mehr eingerückt ist?",
+      "Was ändert sich mit `range(12)` statt `range(8)`? Und mit `right(30)` statt `right(45)`?"
+     ],
+     "startcode": "from turtle import *\n\ncolor(\"red\")\npensize(4)\n\n# eine Schleife\nfor count in range(8):\n    forward(100)\n    back(100)\n    right(45)\n"
+    },
+    {
+     "id": "zwoelf-strahlen",
+     "titel": "12 Strahlen",
+     "weiterVon": "stern-schleife",
+     "konzepte": [
+      "schleifen"
+     ],
+     "text": "Ändern Sie das Programm, sodass ein Stern mit 12 gleichmässig verteilten Strahlen der Länge 100 entsteht.",
+     "hinweise": [
+      "Zwei Zahlen ändern sich: die Anzahl Durchläufe und der Winkel."
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [100, 0],
+         [0, 0],
+         [86.6, -50],
+         [0, 0],
+         [50, -86.6],
+         [0, 0],
+         [0, -100],
+         [0, 0],
+         [-50, -86.6],
+         [0, 0],
+         [-86.6, -50],
+         [0, 0],
+         [-100, 0],
+         [0, 0],
+         [-86.6, 50],
+         [0, 0],
+         [-50, 86.6],
+         [0, 0],
+         [0, 100],
+         [0, 0],
+         [50, 86.6],
+         [0, 0],
+         [86.6, 50],
+         [0, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "achteck",
+     "titel": "Achteck",
+     "weiterVon": "zwoelf-strahlen",
+     "konzepte": [
+      "schleifen"
+     ],
+     "text": "Machen Sie daraus ein schwarzes Achteck mit der Seitenlänge 50. Die Turtle dreht nach jeder Seite nach rechts.",
+     "hinweise": [
+      "Für ein Vieleck geht die Turtle nicht zurück (`back`), sondern nur vorwärts und dreht dann.",
+      "Acht Ecken, zusammen eine ganze Drehung: 360 : 8."
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [50, 0],
+         [85.4, -35.4],
+         [85.4, -85.4],
+         [50, -120.7],
+         [0, -120.7],
+         [-35.4, -85.4],
+         [-35.4, -35.4],
+         [0, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "siebeneck",
+     "titel": "Siebeneck",
+     "weiterVon": "achteck",
+     "konzepte": [
+      "schleifen",
+      "farben"
+     ],
+     "text": "Und jetzt ein Siebeneck mit Seitenlänge 50, 5 Pixel breiten Linien in Violett (`\"purple\"`), wieder mit Drehung nach rechts.",
+     "hinweise": [
+      "`pensize(5)` und `color(\"purple\")` vor der Schleife.",
+      "Den Winkel muss man nicht ausrechnen: `right(360 / 7)`."
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [50, 0],
+         [81.2, -39.1],
+         [70, -87.8],
+         [25, -109.5],
+         [-20, -87.8],
+         [-31.2, -39.1],
+         [0, 0]
+        ],
+        "farbe": "#800080"
+       }
+      ]
+     }
+    },
+    {
+     "id": "vieleck-n",
+     "titel": "Ein Name für die Zahl",
+     "konzepte": [
+      "schleifen",
+      "variablen"
+     ],
+     "text": "Im Programm stehen die Anzahl Ecken und die Seitenlänge je in einer Variable. Ändern Sie nur die beiden ersten Zeilen nach `import`, sodass ein Neuneck mit Seitenlänge 40 entsteht (Drehung nach links).",
+     "fragen": [
+      "Was ist der Vorteil, wenn die Zahl nur an einer Stelle steht?"
+     ],
+     "startcode": "from turtle import *\n\nn = 5\nseite = 80\n\nfor i in range(n):\n    forward(seite)\n    left(360 / n)\n",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [40, 0],
+         [70.6, 25.7],
+         [77.6, 65.1],
+         [57.6, 99.7],
+         [20, 113.4],
+         [-17.6, 99.7],
+         [-37.6, 65.1],
+         [-30.6, 25.7],
+         [0, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "sternwinkel",
+     "titel": "Fünfzackiger Stern",
+     "konzepte": [
+      "schleifen"
+     ],
+     "text": "Zeichnen Sie einen fünfzackigen Stern aus 5 Linien der Länge 200, ohne den Stift abzusetzen. Die Turtle dreht nach jeder Linie nach rechts.\n\nFinden Sie den Winkel zuerst durch Probieren. Überlegen Sie dann, warum es genau dieser Winkel ist.",
+     "startcode": "from turtle import *\n\npensize(3)\nfor i in range(5):\n    forward(200)\n    right(100)\n",
+     "hinweise": [
+      "Probieren Sie Winkel zwischen 130 und 160.",
+      "Die Turtle dreht sich beim Stern insgesamt zweimal ganz herum: 2 · 360° = 720°, verteilt auf 5 Drehungen."
+     ],
+     "fragen": [
+      "Warum muss der Winkel genau so gross sein?",
+      "Welcher Winkel ergibt einen Stern mit 7 Zacken?"
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [200, 0],
+         [38.2, -117.6],
+         [100, 72.7],
+         [161.8, -117.6],
+         [0, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "blatt",
+     "titel": "Blätter aus Viertelkreisen",
+     "zusatz": true,
+     "konzepte": [
+      "schleifen",
+      "befehle"
+     ],
+     "text": "`circle(60, 90)` zeichnet nur einen Viertelkreis. Zwei Viertelkreise ergeben ein Blatt. Zeichnen Sie eine Blume mit vier Blättern: Jedes Blatt beginnt im Startpunkt; nach jedem Blatt dreht die Turtle um 90° weiter.",
+     "hinweise": [
+      "Ein Blatt: `circle(60, 90)`, `left(90)`, `circle(60, 90)`, `left(90)`. Danach schaut die Turtle wieder wie am Anfang.",
+      "Blenden Sie die Vorlage ein, um die Lage der Blätter zu sehen."
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [15.5, 2],
+         [30, 8],
+         [42.4, 17.6],
+         [52, 30],
+         [58, 44.5],
+         [60, 60],
+         [44.5, 58],
+         [30, 52],
+         [17.6, 42.4],
+         [8, 30],
+         [2, 15.5],
+         [0, 0],
+         [-2, 15.5],
+         [-8, 30],
+         [-17.6, 42.4],
+         [-30, 52],
+         [-44.5, 58],
+         [-60, 60],
+         [-58, 44.5],
+         [-52, 30],
+         [-42.4, 17.6],
+         [-30, 8],
+         [-15.5, 2],
+         [0, 0],
+         [-15.5, -2],
+         [-30, -8],
+         [-42.4, -17.6],
+         [-52, -30],
+         [-58, -44.5],
+         [-60, -60],
+         [-44.5, -58],
+         [-30, -52],
+         [-17.6, -42.4],
+         [-8, -30],
+         [-2, -15.5],
+         [0, 0],
+         [2, -15.5],
+         [8, -30],
+         [17.6, -42.4],
+         [30, -52],
+         [44.5, -58],
+         [60, -60],
+         [58, -44.5],
+         [52, -30],
+         [42.4, -17.6],
+         [30, -8],
+         [15.5, -2],
+         [0, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "strich-punkt",
+     "titel": "Strich-Punkt",
+     "zusatz": true,
+     "konzepte": [
+      "schleifen"
+     ],
+     "text": "Zeichnen Sie eine Strich-Punkt-Linie nach rechts: 6-mal ein Strich der Länge 20, dann eine Lücke von 10 mit einem Punkt (`dot(6)`) in der Mitte der Lücke, also 5 nach dem Strich.",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [20, 0]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [30, 0],
+         [50, 0]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [60, 0],
+         [80, 0]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [90, 0],
+         [110, 0]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [120, 0],
+         [140, 0]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [150, 0],
+         [170, 0]
+        ]
+       },
+       {
+        "art": "punkt",
+        "ort": [25, 0],
+        "groesse": 6
+       },
+       {
+        "art": "punkt",
+        "ort": [55, 0],
+        "groesse": 6
+       },
+       {
+        "art": "punkt",
+        "ort": [85, 0],
+        "groesse": 6
+       },
+       {
+        "art": "punkt",
+        "ort": [115, 0],
+        "groesse": 6
+       },
+       {
+        "art": "punkt",
+        "ort": [145, 0],
+        "groesse": 6
+       },
+       {
+        "art": "punkt",
+        "ort": [175, 0],
+        "groesse": 6
+       }
+      ]
+     }
+    },
+    {
+     "id": "einrueckung",
+     "titel": "Eine Zeile zu wenig",
+     "abschnitt": "Konzepte sichern",
+     "konzepte": [
+      "schleifen"
+     ],
+     "text": "Das Programm soll ein Quadrat zeichnen, zeichnet aber nur eine Linie. Warum? Korrigieren Sie es.",
+     "startcode": "from turtle import *\n\nfor i in range(4):\n    forward(100)\nleft(90)\n",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [100, 0],
+         [100, 100],
+         [0, 100],
+         [0, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "dreieck",
+     "titel": "Dreieck",
+     "konzepte": [
+      "schleifen"
+     ],
+     "text": "Zeichnen Sie mit einer Schleife ein gleichseitiges Dreieck mit Seitenlänge 120, Drehung nach links.",
+     "hinweise": [
+      "Die Turtle dreht nicht um 60°, sondern um den Aussenwinkel."
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [120, 0],
+         [60, 103.9],
+         [0, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "punktreihe",
+     "titel": "Punktreihe",
+     "konzepte": [
+      "schleifen"
+     ],
+     "text": "Zeichnen Sie mit einer Schleife 6 Punkte mit Durchmesser 20 in einer Reihe nach rechts, je 40 auseinander. Der erste liegt bei (0, 0). Zwischen den Punkten gibt es keine Linie.",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "punkt",
+        "ort": [0, 0],
+        "groesse": 20
+       },
+       {
+        "art": "punkt",
+        "ort": [40, 0],
+        "groesse": 20
+       },
+       {
+        "art": "punkt",
+        "ort": [80, 0],
+        "groesse": 20
+       },
+       {
+        "art": "punkt",
+        "ort": [120, 0],
+        "groesse": 20
+       },
+       {
+        "art": "punkt",
+        "ort": [160, 0],
+        "groesse": 20
+       },
+       {
+        "art": "punkt",
+        "ort": [200, 0],
+        "groesse": 20
+       }
+      ]
+     }
+    },
+    {
+     "id": "treppe-schleife",
+     "titel": "Treppe mit Schleife",
+     "konzepte": [
+      "schleifen"
+     ],
+     "text": "Zeichnen Sie die Treppe aus Einheit 1 jetzt mit einer Schleife, aber mit 5 Stufen (je 30 hoch und 30 breit, die erste nach oben).",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [0, 30],
+         [30, 30],
+         [30, 60],
+         [60, 60],
+         [60, 90],
+         [90, 90],
+         [90, 120],
+         [120, 120],
+         [120, 150],
+         [150, 150]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "sechseck",
+     "titel": "Sechseck",
+     "abschnitt": "Lernkontrolle",
+     "kontrolle": true,
+     "text": "Zeichnen Sie mit einer Schleife ein Sechseck mit Seitenlänge 80, Drehung nach links.",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [80, 0],
+         [120, 69.3],
+         [80, 138.6],
+         [0, 138.6],
+         [-40, 69.3],
+         [0, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "sonne",
+     "titel": "Sonne",
+     "kontrolle": true,
+     "text": "Zeichnen Sie eine Sonne: 18 Strahlen der Länge 80, gleichmässig verteilt, die alle in (0, 0) beginnen, und in der Mitte einen orangen Punkt (`\"orange\"`) mit Durchmesser 40.",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [80, 0],
+         [0, 0],
+         [75.2, 27.4],
+         [0, 0],
+         [61.3, 51.4],
+         [0, 0],
+         [40, 69.3],
+         [0, 0],
+         [13.9, 78.8],
+         [0, 0],
+         [-13.9, 78.8],
+         [0, 0],
+         [-40, 69.3],
+         [0, 0],
+         [-61.3, 51.4],
+         [0, 0],
+         [-75.2, 27.4],
+         [0, 0],
+         [-80, 0],
+         [0, 0],
+         [-75.2, -27.4],
+         [0, 0],
+         [-61.3, -51.4],
+         [0, 0],
+         [-40, -69.3],
+         [0, 0],
+         [-13.9, -78.8],
+         [0, 0],
+         [13.9, -78.8],
+         [0, 0],
+         [40, -69.3],
+         [0, 0],
+         [61.3, -51.4],
+         [0, 0],
+         [75.2, -27.4],
+         [0, 0]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "punkt",
+        "ort": [0, 0],
+        "groesse": 40,
+        "farbe": "#ffa500"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "befehle",
+   "titel": "3 · Eigene Befehle",
+   "untertitel": "Funktionen mit def, Aufrufe, Parameter (ca. 3 Lektionen)",
+   "aufgaben": [
+    {
+     "id": "himmel-lesen",
+     "titel": "Sternenhimmel",
+     "abschnitt": "Entdecken",
+     "vorhersage": true,
+     "konzepte": [
+      "funktionen",
+      "zufall"
+     ],
+     "text": "Dieses Programm zeichnet einen Sternenhimmel. Zwischen den `'''` steht ein eigener Befehl `stern()`, der aber noch auskommentiert ist.",
+     "fragen": [
+      "Was wird gezeichnet? Warum sieht das Bild bei jedem Start anders aus?",
+      "Entfernen Sie das `#` vor `stern()` (ganz unten). Wieso gibt es einen Fehler?",
+      "Entfernen Sie jetzt auch die beiden Zeilen mit `'''`. Was ändert sich?",
+      "Könnte die Definition `def stern():` auch weiter unten stehen?",
+      "Was bewirken die beiden auskommentierten Zeilen mit `randint`?"
+     ],
+     "startcode": "from turtle import *\nfrom random import *\n\nspeed(0)\npensize(3)\nsize = 33\n\n'''\ndef stern():\n    for i in range(6):\n        forward(size)\n        backward(size)\n        right(360 / 6)\n'''\n\nfor e in range(40):\n    penup()\n    goto(randint(-200, 200), randint(-200, 200))\n    pendown()\n    color(randint(150, 220), randint(150, 255), randint(150, 255), 0.6)\n    #right(randint(0, 360))\n    #size = randint(10, 50)\n\n    for i in range(6):\n        forward(size)\n        backward(size)\n        right(360 / 6)\n\n    #stern()\n"
+    },
+    {
+     "id": "himmel-befehl",
+     "titel": "Der Befehl stern()",
+     "weiterVon": "himmel-lesen",
+     "konzepte": [
+      "funktionen"
+     ],
+     "text": "Räumen Sie das Programm auf: Der Befehl `stern()` ist definiert (ohne `'''`), und in der grossen Schleife steht statt der inneren Schleife nur noch der Aufruf `stern()`. Das Bild bleibt gleich.",
+     "checkliste": [
+      "`def stern():` steht vor der Schleife und ist nicht mehr auskommentiert.",
+      "In der Schleife steht `stern()` statt der sechs Strahlen.",
+      "Das Programm läuft ohne Fehler."
+     ]
+    },
+    {
+     "id": "drei-quadrate",
+     "titel": "Befehl quadrat()",
+     "konzepte": [
+      "funktionen"
+     ],
+     "text": "Definieren Sie einen Befehl `quadrat()`, der ein Quadrat mit Seitenlänge 50 zeichnet (Drehung nach links). Zeichnen Sie damit drei Quadrate nebeneinander: `quadrat()`, `forward(70)`, `quadrat()`, `forward(70)`, `quadrat()`.",
+     "startcode": "from turtle import *\n\ndef quadrat():\n    forward(50)\n\nquadrat()\n",
+     "hinweise": [
+      "Alles, was zum Befehl gehört, ist unter `def quadrat():` eingerückt, auch die Schleife darin."
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [50, 0],
+         [50, 50],
+         [0, 50],
+         [0, 0],
+         [70, 0],
+         [120, 0],
+         [120, 50],
+         [70, 50],
+         [70, 0],
+         [190, 0],
+         [190, 50],
+         [140, 50],
+         [140, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "quadrat-seite",
+     "titel": "Quadrate jeder Grösse",
+     "konzepte": [
+      "funktionen"
+     ],
+     "text": "Geben Sie `quadrat` einen Parameter `seite`. Zeichnen Sie damit vom Startpunkt aus fünf Quadrate mit den Seiten 20, 40, 60, 80 und 100. Alle haben die Ecke (0, 0) gemeinsam.",
+     "startcode": "from turtle import *\n\ndef quadrat(seite):\n    for i in range(4):\n        forward(50)\n        left(90)\n\nquadrat(20)\n",
+     "hinweise": [
+      "Im Befehl muss `seite` statt `50` stehen."
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [20, 0],
+         [20, 20],
+         [0, 20],
+         [0, 0],
+         [40, 0],
+         [40, 40],
+         [0, 40],
+         [0, 0],
+         [60, 0],
+         [60, 60],
+         [0, 60],
+         [0, 0],
+         [80, 0],
+         [80, 80],
+         [0, 80],
+         [0, 0],
+         [100, 0],
+         [100, 100],
+         [0, 100],
+         [0, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "vieleck",
+     "titel": "vieleck(n, seite)",
+     "konzepte": [
+      "funktionen"
+     ],
+     "text": "Schreiben Sie einen Befehl `vieleck(n, seite)`, der ein Vieleck mit n Ecken zeichnet (Drehung nach links). Zeichnen Sie damit vom Startpunkt aus ein Dreieck, ein Viereck, ein Fünfeck und ein Sechseck, alle mit Seitenlänge 100.",
+     "hinweise": [
+      "Zwei Parameter: `def vieleck(n, seite):`",
+      "Aufruf: `vieleck(3, 100)`"
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [100, 0],
+         [50, 86.6],
+         [0, 0],
+         [100, 0],
+         [100, 100],
+         [0, 100],
+         [0, 0],
+         [100, 0],
+         [130.9, 95.1],
+         [50, 153.9],
+         [-30.9, 95.1],
+         [0, 0],
+         [100, 0],
+         [150, 86.6],
+         [100, 173.2],
+         [0, 173.2],
+         [-50, 86.6],
+         [0, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "springe",
+     "titel": "Springen ohne Spur",
+     "konzepte": [
+      "funktionen"
+     ],
+     "text": "Der Befehl `springe(x, y)` bringt die Turtle ohne Spur an einen Ort. Zeichnen Sie damit drei Quadrate mit Seitenlänge 40, deren linke untere Ecken bei (−150, 0), (0, 0) und (150, 0) liegen, ohne Linien dazwischen.",
+     "startcode": "from turtle import *\n\ndef springe(x, y):\n    penup()\n    goto(x, y)\n    pendown()\n\ndef quadrat(seite):\n    for i in range(4):\n        forward(seite)\n        left(90)\n\nspringe(-150, 0)\n",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-150, 0],
+         [-110, 0],
+         [-110, 40],
+         [-150, 40],
+         [-150, 0]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [40, 0],
+         [40, 40],
+         [0, 40],
+         [0, 0]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [150, 0],
+         [190, 0],
+         [190, 40],
+         [150, 40],
+         [150, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "blume-dreiecke",
+     "titel": "Blume aus Dreiecken",
+     "konzepte": [
+      "funktionen",
+      "schleifen",
+      "farben",
+      "zufall"
+     ],
+     "text": "Schreiben Sie einen Befehl `dreieck(seite)` für ein gleichseitiges Dreieck (Drehung nach links). Zeichnen Sie damit eine Blume: 12 Dreiecke mit Seitenlänge 120, alle im Startpunkt; nach jedem Dreieck dreht die Turtle um 30° nach rechts. Jedes Dreieck bekommt eine zufällige Farbe; geprüft werden nur die Linien.",
+     "startcode": "from turtle import *\nfrom random import *\n\npensize(4)\n",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [120, 0],
+         [60, 103.9],
+         [0, 0],
+         [103.9, -60],
+         [103.9, 60],
+         [0, 0],
+         [60, -103.9],
+         [120, 0],
+         [0, 0],
+         [0, -120],
+         [103.9, -60],
+         [0, 0],
+         [-60, -103.9],
+         [60, -103.9],
+         [0, 0],
+         [-103.9, -60],
+         [0, -120],
+         [0, 0],
+         [-120, 0],
+         [-60, -103.9],
+         [0, 0],
+         [-103.9, 60],
+         [-103.9, -60],
+         [0, 0],
+         [-60, 103.9],
+         [-120, 0],
+         [0, 0],
+         [0, 120],
+         [-103.9, 60],
+         [0, 0],
+         [60, 103.9],
+         [-60, 103.9],
+         [0, 0],
+         [103.9, 60],
+         [0, 120],
+         [0, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "blume-quadrate",
+     "titel": "Blume aus Quadraten",
+     "zusatz": true,
+     "konzepte": [
+      "funktionen",
+      "schleifen"
+     ],
+     "text": "Eine Blume aus 9 «Blättern»: Jedes Blatt ist ein Quadrat mit Seite 100 und darin ein Quadrat mit Seite 40, beide mit der Ecke im Startpunkt. Nach jedem Blatt dreht die Turtle um 40° nach rechts.",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [100, 0],
+         [100, 100],
+         [0, 100],
+         [0, 0],
+         [40, 0],
+         [40, 40],
+         [0, 40],
+         [0, 0],
+         [76.6, -64.3],
+         [140.9, 12.3],
+         [64.3, 76.6],
+         [0, 0],
+         [30.6, -25.7],
+         [56.4, 4.9],
+         [25.7, 30.6],
+         [0, 0],
+         [17.4, -98.5],
+         [115.8, -81.1],
+         [98.5, 17.4],
+         [0, 0],
+         [6.9, -39.4],
+         [46.3, -32.4],
+         [39.4, 6.9],
+         [0, 0],
+         [-50, -86.6],
+         [36.6, -136.6],
+         [86.6, -50],
+         [0, 0],
+         [-20, -34.6],
+         [14.6, -54.6],
+         [34.6, -20],
+         [0, 0],
+         [-94, -34.2],
+         [-59.8, -128.2],
+         [34.2, -94],
+         [0, 0],
+         [-37.6, -13.7],
+         [-23.9, -51.3],
+         [13.7, -37.6],
+         [0, 0],
+         [-94, 34.2],
+         [-128.2, -59.8],
+         [-34.2, -94],
+         [0, 0],
+         [-37.6, 13.7],
+         [-51.3, -23.9],
+         [-13.7, -37.6],
+         [0, 0],
+         [-50, 86.6],
+         [-136.6, 36.6],
+         [-86.6, -50],
+         [0, 0],
+         [-20, 34.6],
+         [-54.6, 14.6],
+         [-34.6, -20],
+         [0, 0],
+         [17.4, 98.5],
+         [-81.1, 115.8],
+         [-98.5, 17.4],
+         [0, 0],
+         [6.9, 39.4],
+         [-32.4, 46.3],
+         [-39.4, 6.9],
+         [0, 0],
+         [76.6, 64.3],
+         [12.3, 140.9],
+         [-64.3, 76.6],
+         [0, 0],
+         [30.6, 25.7],
+         [4.9, 56.4],
+         [-25.7, 30.6],
+         [0, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "eigene-blume",
+     "titel": "Eigene Blume",
+     "zusatz": true,
+     "konzepte": [
+      "funktionen",
+      "farben",
+      "zufall"
+     ],
+     "text": "Erfinden Sie mit eigenen Befehlen eine eigene Blume oder ein eigenes Muster.",
+     "checkliste": [
+      "Mindestens ein eigener Befehl mit Parameter.",
+      "Der Befehl wird mehrmals aufgerufen.",
+      "Farben (gerne zufällig)."
+     ]
+    },
+    {
+     "id": "reihenfolge",
+     "titel": "Zuerst erklären, dann aufrufen",
+     "abschnitt": "Konzepte sichern",
+     "konzepte": [
+      "funktionen"
+     ],
+     "text": "Das Programm soll ein Dreieck zeichnen, meldet aber einen Fehler. Warum? Korrigieren Sie es, ohne Zeilen zu löschen.",
+     "startcode": "from turtle import *\n\ndreieck()\n\ndef dreieck():\n    for i in range(3):\n        forward(100)\n        left(120)\n",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [100, 0],
+         [50, 86.6],
+         [0, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "rechteck",
+     "titel": "Parameter benutzen",
+     "konzepte": [
+      "funktionen"
+     ],
+     "text": "`rechteck(breite, hoehe)` hat zwar Parameter, zeichnet aber immer dasselbe. Ändern Sie den Befehl, sodass die Aufrufe ein Rechteck 100 × 50 und eines 50 × 100 ergeben (beide ab dem Startpunkt).",
+     "startcode": "from turtle import *\n\ndef rechteck(breite, hoehe):\n    forward(100)\n    left(90)\n    forward(50)\n    left(90)\n    forward(100)\n    left(90)\n    forward(50)\n    left(90)\n\nrechteck(100, 50)\nrechteck(50, 100)\n",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [100, 0],
+         [100, 50],
+         [0, 50],
+         [0, 0],
+         [50, 0],
+         [50, 100],
+         [0, 100],
+         [0, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "haeuser",
+     "titel": "Drei Häuser",
+     "konzepte": [
+      "funktionen"
+     ],
+     "text": "Schreiben Sie `haus(groesse)`: ein Quadrat mit der Seite `groesse` und darauf ein gleichseitiges Dreieck als Dach. Zeichnen Sie damit Häuser der Grösse 40, 60 und 80 mit den linken unteren Ecken bei (−200, 0), (−100, 0) und (20, 0).",
+     "hinweise": [
+      "Mit `springe(x, y)` aus der letzten Aufgabe kommt die Turtle an den Ort. Danach `setheading(0)`, damit jedes Haus gerade steht.",
+      "Das Dach: Nach dem Quadrat steht die Turtle wieder unten links. Gehen Sie hoch, zeichnen Sie das Dreieck mit `forward(groesse)` und `left(120)`."
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-200, 0],
+         [-160, 0],
+         [-160, 40],
+         [-200, 40],
+         [-200, 0],
+         [-200, 40],
+         [-160, 40],
+         [-180, 74.6],
+         [-200, 40]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-100, 0],
+         [-40, 0],
+         [-40, 60],
+         [-100, 60],
+         [-100, 0],
+         [-100, 60],
+         [-40, 60],
+         [-70, 112],
+         [-100, 60]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [20, 0],
+         [100, 0],
+         [100, 80],
+         [20, 80],
+         [20, 0],
+         [20, 80],
+         [100, 80],
+         [60, 149.3],
+         [20, 80]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "stufen",
+     "titel": "Stufen",
+     "abschnitt": "Lernkontrolle",
+     "kontrolle": true,
+     "text": "Schreiben Sie einen Befehl `stufe(groesse)`, der eine Stufe zeichnet: `groesse` nach oben, dann `groesse` nach rechts. Zeichnen Sie damit ab dem Startpunkt drei Stufen der Grösse 20 und danach zwei der Grösse 40.",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [0, 20],
+         [20, 20],
+         [20, 40],
+         [40, 40],
+         [40, 60],
+         [60, 60],
+         [60, 100],
+         [100, 100],
+         [100, 140],
+         [140, 140]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "kreise-reihe",
+     "titel": "Kreise mit Mitte",
+     "kontrolle": true,
+     "text": "Schreiben Sie einen Befehl `kreis(x, y, r)`, der einen Kreis mit der Mitte (x, y) und dem Radius r zeichnet. Zeichnen Sie damit Kreise um (−150, 0) mit Radius 30, um (−50, 0) mit 40, um (60, 0) mit 50 und um (180, 0) mit 40.",
+     "hinweise": [
+      "`circle(r)` hat die Mitte links der Turtle. Schaut die Turtle nach rechts, liegt die Mitte also r oberhalb. Springen Sie darum zu (x, y − r)."
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-150, -30],
+         [-139.2, -28],
+         [-129.8, -22.2],
+         [-123.1, -13.4],
+         [-120.1, -2.8],
+         [-121.1, 8.2],
+         [-126.1, 18.1],
+         [-134.2, 25.5],
+         [-144.5, 29.5],
+         [-155.5, 29.5],
+         [-165.8, 25.5],
+         [-173.9, 18.1],
+         [-178.9, 8.2],
+         [-179.9, -2.8],
+         [-176.9, -13.4],
+         [-170.2, -22.2],
+         [-160.8, -28],
+         [-150, -30]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-50, -40],
+         [-36.3, -37.6],
+         [-24.3, -30.6],
+         [-15.4, -20],
+         [-10.6, -6.9],
+         [-10.6, 6.9],
+         [-15.4, 20],
+         [-24.3, 30.6],
+         [-36.3, 37.6],
+         [-50, 40],
+         [-63.7, 37.6],
+         [-75.7, 30.6],
+         [-84.6, 20],
+         [-89.4, 6.9],
+         [-89.4, -6.9],
+         [-84.6, -20],
+         [-75.7, -30.6],
+         [-63.7, -37.6],
+         [-50, -40]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [60, -50],
+         [75.5, -47.6],
+         [89.4, -40.5],
+         [100.5, -29.4],
+         [107.6, -15.5],
+         [110, 0],
+         [107.6, 15.5],
+         [100.5, 29.4],
+         [89.4, 40.5],
+         [75.5, 47.6],
+         [60, 50],
+         [44.5, 47.6],
+         [30.6, 40.5],
+         [19.5, 29.4],
+         [12.4, 15.5],
+         [10, 0],
+         [12.4, -15.5],
+         [19.5, -29.4],
+         [30.6, -40.5],
+         [44.5, -47.6],
+         [60, -50]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [180, -40],
+         [193.7, -37.6],
+         [205.7, -30.6],
+         [214.6, -20],
+         [219.4, -6.9],
+         [219.4, 6.9],
+         [214.6, 20],
+         [205.7, 30.6],
+         [193.7, 37.6],
+         [180, 40],
+         [166.3, 37.6],
+         [154.3, 30.6],
+         [145.4, 20],
+         [140.6, 6.9],
+         [140.6, -6.9],
+         [145.4, -20],
+         [154.3, -30.6],
+         [166.3, -37.6],
+         [180, -40]
+        ]
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "veraenderung",
+   "titel": "4 · Veränderung",
+   "untertitel": "Variablen verändern, die Schleifenvariable, Rechnen mit Farben (ca. 3 Lektionen)",
+   "aufgaben": [
+    {
+     "id": "schnecke-lesen",
+     "titel": "Schnecke",
+     "abschnitt": "Entdecken",
+     "vorhersage": true,
+     "konzepte": [
+      "variablen",
+      "schleifen"
+     ],
+     "text": "Hier verändert sich eine Variable bei jedem Durchlauf. Überlegen Sie zuerst, was gezeichnet wird.",
+     "fragen": [
+      "Welche Figur wird gezeichnet?",
+      "Entfernen Sie das `#` vor `print(l)`. Welche Werte hat `l` nacheinander?",
+      "Was bewirken die beiden anderen auskommentierten Zeilen?",
+      "Welche Zahlen verändern die Figur wie? Probieren Sie 3, 10 und 33.5."
+     ],
+     "startcode": "from turtle import *\n\nspeed(0)\npensize(2)\nl = 10\nfor count in range(50):\n    #print(l)\n    forward(l)\n    back(l)\n    l = l + 3\n    right(360 / 33.5)\n    #print(count)\n    #print(heading())\n"
+    },
+    {
+     "id": "schnecke-kreise",
+     "titel": "Wachsende Kreise",
+     "weiterVon": "schnecke-lesen",
+     "konzepte": [
+      "variablen"
+     ],
+     "text": "Zeichnen Sie statt der Striche Kreise: `circle(l)` statt `forward(l)` und `back(l)`. Alles andere bleibt (Start bei l = 10, 50 Durchläufe, l wächst um 3, `right(360 / 33.5)`).",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [4.6, 1.1],
+         [8.2, 4.3],
+         [9.9, 8.8],
+         [9.4, 13.5],
+         [6.6, 17.5],
+         [2.4, 19.7],
+         [-2.4, 19.7],
+         [-6.6, 17.5],
+         [-9.4, 13.5],
+         [-9.9, 8.8],
+         [-8.2, 4.3],
+         [-4.6, 1.1],
+         [0, 0],
+         [5.8, 0.2],
+         [10.9, 2.9],
+         [14.3, 7.6],
+         [15.4, 13.3],
+         [13.9, 18.8],
+         [10.1, 23.2],
+         [4.8, 25.5],
+         [-0.9, 25.3],
+         [-6.1, 22.6],
+         [-9.5, 18],
+         [-10.6, 12.3],
+         [-9.1, 6.7],
+         [-5.3, 2.3],
+         [0, 0],
+         [7, -1.1],
+         [13.8, 1],
+         [19.1, 5.9],
+         [21.7, 12.5],
+         [21.2, 19.6],
+         [17.6, 25.8],
+         [11.7, 29.8],
+         [4.7, 30.8],
+         [-2.1, 28.8],
+         [-7.3, 23.9],
+         [-10, 17.3],
+         [-9.4, 10.2],
+         [-5.9, 4],
+         [0, 0],
+         [7.4, -2.7],
+         [15.3, -2.2],
+         [22.3, 1.5],
+         [27.2, 7.7],
+         [29.1, 15.3],
+         [27.8, 23.1],
+         [23.4, 29.7],
+         [16.7, 33.9],
+         [8.9, 35],
+         [1.3, 32.9],
+         [-4.8, 27.8],
+         [-8.3, 20.7],
+         [-8.6, 12.8],
+         [-5.7, 5.5],
+         [0, 0],
+         [7.8, -4.7],
+         [16.9, -5.8],
+         [25.7, -3.1],
+         [32.6, 2.9],
+         [36.4, 11.2],
+         [36.6, 20.3],
+         [33, 28.7],
+         [26.3, 35],
+         [17.7, 37.9],
+         [8.6, 37.1],
+         [0.6, 32.7],
+         [-4.9, 25.4],
+         [-7, 16.5],
+         [-5.2, 7.5],
+         [0, 0],
+         [7.2, -6.6],
+         [16.4, -9.9],
+         [26.1, -9.5],
+         [34.9, -5.4],
+         [41.5, 1.8],
+         [44.9, 11],
+         [44.4, 20.7],
+         [40.3, 29.6],
+         [33.1, 36.2],
+         [24, 39.5],
+         [14.2, 39.1],
+         [5.4, 34.9],
+         [-1.2, 27.8],
+         [-4.6, 18.6],
+         [-4.1, 8.8],
+         [0, 0],
+         [6.5, -8.8],
+         [15.9, -14.3],
+         [26.7, -15.9],
+         [37.3, -13.2],
+         [46.1, -6.7],
+         [51.7, 2.7],
+         [53.2, 13.5],
+         [50.5, 24.1],
+         [44, 32.9],
+         [34.6, 38.5],
+         [23.8, 40],
+         [13.2, 37.3],
+         [4.5, 30.8],
+         [-1.1, 21.4],
+         [-2.7, 10.6],
+         [0, 0],
+         [4.9, -10.3],
+         [13.1, -18.1],
+         [23.7, -22.5],
+         [35.1, -22.7],
+         [45.8, -18.8],
+         [54.3, -11.2],
+         [59.6, -1.2],
+         [60.9, 10.2],
+         [58, 21.2],
+         [51.3, 30.4],
+         [41.7, 36.6],
+         [30.6, 38.9],
+         [19.3, 37],
+         [9.5, 31.2],
+         [2.5, 22.3],
+         [-0.8, 11.4],
+         [0, 0],
+         [3.2, -12.1],
+         [10.5, -22.2],
+         [20.9, -29],
+         [33.2, -31.6],
+         [45.5, -29.6],
+         [56.3, -23.2],
+         [64, -13.4],
+         [67.7, -1.5],
+         [66.8, 11],
+         [61.5, 22.3],
+         [52.4, 30.9],
+         [40.9, 35.7],
+         [28.4, 35.9],
+         [16.7, 31.7],
+         [7.2, 23.5],
+         [1.4, 12.4],
+         [0, 0],
+         [0.7, -12.8],
+         [5.8, -24.6],
+         [14.6, -34],
+         [26.1, -39.8],
+         [38.9, -41.3],
+         [51.4, -38.3],
+         [62.1, -31.3],
+         [69.8, -21],
+         [73.5, -8.7],
+         [72.8, 4.2],
+         [67.7, 16],
+         [58.9, 25.3],
+         [47.4, 31.1],
+         [34.6, 32.6],
+         [22.1, 29.7],
+         [11.4, 22.6],
+         [3.7, 12.3],
+         [0, 0],
+         [-1.8, -13.8],
+         [1.2, -27.3],
+         [8.7, -39],
+         [19.7, -47.5],
+         [33, -51.7],
+         [46.8, -51],
+         [59.7, -45.7],
+         [69.9, -36.3],
+         [76.3, -24],
+         [78.1, -10.2],
+         [75.1, 3.3],
+         [67.6, 15],
+         [56.6, 23.5],
+         [43.4, 27.7],
+         [29.5, 27],
+         [16.6, 21.7],
+         [6.4, 12.3],
+         [0, 0],
+         [-4.5, -13.4],
+         [-4.5, -27.6],
+         [0.2, -40.9],
+         [8.9, -52.1],
+         [20.8, -59.8],
+         [34.5, -63.2],
+         [48.6, -62],
+         [61.5, -56.2],
+         [71.9, -46.6],
+         [78.6, -34.1],
+         [80.9, -20.2],
+         [78.5, -6.2],
+         [71.7, 6.2],
+         [61.3, 15.8],
+         [48.3, 21.4],
+         [34.2, 22.5],
+         [20.5, 19],
+         [8.7, 11.2],
+         [0, 0],
+         [-7.5, -13.2],
+         [-10.2, -28.1],
+         [-8, -43],
+         [-1, -56.5],
+         [9.9, -67],
+         [23.7, -73.3],
+         [38.7, -74.8],
+         [53.5, -71.4],
+         [66.3, -63.3],
+         [75.8, -51.6],
+         [81, -37.3],
+         [81.3, -22.2],
+         [76.6, -7.8],
+         [67.5, 4.3],
+         [55, 12.9],
+         [40.4, 16.8],
+         [25.3, 15.9],
+         [11.3, 10],
+         [0, 0],
+         [-10, -11.6],
+         [-15.9, -25.8],
+         [-17.2, -41],
+         [-13.6, -56],
+         [-5.7, -69.1],
+         [5.9, -79.1],
+         [20.1, -85],
+         [35.4, -86.2],
+         [50.3, -82.7],
+         [63.4, -74.7],
+         [73.4, -63.1],
+         [79.3, -49],
+         [80.6, -33.7],
+         [77, -18.8],
+         [69.1, -5.7],
+         [57.4, 4.3],
+         [43.3, 10.2],
+         [28, 11.5],
+         [13.1, 8],
+         [0, 0],
+         [-12.7, -10.1],
+         [-21.7, -23.7],
+         [-26, -39.4],
+         [-25.3, -55.6],
+         [-19.6, -70.9],
+         [-9.4, -83.6],
+         [4.1, -92.6],
+         [19.8, -96.9],
+         [36.1, -96.2],
+         [51.3, -90.5],
+         [64, -80.3],
+         [73, -66.8],
+         [77.3, -51.1],
+         [76.6, -34.8],
+         [70.9, -19.6],
+         [60.7, -6.9],
+         [47.2, 2.1],
+         [31.5, 6.4],
+         [15.2, 5.7],
+         [0, 0],
+         [-14.6, -7.5],
+         [-26.2, -19],
+         [-34, -33.5],
+         [-37.2, -49.5],
+         [-35.5, -65.9],
+         [-29.1, -80.9],
+         [-18.5, -93.5],
+         [-4.7, -102.3],
+         [11.1, -106.7],
+         [27.5, -106.2],
+         [43, -100.9],
+         [56.3, -91.3],
+         [66.1, -78.2],
+         [71.7, -62.7],
+         [72.4, -46.4],
+         [68.3, -30.5],
+         [59.7, -16.5],
+         [47.4, -5.7],
+         [32.4, 0.9],
+         [16.1, 2.9],
+         [0, 0],
+         [-16.6, -4.9],
+         [-30.9, -14.6],
+         [-41.8, -28],
+         [-48.3, -44],
+         [-49.7, -61.2],
+         [-46, -78.1],
+         [-37.5, -93.2],
+         [-25, -105.1],
+         [-9.5, -112.7],
+         [7.6, -115.4],
+         [24.7, -113],
+         [40.4, -105.6],
+         [53.2, -94],
+         [61.9, -79.1],
+         [65.9, -62.3],
+         [64.8, -45],
+         [58.6, -28.9],
+         [48, -15.3],
+         [33.8, -5.4],
+         [17.3, -0.2],
+         [0, 0],
+         [-17.3, -1.7],
+         [-33.4, -8.1],
+         [-47, -18.9],
+         [-57.1, -33],
+         [-62.8, -49.4],
+         [-63.6, -66.8],
+         [-59.5, -83.6],
+         [-50.8, -98.7],
+         [-38.2, -110.6],
+         [-22.8, -118.6],
+         [-5.7, -121.9],
+         [11.6, -120.2],
+         [27.7, -113.7],
+         [41.3, -103],
+         [51.4, -88.8],
+         [57, -72.4],
+         [57.9, -55.1],
+         [53.8, -38.2],
+         [45.1, -23.2],
+         [32.5, -11.2],
+         [17.1, -3.3],
+         [0, 0],
+         [-18.1, 1.7],
+         [-36, -1.8],
+         [-52.2, -10.2],
+         [-65.3, -22.9],
+         [-74.4, -38.7],
+         [-78.6, -56.4],
+         [-77.7, -74.6],
+         [-71.6, -91.8],
+         [-61, -106.6],
+         [-46.7, -117.8],
+         [-29.7, -124.5],
+         [-11.6, -126.2],
+         [6.3, -122.7],
+         [22.4, -114.2],
+         [35.6, -101.6],
+         [44.6, -85.8],
+         [48.9, -68.1],
+         [47.9, -49.9],
+         [41.9, -32.7],
+         [31.3, -17.9],
+         [16.9, -6.7],
+         [0, 0],
+         [-17.5, 5.1],
+         [-35.8, 5.4],
+         [-53.4, 0.7],
+         [-69.1, -8.6],
+         [-81.7, -21.8],
+         [-90.3, -37.9],
+         [-94.2, -55.7],
+         [-93.2, -74],
+         [-87.3, -91.2],
+         [-77, -106.3],
+         [-63, -117.9],
+         [-46.3, -125.4],
+         [-28.3, -128.1],
+         [-10.2, -125.9],
+         [6.7, -118.8],
+         [21, -107.4],
+         [31.7, -92.7],
+         [38, -75.6],
+         [39.5, -57.4],
+         [36, -39.5],
+         [27.8, -23.2],
+         [15.5, -9.7],
+         [0, 0],
+         [-17, 8.7],
+         [-35.7, 12.5],
+         [-54.7, 11.1],
+         [-72.6, 4.6],
+         [-88.1, -6.5],
+         [-100.1, -21.3],
+         [-107.6, -38.9],
+         [-110.1, -57.7],
+         [-107.4, -76.6],
+         [-99.7, -94.1],
+         [-87.6, -108.8],
+         [-72, -119.7],
+         [-54, -126],
+         [-34.9, -127.2],
+         [-16.3, -123.2],
+         [0.6, -114.4],
+         [14.4, -101.3],
+         [24.3, -85],
+         [29.3, -66.6],
+         [29.2, -47.5],
+         [24, -29.2],
+         [14, -12.9],
+         [0, 0],
+         [-15, 11.8],
+         [-32.5, 19.3],
+         [-51.4, 22],
+         [-70.3, 19.7],
+         [-88, 12.6],
+         [-103.2, 1.2],
+         [-115, -13.8],
+         [-122.5, -31.3],
+         [-125.2, -50.2],
+         [-122.9, -69.1],
+         [-115.9, -86.8],
+         [-104.4, -102],
+         [-89.5, -113.8],
+         [-71.9, -121.3],
+         [-53.1, -124],
+         [-34.2, -121.7],
+         [-16.5, -114.7],
+         [-1.2, -103.2],
+         [10.6, -88.2],
+         [18.1, -70.7],
+         [20.8, -51.9],
+         [18.5, -32.9],
+         [11.4, -15.3],
+         [0, 0],
+         [-13, 15],
+         [-29.5, 26],
+         [-48.3, 32.5],
+         [-68.1, 33.8],
+         [-87.5, 30],
+         [-105.4, 21.3],
+         [-120.3, 8.2],
+         [-131.4, -8.2],
+         [-137.8, -27],
+         [-139.2, -46.8],
+         [-135.4, -66.3],
+         [-126.6, -84.1],
+         [-113.6, -99],
+         [-97.1, -110.1],
+         [-78.4, -116.5],
+         [-58.6, -117.9],
+         [-39.1, -114.1],
+         [-21.3, -105.4],
+         [-6.3, -92.3],
+         [4.7, -75.9],
+         [11.2, -57.1],
+         [12.5, -37.3],
+         [8.7, -17.8],
+         [0, 0],
+         [-9.9, 17.1],
+         [-23.8, 31.3],
+         [-40.7, 41.5],
+         [-59.7, 47.2],
+         [-79.5, 48.1],
+         [-98.8, 43.9],
+         [-116.6, 35.1],
+         [-131.5, 22.2],
+         [-142.8, 5.9],
+         [-149.7, -12.7],
+         [-151.8, -32.4],
+         [-148.9, -52],
+         [-141.2, -70.2],
+         [-129.2, -86],
+         [-113.7, -98.3],
+         [-95.6, -106.3],
+         [-76.1, -109.6],
+         [-56.3, -107.9],
+         [-37.6, -101.4],
+         [-21.2, -90.4],
+         [-7.9, -75.7],
+         [1.3, -58.2],
+         [5.8, -38.9],
+         [5.3, -19.1],
+         [0, 0],
+         [-6.8, 19.4],
+         [-18.2, 36.5],
+         [-33.5, 50.2],
+         [-51.7, 59.7],
+         [-71.7, 64.4],
+         [-92.3, 63.9],
+         [-112.1, 58.4],
+         [-129.9, 48.1],
+         [-144.5, 33.7],
+         [-155.1, 16.1],
+         [-161.1, -3.6],
+         [-161.9, -24.2],
+         [-157.6, -44.3],
+         [-148.4, -62.7],
+         [-135, -78.2],
+         [-118.1, -89.9],
+         [-98.8, -97],
+         [-78.3, -99.2],
+         [-58, -96.1],
+         [-39.1, -88.1],
+         [-22.7, -75.7],
+         [-10, -59.5],
+         [-1.6, -40.8],
+         [1.8, -20.5],
+         [0, 0],
+         [-2.9, 20.3],
+         [-10.7, 39.3],
+         [-22.7, 55.8],
+         [-38.3, 69.1],
+         [-56.7, 78.2],
+         [-76.7, 82.6],
+         [-97.2, 82.1],
+         [-117, 76.8],
+         [-134.9, 66.8],
+         [-149.9, 52.9],
+         [-161.1, 35.7],
+         [-168, 16.4],
+         [-170, -4],
+         [-167, -24.3],
+         [-159.3, -43.2],
+         [-147.3, -59.8],
+         [-131.6, -73.1],
+         [-113.2, -82.2],
+         [-93.2, -86.6],
+         [-72.8, -86.1],
+         [-53, -80.7],
+         [-35.1, -70.8],
+         [-20, -56.9],
+         [-8.8, -39.7],
+         [-2, -20.4],
+         [0, 0],
+         [0.9, 21.2],
+         [-3.3, 42],
+         [-12.3, 61.2],
+         [-25.7, 77.7],
+         [-42.6, 90.5],
+         [-62.1, 98.8],
+         [-83, 102.3],
+         [-104.2, 100.7],
+         [-124.3, 94],
+         [-142.3, 82.7],
+         [-157, 67.5],
+         [-167.7, 49.1],
+         [-173.6, 28.8],
+         [-174.6, 7.6],
+         [-170.4, -13.2],
+         [-161.3, -32.4],
+         [-148, -48.9],
+         [-131, -61.7],
+         [-111.6, -70.1],
+         [-90.6, -73.5],
+         [-69.5, -71.9],
+         [-49.3, -65.2],
+         [-31.4, -54],
+         [-16.6, -38.7],
+         [-6, -20.4],
+         [0, 0],
+         [4.9, 20.5],
+         [5, 41.7],
+         [0.2, 62.2],
+         [-9.3, 81.2],
+         [-22.8, 97.4],
+         [-39.7, 110],
+         [-59.1, 118.5],
+         [-79.9, 122.2],
+         [-101, 121],
+         [-121.3, 115],
+         [-139.6, 104.5],
+         [-155, 90],
+         [-166.6, 72.4],
+         [-173.9, 52.6],
+         [-176.4, 31.6],
+         [-174, 10.6],
+         [-166.9, -9.3],
+         [-155.3, -27],
+         [-140, -41.5],
+         [-121.7, -52.1],
+         [-101.5, -58.2],
+         [-80.4, -59.5],
+         [-59.6, -55.9],
+         [-40.1, -47.6],
+         [-23.2, -35],
+         [-9.5, -18.9],
+         [0, 0],
+         [9, 19.9],
+         [13.1, 41.3],
+         [12.2, 63.1],
+         [6.2, 84.1],
+         [-4.4, 103.2],
+         [-19.1, 119.3],
+         [-37.2, 131.6],
+         [-57.6, 139.4],
+         [-79.2, 142.3],
+         [-100.9, 140.1],
+         [-121.5, 132.9],
+         [-140, 121.2],
+         [-155.2, 105.6],
+         [-166.4, 86.8],
+         [-173, 66],
+         [-174.6, 44.3],
+         [-171.1, 22.7],
+         [-162.8, 2.5],
+         [-150, -15.2],
+         [-133.5, -29.5],
+         [-114.2, -39.6],
+         [-93, -44.9],
+         [-71.2, -45.3],
+         [-49.9, -40.6],
+         [-30.2, -31.1],
+         [-13.3, -17.3],
+         [0, 0],
+         [12.5, 17.7],
+         [20.8, 37.8],
+         [24.4, 59.3],
+         [23.1, 80.9],
+         [17, 101.8],
+         [6.5, 120.8],
+         [-8, 136.9],
+         [-25.8, 149.5],
+         [-45.9, 157.7],
+         [-67.3, 161.3],
+         [-89, 160],
+         [-109.8, 154],
+         [-128.8, 143.4],
+         [-145, 128.9],
+         [-157.5, 111.2],
+         [-165.8, 91.1],
+         [-169.4, 69.6],
+         [-168.1, 48],
+         [-162, 27.1],
+         [-151.5, 8.1],
+         [-136.9, -8],
+         [-119.2, -20.6],
+         [-99.1, -28.8],
+         [-77.7, -32.4],
+         [-56, -31.1],
+         [-35.1, -25.1],
+         [-16.2, -14.5],
+         [0, 0],
+         [16.1, 15.6],
+         [28.3, 34.3],
+         [36.1, 55.3],
+         [39, 77.5],
+         [36.8, 99.8],
+         [29.8, 121.1],
+         [18.2, 140.2],
+         [2.6, 156.3],
+         [-16.1, 168.6],
+         [-37.1, 176.3],
+         [-59.4, 179.2],
+         [-81.6, 177.1],
+         [-102.9, 170],
+         [-122.1, 158.4],
+         [-138.2, 142.9],
+         [-150.4, 124.1],
+         [-158.1, 103.1],
+         [-161, 80.9],
+         [-158.9, 58.6],
+         [-151.8, 37.3],
+         [-140.2, 18.2],
+         [-124.7, 2.1],
+         [-105.9, -10.1],
+         [-84.9, -17.9],
+         [-62.7, -20.8],
+         [-40.4, -18.6],
+         [-19.2, -11.6],
+         [0, 0],
+         [18.7, 12.2],
+         [34.3, 28],
+         [46.1, 46.9],
+         [53.6, 67.9],
+         [56.4, 90],
+         [54.4, 112.2],
+         [47.7, 133.4],
+         [36.6, 152.7],
+         [21.6, 169.1],
+         [3.4, 182],
+         [-17.1, 190.6],
+         [-39.1, 194.6],
+         [-61.3, 193.8],
+         [-82.9, 188.3],
+         [-102.8, 178.2],
+         [-120, 164.1],
+         [-133.8, 146.6],
+         [-143.5, 126.6],
+         [-148.7, 104.9],
+         [-149.1, 82.7],
+         [-144.7, 60.8],
+         [-135.8, 40.4],
+         [-122.6, 22.5],
+         [-105.9, 7.7],
+         [-86.4, -3.1],
+         [-65.1, -9.4],
+         [-42.9, -11.1],
+         [-20.8, -7.9],
+         [0, 0],
+         [21.2, 8.7],
+         [40, 21.8],
+         [55.6, 38.6],
+         [67.2, 58.3],
+         [74.3, 80.1],
+         [76.6, 102.9],
+         [73.8, 125.7],
+         [66.3, 147.3],
+         [54.3, 166.9],
+         [38.3, 183.3],
+         [19.2, 196],
+         [-2.1, 204.3],
+         [-24.8, 207.7],
+         [-47.7, 206.3],
+         [-69.7, 199.9],
+         [-89.8, 188.9],
+         [-107.1, 173.9],
+         [-120.8, 155.5],
+         [-130.2, 134.6],
+         [-134.9, 112.2],
+         [-134.7, 89.3],
+         [-129.5, 66.9],
+         [-119.7, 46.2],
+         [-105.6, 28.1],
+         [-88, 13.5],
+         [-67.6, 3],
+         [-45.5, -2.9],
+         [-22.6, -3.9],
+         [22.3, 4.5],
+         [43.3, 13.5],
+         [61.8, 26.7],
+         [77.3, 43.5],
+         [88.9, 63.1],
+         [96.2, 84.7],
+         [98.8, 107.3],
+         [96.7, 130],
+         [89.8, 151.8],
+         [78.7, 171.6],
+         [63.6, 188.7],
+         [45.3, 202.3],
+         [24.6, 211.8],
+         [2.4, 216.8],
+         [-20.4, 217],
+         [-42.8, 212.5],
+         [-63.7, 203.5],
+         [-82.3, 190.3],
+         [-97.7, 173.6],
+         [-109.3, 153.9],
+         [-116.6, 132.3],
+         [-119.2, 109.7],
+         [-117.1, 87],
+         [-110.3, 65.3],
+         [-99.1, 45.4],
+         [-84, 28.3],
+         [-65.7, 14.7],
+         [-45, 5.2],
+         [-22.8, 0.2],
+         [23.4, 0.3],
+         [46.3, 5.4],
+         [67.5, 15.1],
+         [86.3, 29.1],
+         [101.8, 46.7],
+         [113.3, 67.1],
+         [120.3, 89.4],
+         [122.5, 112.7],
+         [119.8, 136],
+         [112.3, 158.2],
+         [100.4, 178.3],
+         [84.5, 195.6],
+         [65.4, 209.1],
+         [43.9, 218.4],
+         [21, 223],
+         [-2.4, 222.8],
+         [-25.3, 217.6],
+         [-46.6, 207.9],
+         [-65.4, 193.9],
+         [-80.8, 176.3],
+         [-92.3, 155.9],
+         [-99.3, 133.6],
+         [-101.5, 110.3],
+         [-98.8, 87],
+         [-91.3, 64.8],
+         [-79.4, 44.7],
+         [-63.5, 27.5],
+         [-44.4, 13.9],
+         [-23, 4.6],
+         [0, 0],
+         [22.9, -4.2],
+         [46.2, -3.6],
+         [68.8, 1.6],
+         [90, 11.2],
+         [108.8, 24.9],
+         [124.4, 42.2],
+         [136.3, 62.2],
+         [143.9, 84.2],
+         [146.9, 107.3],
+         [145.2, 130.5],
+         [138.8, 152.9],
+         [128.1, 173.5],
+         [113.5, 191.6],
+         [95.5, 206.3],
+         [74.9, 217.2],
+         [52.5, 223.6],
+         [29.3, 225.4],
+         [6.2, 222.6],
+         [-15.8, 215.1],
+         [-35.9, 203.4],
+         [-53.2, 187.8],
+         [-67, 169.1],
+         [-76.8, 148],
+         [-82.1, 125.3],
+         [-82.8, 102.1],
+         [-78.7, 79.1],
+         [-70.1, 57.5],
+         [-57.4, 38],
+         [-41, 21.5],
+         [-21.6, 8.7],
+         [22.3, -8.6],
+         [45.8, -12.5],
+         [69.7, -11.6],
+         [92.9, -5.9],
+         [114.4, 4.3],
+         [133.5, 18.7],
+         [149.3, 36.6],
+         [161.2, 57.3],
+         [168.6, 80],
+         [171.3, 103.7],
+         [169.2, 127.5],
+         [162.4, 150.4],
+         [151, 171.4],
+         [135.7, 189.7],
+         [117, 204.6],
+         [95.7, 215.4],
+         [72.7, 221.7],
+         [48.9, 223.2],
+         [25.2, 219.9],
+         [2.7, 211.9],
+         [-17.7, 199.5],
+         [-35.2, 183.3],
+         [-49.1, 163.9],
+         [-58.8, 142],
+         [-63.9, 118.7],
+         [-64.2, 94.8],
+         [-59.7, 71.4],
+         [-50.6, 49.3],
+         [-37.2, 29.6],
+         [-20.1, 12.9],
+         [20.1, -12.6],
+         [42.3, -21],
+         [65.7, -24.9],
+         [89.4, -24.1],
+         [112.5, -18.8],
+         [134.1, -9.1],
+         [153.5, 4.7],
+         [169.7, 22],
+         [182.3, 42.1],
+         [190.7, 64.3],
+         [194.6, 87.7],
+         [193.8, 111.4],
+         [188.5, 134.5],
+         [178.8, 156.1],
+         [165, 175.5],
+         [147.7, 191.7],
+         [127.6, 204.3],
+         [105.4, 212.7],
+         [82, 216.6],
+         [58.3, 215.8],
+         [35.2, 210.5],
+         [13.6, 200.8],
+         [-5.8, 187],
+         [-22, 169.7],
+         [-34.6, 149.6],
+         [-43, 127.4],
+         [-46.9, 104],
+         [-46.1, 80.3],
+         [-40.8, 57.2],
+         [-31.1, 35.6],
+         [-17.3, 16.2],
+         [17.9, -16.5],
+         [38.6, -29.2],
+         [61.4, -37.6],
+         [85.4, -41.4],
+         [109.7, -40.4],
+         [133.3, -34.7],
+         [155.4, -24.6],
+         [175.1, -10.3],
+         [191.6, 7.6],
+         [204.3, 28.3],
+         [212.7, 51.1],
+         [216.5, 75.1],
+         [215.5, 99.4],
+         [209.8, 123.1],
+         [199.6, 145.1],
+         [185.3, 164.8],
+         [167.5, 181.3],
+         [146.7, 194],
+         [123.9, 202.4],
+         [99.9, 206.2],
+         [75.6, 205.2],
+         [52, 199.5],
+         [29.9, 189.4],
+         [10.3, 175.1],
+         [-6.2, 157.2],
+         [-18.9, 136.5],
+         [-27.3, 113.7],
+         [-31.1, 89.7],
+         [-30.2, 65.4],
+         [-24.5, 41.7],
+         [-14.3, 19.7],
+         [14.3, -19.4],
+         [32, -35.8],
+         [52.6, -48.6],
+         [75.1, -57.2],
+         [98.9, -61.4],
+         [123, -61],
+         [146.7, -56.1],
+         [168.9, -46.7],
+         [189, -33.4],
+         [206.2, -16.4],
+         [219.9, 3.4],
+         [229.6, 25.6],
+         [235, 49.1],
+         [235.7, 73.2],
+         [231.9, 97.1],
+         [223.7, 119.8],
+         [211.3, 140.5],
+         [195.2, 158.5],
+         [176, 173.1],
+         [154.3, 183.8],
+         [131.1, 190.3],
+         [107, 192.2],
+         [83, 189.5],
+         [59.9, 182.4],
+         [38.7, 171],
+         [19.9, 155.7],
+         [4.4, 137.3],
+         [-7.4, 116.2],
+         [-14.9, 93.2],
+         [-18, 69.3],
+         [-16.4, 45.2],
+         [-10.4, 21.8],
+         [10.7, -22.3],
+         [25.4, -42.2],
+         [43.6, -58.9],
+         [64.6, -71.8],
+         [87.7, -80.6],
+         [112.1, -84.8],
+         [136.8, -84.4],
+         [161, -79.3],
+         [183.7, -69.6],
+         [204.3, -55.9],
+         [221.8, -38.5],
+         [235.8, -18.1],
+         [245.7, 4.5],
+         [251, 28.7],
+         [251.8, 53.4],
+         [247.8, 77.8],
+         [239.3, 101],
+         [226.5, 122.1],
+         [210, 140.5],
+         [190.3, 155.4],
+         [168.1, 166.3],
+         [144.3, 172.9],
+         [119.6, 174.8],
+         [95.1, 172],
+         [71.5, 164.6],
+         [49.8, 152.8],
+         [30.6, 137.2],
+         [14.8, 118.2],
+         [2.8, 96.6],
+         [-4.8, 73.1],
+         [-7.9, 48.6],
+         [-6.3, 23.9],
+         [6.2, -23.7],
+         [16.7, -45.9],
+         [31.1, -65.8],
+         [48.9, -82.7],
+         [69.5, -96.1],
+         [92.2, -105.4],
+         [116.2, -110.4],
+         [140.7, -110.9],
+         [165, -106.9],
+         [188, -98.5],
+         [209.2, -86],
+         [227.6, -69.9],
+         [242.8, -50.6],
+         [254.2, -28.9],
+         [261.4, -5.4],
+         [264.2, 19],
+         [262.4, 43.5],
+         [256.2, 67.2],
+         [245.7, 89.4],
+         [231.3, 109.3],
+         [213.5, 126.2],
+         [192.9, 139.5],
+         [170.2, 148.9],
+         [146.2, 153.9],
+         [121.7, 154.4],
+         [97.5, 150.4],
+         [74.4, 142],
+         [53.3, 129.5],
+         [34.8, 113.3],
+         [19.6, 94.1],
+         [8.2, 72.3],
+         [1, 48.9],
+         [-1.8, 24.5],
+         [1.7, -25],
+         [8, -49.3],
+         [18.7, -72.1],
+         [33.3, -92.4],
+         [51.5, -109.8],
+         [72.5, -123.5],
+         [95.7, -133.1],
+         [120.2, -138.3],
+         [145.3, -138.9],
+         [170.1, -134.8],
+         [193.7, -126.3],
+         [215.4, -113.6],
+         [234.3, -97.1],
+         [249.9, -77.5],
+         [261.6, -55.3],
+         [269, -31.3],
+         [271.9, -6.4],
+         [270.2, 18.7],
+         [263.9, 43],
+         [253.2, 65.7],
+         [238.6, 86.1],
+         [220.4, 103.4],
+         [199.4, 117.1],
+         [176.2, 126.7],
+         [151.7, 131.9],
+         [126.6, 132.5],
+         [101.8, 128.5],
+         [78.2, 119.9],
+         [56.6, 107.2],
+         [37.6, 90.8],
+         [22, 71.1],
+         [10.3, 48.9],
+         [2.9, 24.9],
+         [-3, -24.7],
+         [-1.6, -49.6],
+         [4.3, -73.8],
+         [14.4, -96.6],
+         [28.4, -117.2],
+         [45.9, -135],
+         [66.2, -149.4],
+         [88.8, -159.9],
+         [112.9, -166.2],
+         [137.8, -168.1],
+         [162.6, -165.5],
+         [186.5, -158.6],
+         [208.8, -147.5],
+         [228.8, -132.6],
+         [245.7, -114.3],
+         [259.2, -93.3],
+         [268.7, -70.3],
+         [273.9, -45.9],
+         [274.7, -21],
+         [271, 3.6],
+         [263, 27.2],
+         [250.9, 49],
+         [235.1, 68.3],
+         [216.1, 84.4],
+         [194.5, 96.9],
+         [171.1, 105.4],
+         [146.5, 109.5],
+         [121.6, 109.1],
+         [97.1, 104.4],
+         [73.9, 95.3],
+         [52.7, 82.2],
+         [34.2, 65.6],
+         [18.9, 45.9],
+         [7.4, 23.8],
+         [-7.7, -24.3],
+         [-11, -49.5],
+         [-9.7, -74.9],
+         [-3.9, -99.7],
+         [6.2, -123.1],
+         [20.3, -144.2],
+         [38, -162.5],
+         [58.7, -177.4],
+         [81.7, -188.3],
+         [106.3, -195],
+         [131.6, -197.1],
+         [157, -194.7],
+         [181.5, -187.8],
+         [204.4, -176.6],
+         [224.9, -161.5],
+         [242.4, -143],
+         [256.3, -121.7],
+         [266.2, -98.3],
+         [271.7, -73.4],
+         [272.7, -48],
+         [269.1, -22.8],
+         [261.1, 1.4],
+         [249, 23.8],
+         [233, 43.6],
+         [213.7, 60.2],
+         [191.8, 73.2],
+         [167.9, 82],
+         [142.8, 86.4],
+         [117.4, 86.2],
+         [92.4, 81.6],
+         [68.6, 72.5],
+         [46.8, 59.3],
+         [27.7, 42.5],
+         [11.9, 22.5],
+         [-12.1, -22.2],
+         [-20.1, -46.2],
+         [-23.9, -71.1],
+         [-23.3, -96.4],
+         [-18.3, -121.2],
+         [-9.1, -144.7],
+         [4.1, -166.3],
+         [20.8, -185.2],
+         [40.6, -201],
+         [62.8, -213.1],
+         [86.7, -221.1],
+         [111.7, -224.9],
+         [137, -224.3],
+         [161.8, -219.3],
+         [185.3, -210.1],
+         [206.9, -196.9],
+         [225.8, -180.2],
+         [241.6, -160.4],
+         [253.7, -138.2],
+         [261.7, -114.3],
+         [265.5, -89.3],
+         [264.9, -64],
+         [259.9, -39.2],
+         [250.7, -15.7],
+         [237.5, 5.9],
+         [220.8, 24.8],
+         [201, 40.6],
+         [178.8, 52.7],
+         [154.9, 60.7],
+         [129.9, 64.5],
+         [104.6, 63.9],
+         [79.8, 58.9],
+         [56.3, 49.7],
+         [34.7, 36.5],
+         [15.8, 19.8],
+         [-16.3, -20],
+         [-29, -42.4],
+         [-37.5, -66.8],
+         [-41.7, -92.2],
+         [-41.4, -118],
+         [-36.6, -143.4],
+         [-27.5, -167.5],
+         [-14.4, -189.7],
+         [2.5, -209.3],
+         [22.4, -225.6],
+         [44.9, -238.3],
+         [69.2, -246.8],
+         [94.7, -251],
+         [120.5, -250.7],
+         [145.8, -245.9],
+         [170, -236.8],
+         [192.2, -223.6],
+         [211.7, -206.8],
+         [228.1, -186.9],
+         [240.7, -164.4],
+         [249.3, -140],
+         [253.4, -114.6],
+         [253.1, -88.8],
+         [248.4, -63.4],
+         [239.3, -39.3],
+         [226.1, -17.1],
+         [209.3, 2.5],
+         [189.3, 18.8],
+         [166.8, 31.4],
+         [142.5, 40],
+         [117, 44.2],
+         [91.2, 43.9],
+         [65.9, 39.1],
+         [41.8, 30],
+         [19.6, 16.8],
+         [-19.7, -16.4],
+         [-36.3, -35.9],
+         [-49.4, -57.9],
+         [-58.6, -81.8],
+         [-63.6, -106.9],
+         [-64.3, -132.5],
+         [-60.7, -157.9],
+         [-52.8, -182.2],
+         [-40.9, -204.9],
+         [-25.4, -225.3],
+         [-6.6, -242.7],
+         [14.8, -256.7],
+         [38.3, -266.9],
+         [63.2, -273],
+         [88.7, -274.8],
+         [114.2, -272.2],
+         [138.9, -265.4],
+         [162.1, -254.5],
+         [183.1, -239.8],
+         [201.3, -221.8],
+         [216.2, -201],
+         [227.4, -178],
+         [234.5, -153.4],
+         [237.4, -127.9],
+         [235.9, -102.3],
+         [230.1, -77.4],
+         [220.2, -53.8],
+         [206.5, -32.2],
+         [189.3, -13.2],
+         [169.1, 2.6],
+         [146.5, 14.7],
+         [122.3, 22.9],
+         [97, 26.8],
+         [71.4, 26.4],
+         [46.2, 21.7],
+         [22.2, 12.8],
+         [-22.8, -12.7],
+         [-43.2, -29],
+         [-60.5, -48.6],
+         [-74.3, -70.8],
+         [-84.1, -95],
+         [-89.6, -120.5],
+         [-90.8, -146.6],
+         [-87.5, -172.6],
+         [-80, -197.5],
+         [-68.3, -220.9],
+         [-52.8, -241.9],
+         [-34, -260.1],
+         [-12.4, -274.7],
+         [11.4, -285.6],
+         [36.7, -292.2],
+         [62.7, -294.5],
+         [88.7, -292.3],
+         [114, -285.8],
+         [137.8, -275.1],
+         [159.5, -260.6],
+         [178.4, -242.5],
+         [194, -221.6],
+         [205.8, -198.3],
+         [213.5, -173.3],
+         [216.9, -147.4],
+         [215.9, -121.3],
+         [210.4, -95.8],
+         [200.8, -71.5],
+         [187.1, -49.2],
+         [169.9, -29.6],
+         [149.6, -13.1],
+         [126.9, -0.3],
+         [102.3, 8.4],
+         [76.5, 12.9],
+         [50.4, 13],
+         [24.7, 8.6],
+         [-24.6, -8.1],
+         [-47.6, -20.1],
+         [-68.3, -35.8],
+         [-86.1, -54.6],
+         [-100.6, -76.1],
+         [-111.3, -99.7],
+         [-118, -124.8],
+         [-120.5, -150.6],
+         [-118.7, -176.4],
+         [-112.7, -201.7],
+         [-102.6, -225.5],
+         [-88.7, -247.4],
+         [-71.4, -266.8],
+         [-51.2, -283],
+         [-28.5, -295.6],
+         [-4.1, -304.4],
+         [21.4, -309],
+         [47.3, -309.3],
+         [72.9, -305.4],
+         [97.6, -297.3],
+         [120.6, -285.3],
+         [141.2, -269.6],
+         [159, -250.8],
+         [173.5, -229.3],
+         [184.3, -205.7],
+         [191, -180.6],
+         [193.5, -154.8],
+         [191.7, -129],
+         [185.6, -103.7],
+         [175.6, -79.9],
+         [161.7, -58],
+         [144.4, -38.7],
+         [124.1, -22.4],
+         [101.5, -9.8],
+         [77.1, -1],
+         [51.6, 3.6],
+         [25.6, 3.9],
+         [0, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "spirale",
+     "titel": "Eckige Spirale",
+     "konzepte": [
+      "variablen",
+      "schleifen"
+     ],
+     "text": "Zeichnen Sie eine eckige Spirale: Die erste Linie ist 10 lang, jede weitere 10 länger, nach jeder Linie `left(90)`. Insgesamt 30 Linien.",
+     "startcode": "from turtle import *\n\nlaenge = 10\nfor i in range(30):\n    forward(laenge)\n    left(90)\n",
+     "hinweise": [
+      "Die Variable muss in der Schleife wachsen: `laenge = laenge + 10`."
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [10, 0],
+         [10, 20],
+         [-20, 20],
+         [-20, -20],
+         [30, -20],
+         [30, 40],
+         [-40, 40],
+         [-40, -40],
+         [50, -40],
+         [50, 60],
+         [-60, 60],
+         [-60, -60],
+         [70, -60],
+         [70, 80],
+         [-80, 80],
+         [-80, -80],
+         [90, -80],
+         [90, 100],
+         [-100, 100],
+         [-100, -100],
+         [110, -100],
+         [110, 120],
+         [-120, 120],
+         [-120, -120],
+         [130, -120],
+         [130, 140],
+         [-140, 140],
+         [-140, -140],
+         [150, -140],
+         [150, 160]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "faeden",
+     "titel": "Fäden",
+     "konzepte": [
+      "variablen",
+      "schleifen"
+     ],
+     "text": "Zeichnen Sie ein Fadenbild aus 21 Linien. Die erste geht von (−100, −100) nach (−100, 100). Bei jeder weiteren Linie rückt der Anfang 10 nach rechts und das Ende 10 nach unten. Die letzte geht also von (100, −100) nach (−100, −100).",
+     "hinweise": [
+      "Zeichnen Sie zuerst nur die erste Linie: mit `goto` zum Anfang (Stift oben), dann mit Stift unten zum Ende.",
+      "Speichern Sie die Koordinaten in Variablen `x1, y1, x2, y2` und ändern Sie `x1` und `y2` nach jeder Linie."
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-100, -100],
+         [-100, 100]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-90, -100],
+         [-100, 90]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-80, -100],
+         [-100, 80]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-70, -100],
+         [-100, 70]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-60, -100],
+         [-100, 60]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-50, -100],
+         [-100, 50]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-40, -100],
+         [-100, 40]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-30, -100],
+         [-100, 30]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-20, -100],
+         [-100, 20]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-10, -100],
+         [-100, 10]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, -100],
+         [-100, 0]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [10, -100],
+         [-100, -10]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [20, -100],
+         [-100, -20]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [30, -100],
+         [-100, -30]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [40, -100],
+         [-100, -40]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [50, -100],
+         [-100, -50]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [60, -100],
+         [-100, -60]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [70, -100],
+         [-100, -70]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [80, -100],
+         [-100, -80]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [90, -100],
+         [-100, -90]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [100, -100],
+         [-100, -100]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "zielkreise",
+     "titel": "Kreise mit range",
+     "konzepte": [
+      "schleifen"
+     ],
+     "text": "Zeichnen Sie Kreise mit den Radien 20, 40, 60, 80 und 100, alle ab dem Startpunkt. Verwenden Sie `range` mit drei Zahlen (Start, Ende, Schritt), sodass die Schleifenvariable selbst der Radius ist.",
+     "hinweise": [
+      "`for r in range(20, 101, 20):` – das Ende 101 selbst ist nicht dabei."
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [8.1, 1.7],
+         [14.9, 6.6],
+         [19, 13.8],
+         [19.9, 22.1],
+         [17.3, 30],
+         [11.8, 36.2],
+         [4.2, 39.6],
+         [-4.2, 39.6],
+         [-11.8, 36.2],
+         [-17.3, 30],
+         [-19.9, 22.1],
+         [-19, 13.8],
+         [-14.9, 6.6],
+         [-8.1, 1.7],
+         [0, 0],
+         [13.7, 2.4],
+         [25.7, 9.4],
+         [34.6, 20],
+         [39.4, 33.1],
+         [39.4, 46.9],
+         [34.6, 60],
+         [25.7, 70.6],
+         [13.7, 77.6],
+         [0, 80],
+         [-13.7, 77.6],
+         [-25.7, 70.6],
+         [-34.6, 60],
+         [-39.4, 46.9],
+         [-39.4, 33.1],
+         [-34.6, 20],
+         [-25.7, 9.4],
+         [-13.7, 2.4],
+         [0, 0],
+         [16.9, 2.4],
+         [32.4, 9.5],
+         [45.3, 20.7],
+         [54.6, 35.1],
+         [59.4, 51.5],
+         [59.4, 68.5],
+         [54.6, 84.9],
+         [45.3, 99.3],
+         [32.4, 110.5],
+         [16.9, 117.6],
+         [0, 120],
+         [-16.9, 117.6],
+         [-32.4, 110.5],
+         [-45.3, 99.3],
+         [-54.6, 84.9],
+         [-59.4, 68.5],
+         [-59.4, 51.5],
+         [-54.6, 35.1],
+         [-45.3, 20.7],
+         [-32.4, 9.5],
+         [-16.9, 2.4],
+         [0, 0],
+         [19.9, 2.5],
+         [38.5, 9.9],
+         [54.8, 21.7],
+         [67.5, 37.1],
+         [76.1, 55.3],
+         [79.8, 75],
+         [78.6, 95],
+         [72.4, 114.1],
+         [61.6, 131],
+         [47, 144.7],
+         [29.4, 154.4],
+         [10, 159.4],
+         [-10, 159.4],
+         [-29.4, 154.4],
+         [-47, 144.7],
+         [-61.6, 131],
+         [-72.4, 114.1],
+         [-78.6, 95],
+         [-79.8, 75],
+         [-76.1, 55.3],
+         [-67.5, 37.1],
+         [-54.8, 21.7],
+         [-38.5, 9.9],
+         [-19.9, 2.5],
+         [0, 0],
+         [22.3, 2.5],
+         [43.4, 9.9],
+         [62.3, 21.8],
+         [78.2, 37.7],
+         [90.1, 56.6],
+         [97.5, 77.7],
+         [100, 100],
+         [97.5, 122.3],
+         [90.1, 143.4],
+         [78.2, 162.3],
+         [62.3, 178.2],
+         [43.4, 190.1],
+         [22.3, 197.5],
+         [0, 200],
+         [-22.3, 197.5],
+         [-43.4, 190.1],
+         [-62.3, 178.2],
+         [-78.2, 162.3],
+         [-90.1, 143.4],
+         [-97.5, 122.3],
+         [-100, 100],
+         [-97.5, 77.7],
+         [-90.1, 56.6],
+         [-78.2, 37.7],
+         [-62.3, 21.8],
+         [-43.4, 9.9],
+         [-22.3, 2.5],
+         [0, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "verlauf",
+     "titel": "Farbverlauf",
+     "konzepte": [
+      "farben",
+      "schleifen"
+     ],
+     "text": "Zeichnen Sie 10 Punkte mit Durchmesser 40 in einer Reihe, je 40 auseinander, der erste bei (−180, 0). Die Farbe geht von Blau nach Rot: Mit der Schleifenvariable i ist sie `color(25 * i, 0, 255 - 25 * i)`.\n\nGeprüft werden die Orte; schauen Sie selbst, ob der Verlauf stimmt.",
+     "startcode": "from turtle import *\n\npenup()\ngoto(-180, 0)\n",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "punkt",
+        "ort": [-180, 0],
+        "groesse": 40
+       },
+       {
+        "art": "punkt",
+        "ort": [-140, 0],
+        "groesse": 40
+       },
+       {
+        "art": "punkt",
+        "ort": [-100, 0],
+        "groesse": 40
+       },
+       {
+        "art": "punkt",
+        "ort": [-60, 0],
+        "groesse": 40
+       },
+       {
+        "art": "punkt",
+        "ort": [-20, 0],
+        "groesse": 40
+       },
+       {
+        "art": "punkt",
+        "ort": [20, 0],
+        "groesse": 40
+       },
+       {
+        "art": "punkt",
+        "ort": [60, 0],
+        "groesse": 40
+       },
+       {
+        "art": "punkt",
+        "ort": [100, 0],
+        "groesse": 40
+       },
+       {
+        "art": "punkt",
+        "ort": [140, 0],
+        "groesse": 40
+       },
+       {
+        "art": "punkt",
+        "ort": [180, 0],
+        "groesse": 40
+       }
+      ]
+     }
+    },
+    {
+     "id": "spirale-89",
+     "titel": "Drehende Spirale",
+     "zusatz": true,
+     "konzepte": [
+      "variablen"
+     ],
+     "text": "Wie die eckige Spirale, aber mit `left(89)` statt `left(90)`, mit 80 Linien und Längen, die um 4 wachsen (Start bei 4).",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [4, 0],
+         [4.1, 8],
+         [-7.9, 8.4],
+         [-8.7, -7.6],
+         [11.3, -9],
+         [13.4, 15],
+         [-14.5, 17.9],
+         [-18.4, -13.9],
+         [17.3, -18.9],
+         [23.5, 20.6],
+         [-19.8, 28.3],
+         [-29, -18.9],
+         [21.9, -29.7],
+         [34.5, 24.9],
+         [-23.7, 39.4],
+         [-40.3, -22.4],
+         [25.1, -41.2],
+         [46.1, 27.7],
+         [-26.2, 51.2],
+         [-52.2, -24.5],
+         [26.7, -53.2],
+         [58.3, 29],
+         [-27, 63.4],
+         [-64.5, -24.9],
+         [26.8, -65.6],
+         [70.8, 28.6],
+         [-26.3, 76],
+         [-77.2, -23.8],
+         [25.3, -78.3],
+         [83.4, 26.7],
+         [-23.9, 88.7],
+         [-89.9, -21],
+         [22.1, -91],
+         [96.1, 23.1],
+         [-19.9, 101.4],
+         [-102.5, -16.6],
+         [17.2, -103.6],
+         [108.7, 17.8],
+         [-14.2, 113.9],
+         [-114.9, -10.5],
+         [10.7, -115.9],
+         [120.9, 10.9],
+         [-6.9, 126],
+         [-126.9, -2.7],
+         [2.5, -127.8],
+         [132.7, 2.3],
+         [2.1, 137.6],
+         [-138.4, 6.6],
+         [-7.2, -139],
+         [143.7, -7.8],
+         [12.6, 148.4],
+         [-149, 17.6],
+         [-18.5, -149.5],
+         [154, -19.5],
+         [24.7, 158.5],
+         [-158.8, 30],
+         [-31.3, -159],
+         [163.2, -32.7],
+         [38.2, 167.5],
+         [-167.5, 43.9],
+         [-45.5, -167.5],
+         [171.4, -47.2],
+         [53.1, 175.3],
+         [-175, 59.1],
+         [-61.1, -174.6],
+         [178.2, -63.1],
+         [69.2, 181.8],
+         [-181.2, 75.5],
+         [-77.8, -180.4],
+         [183.6, -80.1],
+         [86.5, 186.8],
+         [-185.8, 93],
+         [-95.6, -184.7],
+         [187.5, -98.1],
+         [104.8, 190.3],
+         [-188.9, 111.6],
+         [-114.3, -187.3],
+         [189.7, -117.1],
+         [124, 192],
+         [-190.2, 130.9]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "kreishelix",
+     "titel": "Kreishelix",
+     "zusatz": true,
+     "konzepte": [
+      "schleifen"
+     ],
+     "text": "Zeichnen Sie 36 Kreise mit Radius 60, alle ab dem Startpunkt; nach jedem Kreis dreht die Turtle um 10° nach rechts. Geben Sie jedem Kreis eine andere Farbe.",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [16.9, 2.4],
+         [32.4, 9.5],
+         [45.3, 20.7],
+         [54.6, 35.1],
+         [59.4, 51.5],
+         [59.4, 68.5],
+         [54.6, 84.9],
+         [45.3, 99.3],
+         [32.4, 110.5],
+         [16.9, 117.6],
+         [0, 120],
+         [-16.9, 117.6],
+         [-32.4, 110.5],
+         [-45.3, 99.3],
+         [-54.6, 84.9],
+         [-59.4, 68.5],
+         [-59.4, 51.5],
+         [-54.6, 35.1],
+         [-45.3, 20.7],
+         [-32.4, 9.5],
+         [-16.9, 2.4],
+         [0, 0],
+         [17.1, -0.5],
+         [33.6, 3.7],
+         [48.3, 12.5],
+         [59.8, 25.1],
+         [67.4, 40.4],
+         [70.4, 57.2],
+         [68.5, 74.2],
+         [61.9, 89.9],
+         [51.1, 103.2],
+         [37.1, 112.8],
+         [20.8, 118.2],
+         [3.8, 118.7],
+         [-12.8, 114.4],
+         [-27.4, 105.7],
+         [-39, 93.1],
+         [-46.6, 77.8],
+         [-49.6, 61],
+         [-47.7, 44],
+         [-41.1, 28.3],
+         [-30.3, 15],
+         [-16.2, 5.3],
+         [0, 0],
+         [16.7, -3.5],
+         [33.7, -2.1],
+         [49.7, 4],
+         [63.3, 14.3],
+         [73.4, 28],
+         [79.2, 44.1],
+         [80.3, 61.1],
+         [76.6, 77.8],
+         [68.3, 92.7],
+         [56.1, 104.7],
+         [41, 112.8],
+         [24.3, 116.3],
+         [7.3, 114.9],
+         [-8.7, 108.8],
+         [-22.2, 98.5],
+         [-32.4, 84.7],
+         [-38.2, 68.7],
+         [-39.3, 51.6],
+         [-35.5, 35],
+         [-27.2, 20],
+         [-15.1, 8.1],
+         [0, 0],
+         [15.9, -6.3],
+         [32.9, -8],
+         [49.6, -4.7],
+         [64.8, 3.1],
+         [77.2, 14.9],
+         [85.7, 29.7],
+         [89.7, 46.3],
+         [88.9, 63.3],
+         [83.3, 79.5],
+         [73.4, 93.4],
+         [60, 103.9],
+         [44.1, 110.3],
+         [27.1, 111.9],
+         [10.4, 108.7],
+         [-4.8, 100.8],
+         [-17.2, 89.1],
+         [-25.7, 74.3],
+         [-29.7, 57.7],
+         [-28.9, 40.6],
+         [-23.3, 24.5],
+         [-13.4, 10.6],
+         [0, 0],
+         [14.5, -9],
+         [31, -13.6],
+         [48, -13.3],
+         [64.4, -8.2],
+         [78.6, 1.2],
+         [89.6, 14.3],
+         [96.4, 30],
+         [98.6, 46.9],
+         [95.9, 63.8],
+         [88.5, 79.2],
+         [77.1, 91.9],
+         [62.6, 100.9],
+         [46.2, 105.5],
+         [29.1, 105.2],
+         [12.8, 100.1],
+         [-1.4, 90.7],
+         [-12.4, 77.6],
+         [-19.3, 62],
+         [-21.4, 45],
+         [-18.7, 28.1],
+         [-11.4, 12.7],
+         [0, 0],
+         [12.7, -11.4],
+         [28.1, -18.7],
+         [45, -21.4],
+         [62, -19.3],
+         [77.6, -12.4],
+         [90.7, -1.4],
+         [100.1, 12.8],
+         [105.2, 29.1],
+         [105.5, 46.2],
+         [100.9, 62.6],
+         [91.9, 77.1],
+         [79.2, 88.5],
+         [63.8, 95.9],
+         [46.9, 98.6],
+         [30, 96.4],
+         [14.3, 89.6],
+         [1.2, 78.6],
+         [-8.2, 64.4],
+         [-13.3, 48],
+         [-13.6, 31],
+         [-9, 14.5],
+         [0, 0],
+         [10.6, -13.4],
+         [24.5, -23.3],
+         [40.6, -28.9],
+         [57.7, -29.7],
+         [74.3, -25.7],
+         [89.1, -17.2],
+         [100.8, -4.8],
+         [108.7, 10.4],
+         [111.9, 27.1],
+         [110.3, 44.1],
+         [103.9, 60],
+         [93.4, 73.4],
+         [79.5, 83.3],
+         [63.3, 88.9],
+         [46.3, 89.7],
+         [29.7, 85.7],
+         [14.9, 77.2],
+         [3.1, 64.8],
+         [-4.7, 49.6],
+         [-8, 32.9],
+         [-6.3, 15.9],
+         [0, 0],
+         [8.1, -15.1],
+         [20, -27.2],
+         [35, -35.5],
+         [51.6, -39.3],
+         [68.7, -38.2],
+         [84.7, -32.4],
+         [98.5, -22.2],
+         [108.8, -8.7],
+         [114.9, 7.3],
+         [116.3, 24.3],
+         [112.8, 41],
+         [104.7, 56.1],
+         [92.7, 68.3],
+         [77.8, 76.6],
+         [61.1, 80.3],
+         [44.1, 79.2],
+         [28, 73.4],
+         [14.3, 63.3],
+         [4, 49.7],
+         [-2.1, 33.7],
+         [-3.5, 16.7],
+         [0, 0],
+         [5.3, -16.2],
+         [15, -30.3],
+         [28.3, -41.1],
+         [44, -47.7],
+         [61, -49.6],
+         [77.8, -46.6],
+         [93.1, -39],
+         [105.7, -27.4],
+         [114.4, -12.8],
+         [118.7, 3.8],
+         [118.2, 20.8],
+         [112.8, 37.1],
+         [103.2, 51.1],
+         [89.9, 61.9],
+         [74.2, 68.5],
+         [57.2, 70.4],
+         [40.4, 67.4],
+         [25.1, 59.8],
+         [12.5, 48.3],
+         [3.7, 33.6],
+         [-0.5, 17.1],
+         [0, 0],
+         [2.4, -16.9],
+         [9.5, -32.4],
+         [20.7, -45.3],
+         [35.1, -54.6],
+         [51.5, -59.4],
+         [68.5, -59.4],
+         [84.9, -54.6],
+         [99.3, -45.3],
+         [110.5, -32.4],
+         [117.6, -16.9],
+         [120, 0],
+         [117.6, 16.9],
+         [110.5, 32.4],
+         [99.3, 45.3],
+         [84.9, 54.6],
+         [68.5, 59.4],
+         [51.5, 59.4],
+         [35.1, 54.6],
+         [20.7, 45.3],
+         [9.5, 32.4],
+         [2.4, 16.9],
+         [0, 0],
+         [-0.5, -17.1],
+         [3.7, -33.6],
+         [12.5, -48.3],
+         [25.1, -59.8],
+         [40.4, -67.4],
+         [57.2, -70.4],
+         [74.2, -68.5],
+         [89.9, -61.9],
+         [103.2, -51.1],
+         [112.8, -37.1],
+         [118.2, -20.8],
+         [118.7, -3.8],
+         [114.4, 12.8],
+         [105.7, 27.4],
+         [93.1, 39],
+         [77.8, 46.6],
+         [61, 49.6],
+         [44, 47.7],
+         [28.3, 41.1],
+         [15, 30.3],
+         [5.3, 16.2],
+         [0, 0],
+         [-3.5, -16.7],
+         [-2.1, -33.7],
+         [4, -49.7],
+         [14.3, -63.3],
+         [28, -73.4],
+         [44.1, -79.2],
+         [61.1, -80.3],
+         [77.8, -76.6],
+         [92.7, -68.3],
+         [104.7, -56.1],
+         [112.8, -41],
+         [116.3, -24.3],
+         [114.9, -7.3],
+         [108.8, 8.7],
+         [98.5, 22.2],
+         [84.7, 32.4],
+         [68.7, 38.2],
+         [51.6, 39.3],
+         [35, 35.5],
+         [20, 27.2],
+         [8.1, 15.1],
+         [0, 0],
+         [-6.3, -15.9],
+         [-8, -32.9],
+         [-4.7, -49.6],
+         [3.1, -64.8],
+         [14.9, -77.2],
+         [29.7, -85.7],
+         [46.3, -89.7],
+         [63.3, -88.9],
+         [79.5, -83.3],
+         [93.4, -73.4],
+         [103.9, -60],
+         [110.3, -44.1],
+         [111.9, -27.1],
+         [108.7, -10.4],
+         [100.8, 4.8],
+         [89.1, 17.2],
+         [74.3, 25.7],
+         [57.7, 29.7],
+         [40.6, 28.9],
+         [24.5, 23.3],
+         [10.6, 13.4],
+         [0, 0],
+         [-9, -14.5],
+         [-13.6, -31],
+         [-13.3, -48],
+         [-8.2, -64.4],
+         [1.2, -78.6],
+         [14.3, -89.6],
+         [30, -96.4],
+         [46.9, -98.6],
+         [63.8, -95.9],
+         [79.2, -88.5],
+         [91.9, -77.1],
+         [100.9, -62.6],
+         [105.5, -46.2],
+         [105.2, -29.1],
+         [100.1, -12.8],
+         [90.7, 1.4],
+         [77.6, 12.4],
+         [62, 19.3],
+         [45, 21.4],
+         [28.1, 18.7],
+         [12.7, 11.4],
+         [0, 0],
+         [-11.4, -12.7],
+         [-18.7, -28.1],
+         [-21.4, -45],
+         [-19.3, -62],
+         [-12.4, -77.6],
+         [-1.4, -90.7],
+         [12.8, -100.1],
+         [29.1, -105.2],
+         [46.2, -105.5],
+         [62.6, -100.9],
+         [77.1, -91.9],
+         [88.5, -79.2],
+         [95.9, -63.8],
+         [98.6, -46.9],
+         [96.4, -30],
+         [89.6, -14.3],
+         [78.6, -1.2],
+         [64.4, 8.2],
+         [48, 13.3],
+         [31, 13.6],
+         [14.5, 9],
+         [0, 0],
+         [-13.4, -10.6],
+         [-23.3, -24.5],
+         [-28.9, -40.6],
+         [-29.7, -57.7],
+         [-25.7, -74.3],
+         [-17.2, -89.1],
+         [-4.8, -100.8],
+         [10.4, -108.7],
+         [27.1, -111.9],
+         [44.1, -110.3],
+         [60, -103.9],
+         [73.4, -93.4],
+         [83.3, -79.5],
+         [88.9, -63.3],
+         [89.7, -46.3],
+         [85.7, -29.7],
+         [77.2, -14.9],
+         [64.8, -3.1],
+         [49.6, 4.7],
+         [32.9, 8],
+         [15.9, 6.3],
+         [0, 0],
+         [-15.1, -8.1],
+         [-27.2, -20],
+         [-35.5, -35],
+         [-39.3, -51.6],
+         [-38.2, -68.7],
+         [-32.4, -84.7],
+         [-22.2, -98.5],
+         [-8.7, -108.8],
+         [7.3, -114.9],
+         [24.3, -116.3],
+         [41, -112.8],
+         [56.1, -104.7],
+         [68.3, -92.7],
+         [76.6, -77.8],
+         [80.3, -61.1],
+         [79.2, -44.1],
+         [73.4, -28],
+         [63.3, -14.3],
+         [49.7, -4],
+         [33.7, 2.1],
+         [16.7, 3.5],
+         [0, 0],
+         [-16.2, -5.3],
+         [-30.3, -15],
+         [-41.1, -28.3],
+         [-47.7, -44],
+         [-49.6, -61],
+         [-46.6, -77.8],
+         [-39, -93.1],
+         [-27.4, -105.7],
+         [-12.8, -114.4],
+         [3.8, -118.7],
+         [20.8, -118.2],
+         [37.1, -112.8],
+         [51.1, -103.2],
+         [61.9, -89.9],
+         [68.5, -74.2],
+         [70.4, -57.2],
+         [67.4, -40.4],
+         [59.8, -25.1],
+         [48.3, -12.5],
+         [33.6, -3.7],
+         [17.1, 0.5],
+         [0, 0],
+         [-16.9, -2.4],
+         [-32.4, -9.5],
+         [-45.3, -20.7],
+         [-54.6, -35.1],
+         [-59.4, -51.5],
+         [-59.4, -68.5],
+         [-54.6, -84.9],
+         [-45.3, -99.3],
+         [-32.4, -110.5],
+         [-16.9, -117.6],
+         [0, -120],
+         [16.9, -117.6],
+         [32.4, -110.5],
+         [45.3, -99.3],
+         [54.6, -84.9],
+         [59.4, -68.5],
+         [59.4, -51.5],
+         [54.6, -35.1],
+         [45.3, -20.7],
+         [32.4, -9.5],
+         [16.9, -2.4],
+         [0, 0],
+         [-17.1, 0.5],
+         [-33.6, -3.7],
+         [-48.3, -12.5],
+         [-59.8, -25.1],
+         [-67.4, -40.4],
+         [-70.4, -57.2],
+         [-68.5, -74.2],
+         [-61.9, -89.9],
+         [-51.1, -103.2],
+         [-37.1, -112.8],
+         [-20.8, -118.2],
+         [-3.8, -118.7],
+         [12.8, -114.4],
+         [27.4, -105.7],
+         [39, -93.1],
+         [46.6, -77.8],
+         [49.6, -61],
+         [47.7, -44],
+         [41.1, -28.3],
+         [30.3, -15],
+         [16.2, -5.3],
+         [0, 0],
+         [-16.7, 3.5],
+         [-33.7, 2.1],
+         [-49.7, -4],
+         [-63.3, -14.3],
+         [-73.4, -28],
+         [-79.2, -44.1],
+         [-80.3, -61.1],
+         [-76.6, -77.8],
+         [-68.3, -92.7],
+         [-56.1, -104.7],
+         [-41, -112.8],
+         [-24.3, -116.3],
+         [-7.3, -114.9],
+         [8.7, -108.8],
+         [22.2, -98.5],
+         [32.4, -84.7],
+         [38.2, -68.7],
+         [39.3, -51.6],
+         [35.5, -35],
+         [27.2, -20],
+         [15.1, -8.1],
+         [0, 0],
+         [-15.9, 6.3],
+         [-32.9, 8],
+         [-49.6, 4.7],
+         [-64.8, -3.1],
+         [-77.2, -14.9],
+         [-85.7, -29.7],
+         [-89.7, -46.3],
+         [-88.9, -63.3],
+         [-83.3, -79.5],
+         [-73.4, -93.4],
+         [-60, -103.9],
+         [-44.1, -110.3],
+         [-27.1, -111.9],
+         [-10.4, -108.7],
+         [4.8, -100.8],
+         [17.2, -89.1],
+         [25.7, -74.3],
+         [29.7, -57.7],
+         [28.9, -40.6],
+         [23.3, -24.5],
+         [13.4, -10.6],
+         [0, 0],
+         [-14.5, 9],
+         [-31, 13.6],
+         [-48, 13.3],
+         [-64.4, 8.2],
+         [-78.6, -1.2],
+         [-89.6, -14.3],
+         [-96.4, -30],
+         [-98.6, -46.9],
+         [-95.9, -63.8],
+         [-88.5, -79.2],
+         [-77.1, -91.9],
+         [-62.6, -100.9],
+         [-46.2, -105.5],
+         [-29.1, -105.2],
+         [-12.8, -100.1],
+         [1.4, -90.7],
+         [12.4, -77.6],
+         [19.3, -62],
+         [21.4, -45],
+         [18.7, -28.1],
+         [11.4, -12.7],
+         [0, 0],
+         [-12.7, 11.4],
+         [-28.1, 18.7],
+         [-45, 21.4],
+         [-62, 19.3],
+         [-77.6, 12.4],
+         [-90.7, 1.4],
+         [-100.1, -12.8],
+         [-105.2, -29.1],
+         [-105.5, -46.2],
+         [-100.9, -62.6],
+         [-91.9, -77.1],
+         [-79.2, -88.5],
+         [-63.8, -95.9],
+         [-46.9, -98.6],
+         [-30, -96.4],
+         [-14.3, -89.6],
+         [-1.2, -78.6],
+         [8.2, -64.4],
+         [13.3, -48],
+         [13.6, -31],
+         [9, -14.5],
+         [0, 0],
+         [-10.6, 13.4],
+         [-24.5, 23.3],
+         [-40.6, 28.9],
+         [-57.7, 29.7],
+         [-74.3, 25.7],
+         [-89.1, 17.2],
+         [-100.8, 4.8],
+         [-108.7, -10.4],
+         [-111.9, -27.1],
+         [-110.3, -44.1],
+         [-103.9, -60],
+         [-93.4, -73.4],
+         [-79.5, -83.3],
+         [-63.3, -88.9],
+         [-46.3, -89.7],
+         [-29.7, -85.7],
+         [-14.9, -77.2],
+         [-3.1, -64.8],
+         [4.7, -49.6],
+         [8, -32.9],
+         [6.3, -15.9],
+         [0, 0],
+         [-8.1, 15.1],
+         [-20, 27.2],
+         [-35, 35.5],
+         [-51.6, 39.3],
+         [-68.7, 38.2],
+         [-84.7, 32.4],
+         [-98.5, 22.2],
+         [-108.8, 8.7],
+         [-114.9, -7.3],
+         [-116.3, -24.3],
+         [-112.8, -41],
+         [-104.7, -56.1],
+         [-92.7, -68.3],
+         [-77.8, -76.6],
+         [-61.1, -80.3],
+         [-44.1, -79.2],
+         [-28, -73.4],
+         [-14.3, -63.3],
+         [-4, -49.7],
+         [2.1, -33.7],
+         [3.5, -16.7],
+         [0, 0],
+         [-5.3, 16.2],
+         [-15, 30.3],
+         [-28.3, 41.1],
+         [-44, 47.7],
+         [-61, 49.6],
+         [-77.8, 46.6],
+         [-93.1, 39],
+         [-105.7, 27.4],
+         [-114.4, 12.8],
+         [-118.7, -3.8],
+         [-118.2, -20.8],
+         [-112.8, -37.1],
+         [-103.2, -51.1],
+         [-89.9, -61.9],
+         [-74.2, -68.5],
+         [-57.2, -70.4],
+         [-40.4, -67.4],
+         [-25.1, -59.8],
+         [-12.5, -48.3],
+         [-3.7, -33.6],
+         [0.5, -17.1],
+         [0, 0],
+         [-2.4, 16.9],
+         [-9.5, 32.4],
+         [-20.7, 45.3],
+         [-35.1, 54.6],
+         [-51.5, 59.4],
+         [-68.5, 59.4],
+         [-84.9, 54.6],
+         [-99.3, 45.3],
+         [-110.5, 32.4],
+         [-117.6, 16.9],
+         [-120, 0],
+         [-117.6, -16.9],
+         [-110.5, -32.4],
+         [-99.3, -45.3],
+         [-84.9, -54.6],
+         [-68.5, -59.4],
+         [-51.5, -59.4],
+         [-35.1, -54.6],
+         [-20.7, -45.3],
+         [-9.5, -32.4],
+         [-2.4, -16.9],
+         [0, 0],
+         [0.5, 17.1],
+         [-3.7, 33.6],
+         [-12.5, 48.3],
+         [-25.1, 59.8],
+         [-40.4, 67.4],
+         [-57.2, 70.4],
+         [-74.2, 68.5],
+         [-89.9, 61.9],
+         [-103.2, 51.1],
+         [-112.8, 37.1],
+         [-118.2, 20.8],
+         [-118.7, 3.8],
+         [-114.4, -12.8],
+         [-105.7, -27.4],
+         [-93.1, -39],
+         [-77.8, -46.6],
+         [-61, -49.6],
+         [-44, -47.7],
+         [-28.3, -41.1],
+         [-15, -30.3],
+         [-5.3, -16.2],
+         [0, 0],
+         [3.5, 16.7],
+         [2.1, 33.7],
+         [-4, 49.7],
+         [-14.3, 63.3],
+         [-28, 73.4],
+         [-44.1, 79.2],
+         [-61.1, 80.3],
+         [-77.8, 76.6],
+         [-92.7, 68.3],
+         [-104.7, 56.1],
+         [-112.8, 41],
+         [-116.3, 24.3],
+         [-114.9, 7.3],
+         [-108.8, -8.7],
+         [-98.5, -22.2],
+         [-84.7, -32.4],
+         [-68.7, -38.2],
+         [-51.6, -39.3],
+         [-35, -35.5],
+         [-20, -27.2],
+         [-8.1, -15.1],
+         [0, 0],
+         [6.3, 15.9],
+         [8, 32.9],
+         [4.7, 49.6],
+         [-3.1, 64.8],
+         [-14.9, 77.2],
+         [-29.7, 85.7],
+         [-46.3, 89.7],
+         [-63.3, 88.9],
+         [-79.5, 83.3],
+         [-93.4, 73.4],
+         [-103.9, 60],
+         [-110.3, 44.1],
+         [-111.9, 27.1],
+         [-108.7, 10.4],
+         [-100.8, -4.8],
+         [-89.1, -17.2],
+         [-74.3, -25.7],
+         [-57.7, -29.7],
+         [-40.6, -28.9],
+         [-24.5, -23.3],
+         [-10.6, -13.4],
+         [0, 0],
+         [9, 14.5],
+         [13.6, 31],
+         [13.3, 48],
+         [8.2, 64.4],
+         [-1.2, 78.6],
+         [-14.3, 89.6],
+         [-30, 96.4],
+         [-46.9, 98.6],
+         [-63.8, 95.9],
+         [-79.2, 88.5],
+         [-91.9, 77.1],
+         [-100.9, 62.6],
+         [-105.5, 46.2],
+         [-105.2, 29.1],
+         [-100.1, 12.8],
+         [-90.7, -1.4],
+         [-77.6, -12.4],
+         [-62, -19.3],
+         [-45, -21.4],
+         [-28.1, -18.7],
+         [-12.7, -11.4],
+         [0, 0],
+         [11.4, 12.7],
+         [18.7, 28.1],
+         [21.4, 45],
+         [19.3, 62],
+         [12.4, 77.6],
+         [1.4, 90.7],
+         [-12.8, 100.1],
+         [-29.1, 105.2],
+         [-46.2, 105.5],
+         [-62.6, 100.9],
+         [-77.1, 91.9],
+         [-88.5, 79.2],
+         [-95.9, 63.8],
+         [-98.6, 46.9],
+         [-96.4, 30],
+         [-89.6, 14.3],
+         [-78.6, 1.2],
+         [-64.4, -8.2],
+         [-48, -13.3],
+         [-31, -13.6],
+         [-14.5, -9],
+         [0, 0],
+         [13.4, 10.6],
+         [23.3, 24.5],
+         [28.9, 40.6],
+         [29.7, 57.7],
+         [25.7, 74.3],
+         [17.2, 89.1],
+         [4.8, 100.8],
+         [-10.4, 108.7],
+         [-27.1, 111.9],
+         [-44.1, 110.3],
+         [-60, 103.9],
+         [-73.4, 93.4],
+         [-83.3, 79.5],
+         [-88.9, 63.3],
+         [-89.7, 46.3],
+         [-85.7, 29.7],
+         [-77.2, 14.9],
+         [-64.8, 3.1],
+         [-49.6, -4.7],
+         [-32.9, -8],
+         [-15.9, -6.3],
+         [0, 0],
+         [15.1, 8.1],
+         [27.2, 20],
+         [35.5, 35],
+         [39.3, 51.6],
+         [38.2, 68.7],
+         [32.4, 84.7],
+         [22.2, 98.5],
+         [8.7, 108.8],
+         [-7.3, 114.9],
+         [-24.3, 116.3],
+         [-41, 112.8],
+         [-56.1, 104.7],
+         [-68.3, 92.7],
+         [-76.6, 77.8],
+         [-80.3, 61.1],
+         [-79.2, 44.1],
+         [-73.4, 28],
+         [-63.3, 14.3],
+         [-49.7, 4],
+         [-33.7, -2.1],
+         [-16.7, -3.5],
+         [0, 0],
+         [16.2, 5.3],
+         [30.3, 15],
+         [41.1, 28.3],
+         [47.7, 44],
+         [49.6, 61],
+         [46.6, 77.8],
+         [39, 93.1],
+         [27.4, 105.7],
+         [12.8, 114.4],
+         [-3.8, 118.7],
+         [-20.8, 118.2],
+         [-37.1, 112.8],
+         [-51.1, 103.2],
+         [-61.9, 89.9],
+         [-68.5, 74.2],
+         [-70.4, 57.2],
+         [-67.4, 40.4],
+         [-59.8, 25.1],
+         [-48.3, 12.5],
+         [-33.6, 3.7],
+         [-17.1, -0.5],
+         [0, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "farbquadrat",
+     "titel": "Farbquadrat",
+     "zusatz": true,
+     "konzepte": [
+      "farben",
+      "schleifen"
+     ],
+     "text": "Eine Schleife in der Schleife: Zeichnen Sie 10 × 10 Punkte mit Durchmesser 18, je 20 auseinander, von (−90, −90) bis (90, 90). Die Farbe hängt von der Spalte i und der Zeile j ab: `color(25 * i, 25 * j, 0)`.",
+     "hinweise": [
+      "`for i in range(10):` und darin eingerückt `for j in range(10):`",
+      "Ort des Punkts: `goto(-90 + 20 * i, -90 + 20 * j)`"
+     ],
+     "fragen": [
+      "Welche Farbe hat der Punkt oben rechts? Warum?",
+      "Wie entsteht ein Verlauf von Schwarz zu Weiss?"
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "punkt",
+        "ort": [-90, -90],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-90, -70],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-90, -50],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-90, -30],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-90, -10],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-90, 10],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-90, 30],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-90, 50],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-90, 70],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-90, 90],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-70, -90],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-70, -70],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-70, -50],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-70, -30],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-70, -10],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-70, 10],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-70, 30],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-70, 50],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-70, 70],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-70, 90],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-50, -90],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-50, -70],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-50, -50],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-50, -30],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-50, -10],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-50, 10],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-50, 30],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-50, 50],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-50, 70],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-50, 90],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-30, -90],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-30, -70],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-30, -50],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-30, -30],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-30, -10],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-30, 10],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-30, 30],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-30, 50],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-30, 70],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-30, 90],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-10, -90],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-10, -70],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-10, -50],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-10, -30],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-10, -10],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-10, 10],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-10, 30],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-10, 50],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-10, 70],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [-10, 90],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [10, -90],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [10, -70],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [10, -50],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [10, -30],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [10, -10],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [10, 10],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [10, 30],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [10, 50],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [10, 70],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [10, 90],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [30, -90],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [30, -70],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [30, -50],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [30, -30],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [30, -10],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [30, 10],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [30, 30],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [30, 50],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [30, 70],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [30, 90],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [50, -90],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [50, -70],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [50, -50],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [50, -30],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [50, -10],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [50, 10],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [50, 30],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [50, 50],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [50, 70],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [50, 90],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [70, -90],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [70, -70],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [70, -50],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [70, -30],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [70, -10],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [70, 10],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [70, 30],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [70, 50],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [70, 70],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [70, 90],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [90, -90],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [90, -70],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [90, -50],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [90, -30],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [90, -10],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [90, 10],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [90, 30],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [90, 50],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [90, 70],
+        "groesse": 18
+       },
+       {
+        "art": "punkt",
+        "ort": [90, 90],
+        "groesse": 18
+       }
+      ]
+     }
+    },
+    {
+     "id": "verfolgen",
+     "titel": "Werte verfolgen",
+     "abschnitt": "Konzepte sichern",
+     "konzepte": [
+      "variablen"
+     ],
+     "text": "Schreiben Sie zuerst auf, welche Werte `l` nacheinander hat, und überlegen Sie, was gezeichnet wird. Drücken Sie dann «Start».\n\nÄndern Sie das Programm danach so: 6 Seiten, die erste ist 30 lang, jede weitere 30 länger.",
+     "startcode": "from turtle import *\n\nl = 20\nfor i in range(4):\n    forward(l)\n    left(90)\n    l = l + 20\n",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [30, 0],
+         [30, 60],
+         [-60, 60],
+         [-60, -60],
+         [90, -60],
+         [90, 120]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "zaehlen",
+     "titel": "Was zählt range?",
+     "konzepte": [
+      "schleifen"
+     ],
+     "text": "Überlegen Sie zu jeder Zeile, welche Zahlen sie ausgibt. Kontrollieren Sie dann mit «Start». Haken Sie die Aufgabe ab, wenn Sie alle richtig vorhergesagt haben.",
+     "startcode": "for i in range(5):\n    print(i)\n\nprint(\"---\")\nfor i in range(3, 12, 3):\n    print(i)\n\nprint(\"---\")\nfor i in range(10, 0, -2):\n    print(i)\n\nprint(\"---\")\nsumme = 0\nfor i in range(1, 5):\n    summe = summe + i\nprint(summe)\n"
+    },
+    {
+     "id": "wachsende-quadrate",
+     "titel": "Wachsende Quadrate",
+     "konzepte": [
+      "funktionen",
+      "schleifen"
+     ],
+     "text": "Verwenden Sie den Befehl `quadrat(seite)` in einer Schleife: Quadrate mit den Seiten 20, 40, … bis 200, alle ab dem Startpunkt.",
+     "startcode": "from turtle import *\n\ndef quadrat(seite):\n    for i in range(4):\n        forward(seite)\n        left(90)\n\n",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [20, 0],
+         [20, 20],
+         [0, 20],
+         [0, 0],
+         [40, 0],
+         [40, 40],
+         [0, 40],
+         [0, 0],
+         [60, 0],
+         [60, 60],
+         [0, 60],
+         [0, 0],
+         [80, 0],
+         [80, 80],
+         [0, 80],
+         [0, 0],
+         [100, 0],
+         [100, 100],
+         [0, 100],
+         [0, 0],
+         [120, 0],
+         [120, 120],
+         [0, 120],
+         [0, 0],
+         [140, 0],
+         [140, 140],
+         [0, 140],
+         [0, 0],
+         [160, 0],
+         [160, 160],
+         [0, 160],
+         [0, 0],
+         [180, 0],
+         [180, 180],
+         [0, 180],
+         [0, 0],
+         [200, 0],
+         [200, 200],
+         [0, 200],
+         [0, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "dreiecksspirale",
+     "titel": "Dreiecksspirale",
+     "abschnitt": "Lernkontrolle",
+     "kontrolle": true,
+     "text": "Zeichnen Sie 30 Linien: Die erste ist 10 lang, jede weitere 8 länger, nach jeder Linie dreht die Turtle um 120° nach links.",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [10, 0],
+         [1, 15.6],
+         [-12, -6.9],
+         [22, -6.9],
+         [1, 29.4],
+         [-24, -13.9],
+         [34, -13.9],
+         [1, 43.3],
+         [-36, -20.8],
+         [46, -20.8],
+         [1, 57.2],
+         [-48, -27.7],
+         [58, -27.7],
+         [1, 71],
+         [-60, -34.6],
+         [70, -34.6],
+         [1, 84.9],
+         [-72, -41.6],
+         [82, -41.6],
+         [1, 98.7],
+         [-84, -48.5],
+         [94, -48.5],
+         [1, 112.6],
+         [-96, -55.4],
+         [106, -55.4],
+         [1, 126.4],
+         [-108, -62.4],
+         [118, -62.4],
+         [1, 140.3],
+         [-120, -69.3]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "faecher",
+     "titel": "Fächer",
+     "kontrolle": true,
+     "text": "Zeichnen Sie 10 Strahlen ab dem Startpunkt. Der erste ist 50 lang und zeigt nach rechts, jeder weitere ist 10 länger und um 9° weiter nach links gedreht.",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [50, 0],
+         [0, 0],
+         [59.3, 9.4],
+         [0, 0],
+         [66.6, 21.6],
+         [0, 0],
+         [71.3, 36.3],
+         [0, 0],
+         [72.8, 52.9],
+         [0, 0],
+         [70.7, 70.7],
+         [0, 0],
+         [64.7, 89],
+         [0, 0],
+         [54.5, 106.9],
+         [0, 0],
+         [40.2, 123.6],
+         [0, 0],
+         [21.9, 138.3],
+         [0, 0]
+        ]
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "entscheiden",
+   "titel": "5 · Entscheiden",
+   "untertitel": "if und else, Vergleiche, Modulo, Zufall bei Orten (ca. 2–3 Lektionen)",
+   "aufgaben": [
+    {
+     "id": "treppe-lesen",
+     "titel": "Treppe",
+     "abschnitt": "Entdecken",
+     "vorhersage": true,
+     "konzepte": [
+      "verzweigungen",
+      "modulo"
+     ],
+     "text": "Hier entscheidet das Programm bei jedem Durchlauf, ob die Turtle nach rechts oder nach links dreht.",
+     "fragen": [
+      "Was bedeutet `i % 2`? Welche Werte hat es nacheinander?",
+      "Wieso steht in der Bedingung ein doppeltes Gleichheitszeichen?",
+      "Welche Figur wird gezeichnet? Was bewirken die auskommentierten Zeilen?",
+      "Welche Figur ergibt sich mit `i % 2 == 1`?",
+      "Und mit `i % 3 == 0`, `i % 4 == 0` und `i % 6 == 0`?"
+     ],
+     "startcode": "from turtle import *\n\npensize(5)\n#speed(0)\n#left(45)\nfor i in range(10):\n    if i % 2 == 0:\n        right(90)\n    else:\n        left(90)\n    forward(30)\n"
+    },
+    {
+     "id": "treppe-farben",
+     "titel": "Waagrecht und senkrecht",
+     "weiterVon": "treppe-lesen",
+     "konzepte": [
+      "verzweigungen"
+     ],
+     "text": "Ändern Sie die Treppe so, dass alle waagrechten Striche blau (`\"blue\"`) und alle senkrechten rot (`\"red\"`) sind. Lassen Sie `#left(45)` auskommentiert.",
+     "hinweise": [
+      "Die Farbe hängt auch von `i` ab. Sie lässt sich gleich im `if` bzw. `else` setzen."
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [0, -30]
+        ],
+        "farbe": "#ff0000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, -30],
+         [30, -30]
+        ],
+        "farbe": "#0000ff"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [30, -30],
+         [30, -60]
+        ],
+        "farbe": "#ff0000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [30, -60],
+         [60, -60]
+        ],
+        "farbe": "#0000ff"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [60, -60],
+         [60, -90]
+        ],
+        "farbe": "#ff0000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [60, -90],
+         [90, -90]
+        ],
+        "farbe": "#0000ff"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [90, -90],
+         [90, -120]
+        ],
+        "farbe": "#ff0000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [90, -120],
+         [120, -120]
+        ],
+        "farbe": "#0000ff"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [120, -120],
+         [120, -150]
+        ],
+        "farbe": "#ff0000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [120, -150],
+         [150, -150]
+        ],
+        "farbe": "#0000ff"
+       }
+      ]
+     }
+    },
+    {
+     "id": "treppe-quadrate",
+     "titel": "Quadrate mit Modulo",
+     "weiterVon": "treppe-farben",
+     "konzepte": [
+      "modulo"
+     ],
+     "text": "Verwenden Sie die Bedingung `i % 6 == 0` und lassen Sie 30 Striche zeichnen. Welche Figur entsteht? (Die Farben dürfen Sie frei wählen.)",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [0, -30],
+         [30, -30],
+         [30, 0],
+         [0, 0],
+         [0, -30],
+         [30, -30],
+         [30, -60],
+         [60, -60],
+         [60, -30],
+         [30, -30],
+         [30, -60],
+         [60, -60],
+         [60, -90],
+         [90, -90],
+         [90, -60],
+         [60, -60],
+         [60, -90],
+         [90, -90],
+         [90, -120],
+         [120, -120],
+         [120, -90],
+         [90, -90],
+         [90, -120],
+         [120, -120],
+         [120, -150],
+         [150, -150],
+         [150, -120],
+         [120, -120],
+         [120, -150],
+         [150, -150]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "zufallsweg",
+     "titel": "Zufallsweg",
+     "vorhersage": true,
+     "konzepte": [
+      "zufall",
+      "verzweigungen"
+     ],
+     "text": "Die Turtle läuft ziellos herum. Lesen Sie das Programm und überlegen Sie, was die Verzweigung bewirkt. Starten Sie es mehrmals.",
+     "fragen": [
+      "Nach welcher Regel entsteht die Zeichnung?",
+      "Was bewirkt die Verzweigung? Was passiert ohne sie?",
+      "Was bedeutet `abs(xcor())`?",
+      "Ändern Sie das Programm so, dass statt eines Strichs bei jedem Schritt ein Punkt mit Durchmesser 10 in zufälliger Farbe gezeichnet wird."
+     ],
+     "startcode": "from turtle import *\nfrom random import *\n\nspeed(0)\nfor i in range(300):\n    forward(10)\n    left(randint(-90, 90))\n    if abs(xcor()) > 240 or abs(ycor()) > 240:\n        penup()\n        goto(0, 0)\n        pendown()\n"
+    },
+    {
+     "id": "links-rechts",
+     "titel": "Links rot, rechts blau",
+     "konzepte": [
+      "verzweigungen"
+     ],
+     "text": "Zeichnen Sie 11 Punkte mit Durchmesser 20 bei x = −200, −160, … bis 200 (y = 0). Punkte links der Mitte (x < 0) sind rot, der Punkt in der Mitte schwarz, Punkte rechts blau. Verwenden Sie `\"red\"`, `\"black\"` und `\"blue\"`.",
+     "startcode": "from turtle import *\n\npenup()\nfor i in range(11):\n    x = -200 + 40 * i\n    goto(x, 0)\n    dot(20)\n",
+     "hinweise": [
+      "`if x < 0:` … `elif x == 0:` … `else:`"
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "punkt",
+        "ort": [-200, 0],
+        "groesse": 20,
+        "farbe": "#ff0000"
+       },
+       {
+        "art": "punkt",
+        "ort": [-160, 0],
+        "groesse": 20,
+        "farbe": "#ff0000"
+       },
+       {
+        "art": "punkt",
+        "ort": [-120, 0],
+        "groesse": 20,
+        "farbe": "#ff0000"
+       },
+       {
+        "art": "punkt",
+        "ort": [-80, 0],
+        "groesse": 20,
+        "farbe": "#ff0000"
+       },
+       {
+        "art": "punkt",
+        "ort": [-40, 0],
+        "groesse": 20,
+        "farbe": "#ff0000"
+       },
+       {
+        "art": "punkt",
+        "ort": [0, 0],
+        "groesse": 20,
+        "farbe": "#000000"
+       },
+       {
+        "art": "punkt",
+        "ort": [40, 0],
+        "groesse": 20,
+        "farbe": "#0000ff"
+       },
+       {
+        "art": "punkt",
+        "ort": [80, 0],
+        "groesse": 20,
+        "farbe": "#0000ff"
+       },
+       {
+        "art": "punkt",
+        "ort": [120, 0],
+        "groesse": 20,
+        "farbe": "#0000ff"
+       },
+       {
+        "art": "punkt",
+        "ort": [160, 0],
+        "groesse": 20,
+        "farbe": "#0000ff"
+       },
+       {
+        "art": "punkt",
+        "ort": [200, 0],
+        "groesse": 20,
+        "farbe": "#0000ff"
+       }
+      ]
+     }
+    },
+    {
+     "id": "schachbrett",
+     "titel": "Schachbrett",
+     "zusatz": true,
+     "konzepte": [
+      "verzweigungen",
+      "modulo",
+      "funktionen"
+     ],
+     "text": "Zeichnen Sie ein Schachbrett mit 8 × 8 Feldern zu 40 von (−160, −160) bis (160, 160). Ein Feld ist schwarz gefüllt (`\"black\"`), wenn Zeile plus Spalte gerade ist; die anderen bleiben weiss.",
+     "hinweise": [
+      "Zwei Schleifen ineinander: Spalte i und Zeile j.",
+      "Ecke des Felds: (−160 + 40 · i, −160 + 40 · j). Schwarz, wenn `(i + j) % 2 == 0`."
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-160, -160],
+         [-120, -160],
+         [-120, -120],
+         [-160, -120],
+         [-160, -160]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-160, -80],
+         [-120, -80],
+         [-120, -40],
+         [-160, -40],
+         [-160, -80]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-160, 0],
+         [-120, 0],
+         [-120, 40],
+         [-160, 40],
+         [-160, 0]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-160, 80],
+         [-120, 80],
+         [-120, 120],
+         [-160, 120],
+         [-160, 80]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-120, -120],
+         [-120, -120]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-120, -40],
+         [-80, -40],
+         [-80, 0],
+         [-120, 0],
+         [-120, -40]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-120, 40],
+         [-80, 40],
+         [-80, 80],
+         [-120, 80],
+         [-120, 40]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-120, 120],
+         [-120, 120]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-80, -160],
+         [-80, -160]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-80, -80],
+         [-80, -80]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-80, 0],
+         [-40, 0],
+         [-40, 40],
+         [-80, 40],
+         [-80, 0]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-80, 80],
+         [-40, 80],
+         [-40, 120],
+         [-80, 120],
+         [-80, 80]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-40, -120],
+         [-40, -120]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-40, -40],
+         [0, -40],
+         [0, 0],
+         [-40, 0],
+         [-40, -40]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-40, 40],
+         [0, 40],
+         [0, 80],
+         [-40, 80],
+         [-40, 40]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-40, 120],
+         [-40, 120]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, -160],
+         [40, -160],
+         [40, -120],
+         [0, -120],
+         [0, -160]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, -80],
+         [40, -80],
+         [40, -40],
+         [0, -40],
+         [0, -80]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [40, 0],
+         [40, 40],
+         [0, 40],
+         [0, 0]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 80],
+         [40, 80],
+         [40, 120],
+         [0, 120],
+         [0, 80]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [40, -120],
+         [40, -120]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [40, -40],
+         [80, -40],
+         [80, 0],
+         [40, 0],
+         [40, -40]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [40, 40],
+         [80, 40],
+         [80, 80],
+         [40, 80],
+         [40, 40]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [40, 120],
+         [40, 120]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [80, -160],
+         [80, -160]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [80, -80],
+         [80, -80]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [80, 0],
+         [120, 0],
+         [120, 40],
+         [80, 40],
+         [80, 0]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [80, 80],
+         [120, 80],
+         [120, 120],
+         [80, 120],
+         [80, 80]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [120, -120],
+         [120, -120]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [120, -40],
+         [160, -40],
+         [160, 0],
+         [120, 0],
+         [120, -40]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [120, 40],
+         [160, 40],
+         [160, 80],
+         [120, 80],
+         [120, 40]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [120, 120],
+         [120, 120]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [-160, -160],
+         [-120, -160],
+         [-120, -120],
+         [-160, -120]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [-160, -80],
+         [-120, -80],
+         [-120, -40],
+         [-160, -40]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [-160, 0],
+         [-120, 0],
+         [-120, 40],
+         [-160, 40]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [-160, 80],
+         [-120, 80],
+         [-120, 120],
+         [-160, 120]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [-120, -120],
+         [-80, -120],
+         [-80, -80],
+         [-120, -80]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [-120, -40],
+         [-80, -40],
+         [-80, 0],
+         [-120, 0]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [-120, 40],
+         [-80, 40],
+         [-80, 80],
+         [-120, 80]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [-120, 120],
+         [-80, 120],
+         [-80, 160],
+         [-120, 160]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [-80, -160],
+         [-40, -160],
+         [-40, -120],
+         [-80, -120]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [-80, -80],
+         [-40, -80],
+         [-40, -40],
+         [-80, -40]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [-80, 0],
+         [-40, 0],
+         [-40, 40],
+         [-80, 40]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [-80, 80],
+         [-40, 80],
+         [-40, 120],
+         [-80, 120]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [-40, -120],
+         [0, -120],
+         [0, -80],
+         [-40, -80]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [-40, -40],
+         [0, -40],
+         [0, 0],
+         [-40, 0]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [-40, 40],
+         [0, 40],
+         [0, 80],
+         [-40, 80]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [-40, 120],
+         [0, 120],
+         [0, 160],
+         [-40, 160]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [0, -160],
+         [40, -160],
+         [40, -120],
+         [0, -120]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [0, -80],
+         [40, -80],
+         [40, -40],
+         [0, -40]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [0, 0],
+         [40, 0],
+         [40, 40],
+         [0, 40]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [0, 80],
+         [40, 80],
+         [40, 120],
+         [0, 120]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [40, -120],
+         [80, -120],
+         [80, -80],
+         [40, -80]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [40, -40],
+         [80, -40],
+         [80, 0],
+         [40, 0]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [40, 40],
+         [80, 40],
+         [80, 80],
+         [40, 80]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [40, 120],
+         [80, 120],
+         [80, 160],
+         [40, 160]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [80, -160],
+         [120, -160],
+         [120, -120],
+         [80, -120]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [80, -80],
+         [120, -80],
+         [120, -40],
+         [80, -40]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [80, 0],
+         [120, 0],
+         [120, 40],
+         [80, 40]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [80, 80],
+         [120, 80],
+         [120, 120],
+         [80, 120]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [120, -120],
+         [160, -120],
+         [160, -80],
+         [120, -80]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [120, -40],
+         [160, -40],
+         [160, 0],
+         [120, 0]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [120, 40],
+         [160, 40],
+         [160, 80],
+         [120, 80]
+        ],
+        "farbe": "#000000"
+       },
+       {
+        "art": "flaeche",
+        "punkte": [
+         [120, 120],
+         [160, 120],
+         [160, 160],
+         [120, 160]
+        ],
+        "farbe": "#000000"
+       }
+      ]
+     }
+    },
+    {
+     "id": "zufallspunkte",
+     "titel": "Zufallspunkte",
+     "zusatz": true,
+     "konzepte": [
+      "zufall",
+      "verzweigungen"
+     ],
+     "text": "Zeichnen Sie 200 Punkte an zufälligen Orten im Feld. Punkte in der oberen Hälfte (y > 0) sind hell, in der unteren dunkel. Wer mag: Punkte innerhalb eines Kreises mit Radius 150 um (0, 0) bekommen eine dritte Farbe (`distance(0, 0)`).",
+     "checkliste": [
+      "200 Punkte an zufälligen Orten.",
+      "Die Farbe hängt vom Ort ab."
+     ]
+    },
+    {
+     "id": "gleich",
+     "titel": "= oder ==",
+     "abschnitt": "Konzepte sichern",
+     "konzepte": [
+      "verzweigungen",
+      "modulo"
+     ],
+     "text": "Das Programm soll eine gestrichelte Linie zeichnen: abwechselnd 20 mit Stift unten und 20 mit Stift oben, insgesamt 10 Stücke. Es enthält einen Fehler. Korrigieren Sie ihn.",
+     "startcode": "from turtle import *\n\nfor i in range(10):\n    if i % 2 = 0:\n        pendown()\n    else:\n        penup()\n    forward(20)\n",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [20, 0]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [40, 0],
+         [60, 0]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [80, 0],
+         [100, 0]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [120, 0],
+         [140, 0]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [160, 0],
+         [180, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "drei-farben",
+     "titel": "Drei Farben im Wechsel",
+     "konzepte": [
+      "verzweigungen",
+      "modulo"
+     ],
+     "text": "Zeichnen Sie 9 Punkte mit Durchmesser 30 in einer Reihe nach rechts, je 40 auseinander, ab (0, 0). Die Farben wechseln: rot, grün, blau, rot, grün, blau … (`\"red\"`, `\"green\"`, `\"blue\"`).",
+     "hinweise": [
+      "`i % 3` hat nacheinander die Werte 0, 1, 2, 0, 1, 2 …"
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "punkt",
+        "ort": [0, 0],
+        "groesse": 30,
+        "farbe": "#ff0000"
+       },
+       {
+        "art": "punkt",
+        "ort": [40, 0],
+        "groesse": 30,
+        "farbe": "#008000"
+       },
+       {
+        "art": "punkt",
+        "ort": [80, 0],
+        "groesse": 30,
+        "farbe": "#0000ff"
+       },
+       {
+        "art": "punkt",
+        "ort": [120, 0],
+        "groesse": 30,
+        "farbe": "#ff0000"
+       },
+       {
+        "art": "punkt",
+        "ort": [160, 0],
+        "groesse": 30,
+        "farbe": "#008000"
+       },
+       {
+        "art": "punkt",
+        "ort": [200, 0],
+        "groesse": 30,
+        "farbe": "#0000ff"
+       },
+       {
+        "art": "punkt",
+        "ort": [240, 0],
+        "groesse": 30,
+        "farbe": "#ff0000"
+       },
+       {
+        "art": "punkt",
+        "ort": [280, 0],
+        "groesse": 30,
+        "farbe": "#008000"
+       },
+       {
+        "art": "punkt",
+        "ort": [320, 0],
+        "groesse": 30,
+        "farbe": "#0000ff"
+       }
+      ]
+     }
+    },
+    {
+     "id": "jeder-dritte",
+     "titel": "Jeder dritte Strahl",
+     "konzepte": [
+      "verzweigungen",
+      "modulo"
+     ],
+     "text": "Zeichnen Sie 12 Strahlen ab dem Startpunkt, gleichmässig verteilt (nach jedem Strahl `right(30)`). Jeder dritte Strahl, beginnend mit dem ersten, ist 100 lang, die anderen 50.",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [100, 0],
+         [0, 0],
+         [43.3, -25],
+         [0, 0],
+         [25, -43.3],
+         [0, 0],
+         [0, -100],
+         [0, 0],
+         [-25, -43.3],
+         [0, 0],
+         [-43.3, -25],
+         [0, 0],
+         [-100, 0],
+         [0, 0],
+         [-43.3, 25],
+         [0, 0],
+         [-25, 43.3],
+         [0, 0],
+         [0, 100],
+         [0, 0],
+         [25, 43.3],
+         [0, 0],
+         [43.3, 25],
+         [0, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "zaun",
+     "titel": "Gartenzaun",
+     "abschnitt": "Lernkontrolle",
+     "kontrolle": true,
+     "text": "Zeichnen Sie einen Zaun aus 11 senkrechten Latten, die bei y = 0 beginnen: bei x = −200, −160, … bis 200. Jede Latte ist 60 hoch, jede fünfte (die erste, sechste, elfte) 90.",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-200, 0],
+         [-200, 90]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-160, 0],
+         [-160, 60]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-120, 0],
+         [-120, 60]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-80, 0],
+         [-80, 60]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-40, 0],
+         [-40, 60]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [0, 90]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [40, 0],
+         [40, 60]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [80, 0],
+         [80, 60]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [120, 0],
+         [120, 60]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [160, 0],
+         [160, 60]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [200, 0],
+         [200, 90]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "kreis-quadrat",
+     "titel": "Kreis, Quadrat, Kreis …",
+     "kontrolle": true,
+     "text": "Zeichnen Sie 6 Figuren nebeneinander. Die Figur Nummer i (ab 0) beginnt bei (−220 + 80 · i, 0) und schaut nach rechts. Bei geradem i ist es ein Kreis mit Radius 25 (`circle(25)`), sonst ein Quadrat mit Seite 50 (Drehung nach links).",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-220, 0],
+         [-210.4, 1.9],
+         [-202.3, 7.3],
+         [-196.9, 15.4],
+         [-195, 25],
+         [-196.9, 34.6],
+         [-202.3, 42.7],
+         [-210.4, 48.1],
+         [-220, 50],
+         [-229.6, 48.1],
+         [-237.7, 42.7],
+         [-243.1, 34.6],
+         [-245, 25],
+         [-243.1, 15.4],
+         [-237.7, 7.3],
+         [-229.6, 1.9],
+         [-220, 0]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-140, 0],
+         [-90, 0],
+         [-90, 50],
+         [-140, 50],
+         [-140, 0]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-60, 0],
+         [-50.4, 1.9],
+         [-42.3, 7.3],
+         [-36.9, 15.4],
+         [-35, 25],
+         [-36.9, 34.6],
+         [-42.3, 42.7],
+         [-50.4, 48.1],
+         [-60, 50],
+         [-69.6, 48.1],
+         [-77.7, 42.7],
+         [-83.1, 34.6],
+         [-85, 25],
+         [-83.1, 15.4],
+         [-77.7, 7.3],
+         [-69.6, 1.9],
+         [-60, 0]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [20, 0],
+         [70, 0],
+         [70, 50],
+         [20, 50],
+         [20, 0]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [100, 0],
+         [109.6, 1.9],
+         [117.7, 7.3],
+         [123.1, 15.4],
+         [125, 25],
+         [123.1, 34.6],
+         [117.7, 42.7],
+         [109.6, 48.1],
+         [100, 50],
+         [90.4, 48.1],
+         [82.3, 42.7],
+         [76.9, 34.6],
+         [75, 25],
+         [76.9, 15.4],
+         [82.3, 7.3],
+         [90.4, 1.9],
+         [100, 0]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [180, 0],
+         [230, 0],
+         [230, 50],
+         [180, 50],
+         [180, 0]
+        ]
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "spielbausteine",
+   "titel": "6 · Spielbausteine",
+   "untertitel": "Mehrere Turtles, Tasten, Timer, Listen und global (ca. 2 Lektionen)",
+   "aufgaben": [
+    {
+     "id": "zwei-turtles",
+     "titel": "Zwei Turtles",
+     "abschnitt": "Entdecken",
+     "vorhersage": true,
+     "konzepte": [
+      "objekte"
+     ],
+     "text": "Bisher gab es nur eine Turtle. Mit `Turtle()` entstehen weitere, jede mit eigenem Namen. Überlegen Sie zuerst, was die beiden zeichnen.",
+     "fragen": [
+      "Wie sagt man einer bestimmten Turtle, was sie tun soll?",
+      "Warum zeichnen die beiden ihre Quadrate gleichzeitig?",
+      "Was geben `anna.pos()` und `anna.distance(ben)` aus?",
+      "Fügen Sie eine dritte Turtle `cleo` hinzu, die einen Kreis zeichnet."
+     ],
+     "startcode": "from turtle import *\n\nanna = Turtle()\nben = Turtle()\nanna.color(\"red\")\nben.color(\"blue\")\nanna.shape(\"turtle\")\nben.shape(\"turtle\")\n\nben.penup()\nben.goto(0, -100)\nben.pendown()\n\nfor i in range(4):\n    anna.forward(80)\n    anna.left(90)\n    ben.forward(80)\n    ben.right(90)\n\nprint(anna.pos(), ben.pos())\nprint(anna.distance(ben))\n"
+    },
+    {
+     "id": "tasten",
+     "titel": "Mit Tasten steuern",
+     "konzepte": [
+      "ereignisse",
+      "funktionen"
+     ],
+     "text": "Starten Sie das Programm und steuern Sie die Turtle mit den Pfeiltasten. Das Programm ist nach dem Start schon «fertig», wartet aber auf Tasten (siehe Zeile unter «Start»). Während es wartet, hält «Pause» es an; «Zurücksetzen» beendet es.\n\nErweitern Sie es: Mit «Down» geht die Turtle 20 zurück, mit der Leertaste (`\"space\"`) wechselt sie die Farbe.",
+     "fragen": [
+      "Warum steht bei `onkey(nach_links, \"Left\")` hinter `nach_links` keine Klammer?",
+      "Was passiert ohne `listen()`?"
+     ],
+     "startcode": "from turtle import *\n\nshape(\"turtle\")\n\ndef nach_links():\n    left(30)\n\ndef nach_rechts():\n    right(30)\n\ndef vor():\n    forward(20)\n\nonkey(nach_links, \"Left\")\nonkey(nach_rechts, \"Right\")\nonkey(vor, \"Up\")\nlisten()\n",
+     "checkliste": [
+      "Pfeil nach unten: zurück.",
+      "Leertaste: andere Farbe (gerne zufällig)."
+     ]
+    },
+    {
+     "id": "im-takt",
+     "titel": "Im Takt",
+     "konzepte": [
+      "ereignisse"
+     ],
+     "text": "Hier ruft sich `schritt()` über `ontimer` alle 50 Millisekunden selbst wieder auf. So bewegt sich die Turtle von allein.\n\nErweitern Sie das Programm: Verlässt die Turtle das Feld rechts (x > 250), erscheint sie links wieder (x = −250). Steuern Sie sie zusätzlich mit den Pfeiltasten wie in der letzten Aufgabe.",
+     "fragen": [
+      "Was passiert, wenn Sie 50 durch 200 ersetzen?",
+      "Was passiert, wenn die Zeile mit `ontimer` fehlt?"
+     ],
+     "startcode": "from turtle import *\n\nshape(\"turtle\")\npenup()\n\ndef schritt():\n    forward(5)\n    ontimer(schritt, 50)\n\nschritt()\n",
+     "checkliste": [
+      "Die Turtle läuft von allein.",
+      "Rechts hinaus, links wieder herein (`setx`).",
+      "Mit den Pfeiltasten lenkbar."
+     ]
+    },
+    {
+     "id": "farbliste",
+     "titel": "Farben aus einer Liste",
+     "konzepte": [
+      "listen"
+     ],
+     "text": "Eine Liste speichert mehrere Werte. Zeichnen Sie für jede Farbe der Liste einen Punkt mit Durchmesser 40, in einer Reihe nach rechts, je 50 auseinander, ab (−150, 0). Die Reihenfolge ist die der Liste.",
+     "startcode": "from turtle import *\n\nfarben = [\"red\", \"orange\", \"yellow\", \"green\", \"blue\", \"purple\", \"pink\"]\n\npenup()\ngoto(-150, 0)\nprint(farben[0], len(farben))\n",
+     "hinweise": [
+      "`for f in farben:` – f ist der Reihe nach jede Farbe.",
+      "`dot(40, f)`"
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "punkt",
+        "ort": [-150, 0],
+        "groesse": 40,
+        "farbe": "#ff0000"
+       },
+       {
+        "art": "punkt",
+        "ort": [-100, 0],
+        "groesse": 40,
+        "farbe": "#ffa500"
+       },
+       {
+        "art": "punkt",
+        "ort": [-50, 0],
+        "groesse": 40,
+        "farbe": "#ffff00"
+       },
+       {
+        "art": "punkt",
+        "ort": [0, 0],
+        "groesse": 40,
+        "farbe": "#008000"
+       },
+       {
+        "art": "punkt",
+        "ort": [50, 0],
+        "groesse": 40,
+        "farbe": "#0000ff"
+       },
+       {
+        "art": "punkt",
+        "ort": [100, 0],
+        "groesse": 40,
+        "farbe": "#800080"
+       },
+       {
+        "art": "punkt",
+        "ort": [150, 0],
+        "groesse": 40,
+        "farbe": "#ffc0cb"
+       }
+      ]
+     }
+    },
+    {
+     "id": "regenbogen",
+     "titel": "Regenbogen",
+     "zusatz": true,
+     "konzepte": [
+      "listen"
+     ],
+     "text": "Zeichnen Sie einen Regenbogen aus Punkten, alle mit der Mitte bei (0, −200): zuerst ein roter mit Durchmesser 640, dann jeder weitere 40 kleiner in den Farben `\"red\"`, `\"orange\"`, `\"yellow\"`, `\"green\"`, `\"blue\"`, `\"indigo\"`, `\"violet\"` und zuletzt ein weisser (`\"white\"`).",
+     "hinweise": [
+      "Die Farben in eine Liste, dann eine Schleife. Der Durchmesser lässt sich mit dem Index berechnen: `640 - 40 * i`."
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "punkt",
+        "ort": [0, -200],
+        "groesse": 640,
+        "farbe": "#ff0000"
+       },
+       {
+        "art": "punkt",
+        "ort": [0, -200],
+        "groesse": 600,
+        "farbe": "#ffa500"
+       },
+       {
+        "art": "punkt",
+        "ort": [0, -200],
+        "groesse": 560,
+        "farbe": "#ffff00"
+       },
+       {
+        "art": "punkt",
+        "ort": [0, -200],
+        "groesse": 520,
+        "farbe": "#008000"
+       },
+       {
+        "art": "punkt",
+        "ort": [0, -200],
+        "groesse": 480,
+        "farbe": "#0000ff"
+       },
+       {
+        "art": "punkt",
+        "ort": [0, -200],
+        "groesse": 440,
+        "farbe": "#4b0082"
+       },
+       {
+        "art": "punkt",
+        "ort": [0, -200],
+        "groesse": 400,
+        "farbe": "#ee82ee"
+       },
+       {
+        "art": "punkt",
+        "ort": [0, -200],
+        "groesse": 360,
+        "farbe": "#ffffff"
+       }
+      ]
+     }
+    },
+    {
+     "id": "global",
+     "titel": "global",
+     "abschnitt": "Konzepte sichern",
+     "konzepte": [
+      "ereignisse",
+      "variablen"
+     ],
+     "text": "`schritt()` soll bei jedem Aufruf `laenge` um 10 vergrössern und dann eine Linie zeichnen. Es meldet aber einen Fehler. Lesen Sie die Fehlermeldung und korrigieren Sie das Programm mit einer einzigen neuen Zeile.",
+     "startcode": "from turtle import *\n\nlaenge = 0\n\ndef schritt():\n    laenge = laenge + 10\n    forward(laenge)\n    left(90)\n\nfor i in range(12):\n    schritt()\n",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [10, 0],
+         [10, 20],
+         [-20, 20],
+         [-20, -20],
+         [30, -20],
+         [30, 40],
+         [-40, 40],
+         [-40, -40],
+         [50, -40],
+         [50, 60],
+         [-60, 60],
+         [-60, -60]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "append",
+     "titel": "Eine Liste füllen",
+     "konzepte": [
+      "listen"
+     ],
+     "text": "Füllen Sie die leere Liste `orte` mit `append` mit den x-Werten −200, −150, … bis 200. Zeichnen Sie danach für jeden Wert der Liste einen Punkt mit Durchmesser 20 bei (x, 0). Geben Sie die Liste mit `print` aus.",
+     "startcode": "from turtle import *\n\norte = []\nfor i in range(9):\n    orte.append(0)\n\nprint(orte)\npenup()\n",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "punkt",
+        "ort": [-200, 0],
+        "groesse": 20
+       },
+       {
+        "art": "punkt",
+        "ort": [-150, 0],
+        "groesse": 20
+       },
+       {
+        "art": "punkt",
+        "ort": [-100, 0],
+        "groesse": 20
+       },
+       {
+        "art": "punkt",
+        "ort": [-50, 0],
+        "groesse": 20
+       },
+       {
+        "art": "punkt",
+        "ort": [0, 0],
+        "groesse": 20
+       },
+       {
+        "art": "punkt",
+        "ort": [50, 0],
+        "groesse": 20
+       },
+       {
+        "art": "punkt",
+        "ort": [100, 0],
+        "groesse": 20
+       },
+       {
+        "art": "punkt",
+        "ort": [150, 0],
+        "groesse": 20
+       },
+       {
+        "art": "punkt",
+        "ort": [200, 0],
+        "groesse": 20
+       }
+      ]
+     }
+    },
+    {
+     "id": "zwei-stifte",
+     "titel": "Zwei Stifte",
+     "konzepte": [
+      "objekte"
+     ],
+     "text": "Erzeugen Sie zwei Turtles. Die erste zeichnet ab (0, 0) ein Quadrat mit Seite 100 nach links drehend, die zweite ab (−150, 0) ein Dreieck mit Seite 100 nach links drehend. Zwischen den Figuren gibt es keine Linie.",
+     "hinweise": [
+      "`b = Turtle()`, `b.penup()`, `b.goto(-150, 0)`, `b.pendown()`"
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [100, 0],
+         [100, 100],
+         [0, 100],
+         [0, 0]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-150, 0],
+         [-50, 0],
+         [-100, 86.6],
+         [-150, 0]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "groessen",
+     "titel": "Quadrate aus einer Liste",
+     "abschnitt": "Lernkontrolle",
+     "kontrolle": true,
+     "text": "`groessen = [20, 50, 30, 80, 40]`. Zeichnen Sie für jede Grösse ein Quadrat (Drehung nach links). Die linken unteren Ecken liegen bei (−200, 0), (−100, 0), (0, 0), (100, 0) und (200, 0).",
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-200, 0],
+         [-180, 0],
+         [-180, 20],
+         [-200, 20],
+         [-200, 0]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-100, 0],
+         [-50, 0],
+         [-50, 50],
+         [-100, 50],
+         [-100, 0]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [0, 0],
+         [30, 0],
+         [30, 30],
+         [0, 30],
+         [0, 0]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [100, 0],
+         [180, 0],
+         [180, 80],
+         [100, 80],
+         [100, 0]
+        ]
+       },
+       {
+        "art": "linienzug",
+        "punkte": [
+         [200, 0],
+         [240, 0],
+         [240, 40],
+         [200, 40],
+         [200, 0]
+        ]
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "snake",
+   "titel": "Projekt Snake",
+   "untertitel": "Ein eigenes Spiel in sechs Schritten (ca. 5–6 Lektionen)",
+   "aufgaben": [
+    {
+     "id": "snake-feld",
+     "titel": "1 · Spielfeld",
+     "abschnitt": "Meilensteine",
+     "konzepte": [
+      "objekte",
+      "befehle"
+     ],
+     "text": "Sie bauen das Spiel «Snake» Schritt für Schritt. Jeder Schritt baut auf Ihrem Programm aus dem letzten auf, und nach jedem Schritt läuft das Spiel.\n\nZeichnen Sie zuerst das Spielfeld: einen Rahmen mit Strichdicke 3 von (−200, −200) bis (200, 200). Der Kopf der Schlange ist eine eigene Turtle `kopf`, ein grünes Quadrat in der Mitte.",
+     "startcode": "from turtle import *\n\ntracer(0)       # nicht jeden Schritt einzeln zeigen\nhideturtle()\n\n# Rahmen\n\nkopf = Turtle()\nkopf.shape(\"square\")\nkopf.color(\"green\")\nkopf.penup()\n\nupdate()        # jetzt alles zeigen\n",
+     "hinweise": [
+      "Den Rahmen zeichnet die gewöhnliche Turtle: `penup()`, `goto(-200, -200)`, `pendown()`, `pensize(3)` und dann die vier Ecken mit `goto`."
+     ],
+     "ziel": {
+      "elemente": [
+       {
+        "art": "linienzug",
+        "punkte": [
+         [-200, -200],
+         [200, -200],
+         [200, 200],
+         [-200, 200],
+         [-200, -200]
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "id": "snake-bewegen",
+     "titel": "2 · Bewegen",
+     "weiterVon": "snake-feld",
+     "konzepte": [
+      "ereignisse"
+     ],
+     "text": "Der Kopf soll sich im Takt bewegen: alle 150 Millisekunden 20 vorwärts.\n\nSchreiben Sie dazu einen Befehl `schritt()`, der den Kopf bewegt, `update()` aufruft und sich mit `ontimer` selbst wieder anmeldet. Rufen Sie ihn am Ende einmal auf.",
+     "hinweise": [
+      "```\ndef schritt():\n    kopf.forward(20)\n    update()\n    ontimer(schritt, 150)\n\nschritt()\n```",
+      "Der Kopf läuft noch aus dem Feld hinaus; das kommt später."
+     ],
+     "checkliste": [
+      "Der Kopf bewegt sich von allein in gleichmässigem Takt.",
+      "Das Programm meldet keinen Fehler."
+     ]
+    },
+    {
+     "id": "snake-steuern",
+     "titel": "3 · Steuern",
+     "weiterVon": "snake-bewegen",
+     "konzepte": [
+      "ereignisse",
+      "funktionen"
+     ],
+     "text": "Steuern Sie den Kopf mit den vier Pfeiltasten. Jede Taste setzt nur die Richtung (`kopf.setheading(…)`), bewegt wird weiterhin im Takt.\n\nKlicken Sie ins Feld, falls die Tasten nicht wirken.",
+     "hinweise": [
+      "```\ndef hoch():\n    kopf.setheading(90)\n\nonkey(hoch, \"Up\")\nlisten()\n```",
+      "0 = rechts, 90 = oben, 180 = links, 270 = unten."
+     ],
+     "fragen": [
+      "Was passiert, wenn man direkt in die Gegenrichtung lenkt? Wie lässt sich das verhindern (`kopf.heading()`)?"
+     ],
+     "checkliste": [
+      "Alle vier Pfeiltasten lenken.",
+      "★ Direkt umkehren ist nicht möglich."
+     ]
+    },
+    {
+     "id": "snake-futter",
+     "titel": "4 · Futter",
+     "weiterVon": "snake-steuern",
+     "konzepte": [
+      "zufall",
+      "verzweigungen",
+      "ereignisse",
+      "text"
+     ],
+     "text": "Auf dem Feld liegt Futter: eine rote, runde Turtle `futter` an einem zufälligen Ort. Berührt der Kopf das Futter, springt es an einen neuen zufälligen Ort, und die Punktzahl steigt um 1. Zeigen Sie die Punktzahl an.",
+     "hinweise": [
+      "Damit Kopf und Futter sich genau treffen, liegt das Futter auf dem 20er-Raster: `futter.goto(randint(-9, 9) * 20, randint(-9, 9) * 20)`.",
+      "Berührt? `if kopf.distance(futter) < 15:`",
+      "Für die Punktzahl: `punkte = 0` oben im Programm und in `schritt()` die Zeile `global punkte`. Anzeigen mit `print` oder mit einer eigenen Turtle und `write`."
+     ],
+     "checkliste": [
+      "Futter erscheint an zufälligen Orten im Feld.",
+      "Fressen zählt einen Punkt.",
+      "Die Punktzahl ist zu sehen."
+     ]
+    },
+    {
+     "id": "snake-wand",
+     "titel": "5 · Game over",
+     "weiterVon": "snake-futter",
+     "konzepte": [
+      "verzweigungen",
+      "text"
+     ],
+     "text": "Stösst der Kopf an den Rahmen, ist das Spiel vorbei: Es erscheint «Game over» in der Mitte, und die Schlange bleibt stehen.",
+     "hinweise": [
+      "Nach dem Bewegen prüfen: `if abs(kopf.xcor()) > 190 or abs(kopf.ycor()) > 190:`",
+      "Das Spiel hält an, wenn `schritt()` sich nicht mehr mit `ontimer` anmeldet. Ein `return` im `if` beendet `schritt()` vorher.",
+      "`write(\"Game over\", align=\"center\", font=(\"Arial\", 24, \"bold\"))` schreibt dort, wo die Turtle steht."
+     ],
+     "checkliste": [
+      "An der Wand: «Game over».",
+      "Danach bewegt sich nichts mehr.",
+      "«Zurücksetzen» und dann «Start» beginnen ein neues Spiel."
+     ]
+    },
+    {
+     "id": "snake-koerper",
+     "titel": "6 · Die Schlange wächst",
+     "weiterVon": "snake-wand",
+     "konzepte": [
+      "listen",
+      "objekte"
+     ],
+     "text": "Jetzt bekommt die Schlange einen Körper: eine Liste `koerper` mit Turtles. Bei jedem Fressen kommt ein neues Glied dazu. Bei jedem Schritt rückt jedes Glied an die Stelle des Glieds davor, das erste an die alte Stelle des Kopfs. Berührt der Kopf den eigenen Körper, ist das Spiel vorbei.",
+     "hinweise": [
+      "Vor dem Bewegen die alte Stelle merken: `alt = kopf.pos()`.",
+      "```\nfor glied in koerper:\n    neu = glied.pos()\n    glied.goto(alt)\n    alt = neu\n```",
+      "Neues Glied: `glied = Turtle()`, `glied.shape(\"square\")`, `glied.color(\"lightgreen\")`, `glied.penup()`, `glied.goto(alt)`, `koerper.append(glied)`.",
+      "Zusammenstoss: `for glied in koerper: if kopf.distance(glied) < 10: …`"
+     ],
+     "checkliste": [
+      "Die Schlange wird beim Fressen länger.",
+      "Der Körper folgt dem Kopf.",
+      "Zusammenstoss mit sich selbst: «Game over»."
+     ]
+    },
+    {
+     "id": "snake-mehr",
+     "titel": "Erweiterungen",
+     "zusatz": true,
+     "weiterVon": "snake-koerper",
+     "konzepte": [
+      "ereignisse",
+      "variablen"
+     ],
+     "text": "Machen Sie das Spiel zu Ihrem eigenen. Ideen:\n\n- Die Schlange wird mit jedem Punkt etwas schneller.\n- Highscore über mehrere Spiele (Neustart mit einer Taste statt mit «Start»).\n- Hindernisse im Feld.\n- Zwei Schlangen für zwei Personen an einer Tastatur (Pfeile und W-A-S-D).\n- Goldenes Futter, das mehr Punkte gibt und nach einer Weile verschwindet.",
+     "checkliste": [
+      "Mindestens eine Erweiterung funktioniert.",
+      "Das Programm ist mit Kommentaren verständlich."
+     ]
+    }
+   ]
+  }
+ ]
+}
