@@ -138,7 +138,7 @@
      "konzepte": [
       "befehle"
      ],
-     "text": "Lesen Sie das Programm, ohne es zu starten. Was wird die Turtle zeichnen? Wählen Sie unter dem Turtle-Feld bei «Vorher» eine Antwort und drücken Sie dann «Start».\n\nDanach: Ergänzen Sie eine Zeile, sodass ein geschlossenes Rechteck entsteht (wird nicht geprüft).",
+     "text": "Lesen Sie das Programm, ohne es zu starten. Was wird die Turtle zeichnen? Wählen Sie unten bei «Vorher» eine Antwort; erst dann geht «Start».\n\nDanach: Ergänzen Sie eine Zeile, sodass ein geschlossenes Rechteck entsteht (wird nicht geprüft).",
      "startcode": "from turtle import *\n\nforward(100)\nleft(90)\nforward(50)\nleft(90)\nforward(100)\n",
      "vorher": {
       "text": "Was zeichnet dieses Programm? (Die Turtle startet in der Mitte und schaut nach rechts.)",
@@ -528,7 +528,7 @@
      "konzepte": [
       "schleifen"
      ],
-     "text": "Lesen Sie das Programm. Was zeichnet es? Wählen Sie unter dem Feld bei «Vorher» und drücken Sie dann «Start».\n\nDanach: Machen Sie daraus ein Achteck (wird nicht geprüft).",
+     "text": "Lesen Sie das Programm. Was zeichnet es? Wählen Sie unten bei «Vorher» eine Antwort; erst dann geht «Start».\n\nDanach: Machen Sie daraus ein Achteck (wird nicht geprüft).",
      "startcode": "from turtle import *\n\nfor i in range(6):\n    forward(80)\n    left(60)\n",
      "vorher": {
       "text": "Was zeichnet dieses Programm?",
@@ -897,7 +897,7 @@
      "konzepte": [
       "funktionen"
      ],
-     "text": "Ein Befehl kann einen anderen aufrufen. Lesen Sie das Programm genau. Beantworten Sie unter dem Feld die Frage «Vorher» und drücken Sie dann «Start».",
+     "text": "Ein Befehl kann einen anderen aufrufen. Lesen Sie das Programm genau. Beantworten Sie unten die Frage «Vorher»; erst dann geht «Start».",
      "startcode": "from turtle import *\n\ndef zacke():\n    forward(50)\n    back(50)\n    left(45)\n\ndef stern():\n    for i in range(8):\n        zacke()\n\nstern()\npenup()\ngoto(150, 0)\npendown()\nstern()\n",
      "vorher": {
       "text": "Wie oft wird `forward(50)` insgesamt ausgeführt?",
@@ -1365,7 +1365,7 @@
      "konzepte": [
       "variablen"
      ],
-     "text": "Verfolgen Sie, welche Werte `l` nacheinander hat. Beantworten Sie unter dem Feld die Frage «Vorher» und drücken Sie dann «Start».\n\nÄndern Sie das Programm danach so: 6 Seiten, die erste ist 30 lang, jede weitere 30 länger. Diese Zeichnung wird geprüft.",
+     "text": "Verfolgen Sie, welche Werte `l` nacheinander hat. Beantworten Sie unten die Frage «Vorher»; erst dann geht «Start».\n\nÄndern Sie das Programm danach so: 6 Seiten, die erste ist 30 lang, jede weitere 30 länger. Diese Zeichnung wird geprüft.",
      "startcode": "from turtle import *\n\nl = 20\nfor i in range(4):\n    forward(l)\n    left(90)\n    l = l + 20\n",
      "vorher": {
       "text": "Wie lang ist die letzte (vierte) Linie?",
@@ -2318,7 +2318,7 @@
       "verzweigungen",
       "modulo"
      ],
-     "text": "Hier entscheidet das Programm bei jedem Durchlauf, ob die Turtle nach rechts oder nach links dreht. `i % 2` ist der Rest beim Teilen durch 2.\n\nLesen Sie das Programm, wählen Sie unter dem Feld bei «Vorher» und drücken Sie dann «Start».",
+     "text": "Hier entscheidet das Programm bei jedem Durchlauf, ob die Turtle nach rechts oder nach links dreht. `i % 2` ist der Rest beim Teilen durch 2.\n\nLesen Sie das Programm, wählen Sie unten bei «Vorher» eine Antwort; erst dann geht «Start».",
      "startcode": "from turtle import *\n\npensize(5)\nfor i in range(10):\n    if i % 2 == 0:\n        right(90)\n    else:\n        left(90)\n    forward(30)\n",
      "vorher": {
       "text": "Was zeichnet dieses Programm?",
@@ -3829,7 +3829,7 @@
      "konzepte": [
       "objekte"
      ],
-     "text": "Bisher gab es nur eine Turtle. Mit `Turtle()` entstehen weitere, jede mit eigenem Namen: `anna.forward(80)` bewegt nur Anna. Lesen Sie das Programm, beantworten Sie die Frage «Vorher» und drücken Sie dann «Start».\n\nDanach: Fügen Sie eine dritte Turtle `cleo` hinzu, die einen Kreis zeichnet.",
+     "text": "Bisher gab es nur eine Turtle. Mit `Turtle()` entstehen weitere, jede mit eigenem Namen: `anna.forward(80)` bewegt nur Anna. Lesen Sie das Programm, beantworten Sie unten die Frage «Vorher»; erst dann geht «Start».\n\nDanach: Fügen Sie eine dritte Turtle `cleo` hinzu, die einen Kreis zeichnet.",
      "startcode": "from turtle import *\n\nanna = Turtle()\nben = Turtle()\nanna.color(\"red\")\nben.color(\"blue\")\nanna.shape(\"turtle\")\nben.shape(\"turtle\")\n\nben.penup()\nben.goto(0, -100)\nben.pendown()\n\nfor i in range(4):\n    anna.forward(80)\n    anna.left(90)\n    ben.forward(80)\n    ben.right(90)\n\nprint(anna.pos(), ben.pos())\nprint(anna.distance(ben))\n",
      "vorher": {
       "text": "Welche Zahl gibt die letzte Zeile, `print(anna.distance(ben))`, aus?",
