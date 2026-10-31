@@ -9,7 +9,7 @@ es aus, als wären die Aufgaben im Tool eingebaut.
 
 | Ordner | Kurs | Link für die Klasse |
 | --- | --- | --- |
-| `beispiel/` | Programmieren mit der Turtle: 6 Einheiten und Projekt Snake (ca. 20 Lektionen) | <https://masta-nksa.github.io/turtle/?kurs=turtle-aufgaben/beispiel> |
+| `beispiel/` | Programmieren mit der Turtle: 6 Einheiten und Projekt Snake (10–12 Doppelstunden) | <https://masta-nksa.github.io/turtle/?kurs=turtle-aufgaben/beispiel> |
 
 Ein Link auf eine bestimmte Aufgabe: `…?kurs=turtle-aufgaben/beispiel&aufgabe=achteck`
 (in der Aufgabe: «Link zum Teilen kopieren»).
@@ -23,15 +23,23 @@ Ein Link auf eine bestimmte Aufgabe: `…?kurs=turtle-aufgaben/beispiel&aufgabe=
 
 Der Beispielkurs ist so gegliedert:
 
-- **Einheiten 1–6** (Reihen): Zeichnen · Wiederholen · Eigene Befehle · Veränderung · Entscheiden ·
-  Spielbausteine. Jede Einheit hat die Abschnitte
-  - **Entdecken**: ein Programm lesen und vorhersagen (`vorhersage`, `fragen`), dann verändern und
-    erweitern (`weiterVon`: die Erweiterung beginnt mit dem eigenen Programm);
-  - **Konzepte sichern**: kleine Aufgaben zu den Konzepten der Einheit: Fehler finden, ergänzen,
-    vorhersagen;
-  - **Lernkontrolle** (`kontrolle`): 2–3 Aufgaben mit Zielbild, ohne Hinweise.
-- **Projekt Snake**: sechs Meilensteine, die aufeinander aufbauen, mit Checklisten zum Selbst-Prüfen.
-- ★-Aufgaben (`zusatz`) für Schnelle; sie zählen nicht zum Fortschritt der Reihe.
+- **Einheiten 1–6** (Reihen): Zeichnen · Wiederholen · Eigene Befehle · Veränderung · Entscheiden
+  und Zufall · Interaktion. Eine Einheit ist eine Doppelstunde (3 und 4: anderthalb), mit 6–9
+  Pflichtaufgaben in festem Rhythmus (frei nach PRIMM: erst tun, dann denken):
+  - **Einstieg**: *Ausprobieren* (`art: "ausprobieren"`, erledigt nach dem ersten Start): ein
+    lauffähiges Programm starten und verändern. Dann *Vorhersagen* mit einer geprüften Frage
+    `vorher` (Bild, Text oder Zahl), bevor das Programm läuft.
+  - **Üben**: 3–5 Aufgaben mit Zielbild: *Nachbauen* (oft mit einer Frage `nachher`), *Ordnen*
+    (die richtigen Zeilen stehen durcheinander und ohne Einrückung im Startcode) und *Fehler finden*.
+  - **Werkstatt** (`art: "werkstatt"`): eine offene Aufgabe für 20–30 Minuten mit Checkliste und
+    Ideenkarten (`ideen`), selbst abgehakt.
+  - **Zusatz** (★, `zusatz`): *Knobeln* (`art: "knobeln"`) und eine *Selbstkontrolle*
+    (`kontrolle`) mit Zielbild, ohne Hinweise. Freiwillig; zählen nicht zum Fortschritt.
+- **Projekt Snake**: sechs Meilensteine, die aufeinander aufbauen, mit Checklisten zum Selbst-Prüfen;
+  die Hinweise führen in Stufen hin (Frage, Teil, Verweis auf ein Konzept), ohne fertigen Code.
+  Dazu ★ Erweiterungen als Werkstatt.
+- Schnee als kleine Animation: «Es schneit» (Einheit 2, die Turtle als Figur) und «Die
+  Schneeflocke fällt» (Einheit 3, `clear`/`update` mit eigenem Befehl).
 - **Konzepte**: Erklärungen zum Nachlesen (Knopf «Konzepte», Etiketten bei den Aufgaben),
   angepasst aus <https://oinf.hexcode.ch/konzepte>.
 
@@ -48,7 +56,11 @@ Der Beispielkurs ist so gegliedert:
 3. Den Text so genau schreiben, dass das Ziel eindeutig ist: Startpunkt, Längen, Drehrichtung
    («nach links drehend»), Farbnamen, wenn sie geprüft werden.
 4. Den Startcode prüfen: Er darf die Aufgabe nicht schon lösen.
-5. Ohne Zielbild (Spiele, Zufall, freie Aufgaben): `checkliste` angeben; erledigt wird durch
+5. Fragen `vorher`/`nachher`: Den Schlüssel für `richtig` erzeugt das Fragen-Werkzeug
+   (<https://masta-nksa.github.io/turtle/?werkzeug=frage>, im Kurs mit `&werkzeug=frage`). Bilder
+   als Antworten sind Zielbilder aus dem Zielbild-Werkzeug (nur `elemente`). Die richtige Antwort
+   steht nie im Klartext im Repo.
+6. Ohne Zielbild (Spiele, Zufall, freie Aufgaben): `checkliste` angeben; erledigt wird durch
    Selbst-Abhaken.
 
 Ist `kurs.json` fehlerhaft, nennt das Tool die Stelle («Reihe 2, Aufgabe 5, text: fehlt.») und
